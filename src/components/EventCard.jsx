@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 
 export default function EventCard({ event, index = 0 }) {
   const [flipped, setFlipped] = useState(false);
-  const [open, setOpen] = useState(false);
 
   let imageSrc = event.image || '';
   try {
@@ -13,6 +12,9 @@ export default function EventCard({ event, index = 0 }) {
   } catch (err) {
     // fallback to event.image
   }
+
+  // full-path to the OP image in the project's images folder
+  const opImg = new URL('../../images/op.png', import.meta.url).href;
 
   // play a short tone using WebAudio; different waveform/frequency per index
   function playFlipSound(i = 0) {
@@ -69,6 +71,11 @@ export default function EventCard({ event, index = 0 }) {
     }
   }
 
+  // compute a translucent/transparent gradient per card based on index
+  const hue = (index * 47) % 360;
+  const registerBg = `linear-gradient(90deg, hsla(${hue},85%,60%,0.14), hsla(${(hue + 30) % 360},85%,60%,0.08))`;
+  const registerBorder = `1px solid rgba(255,255,255,0.06)`;
+
   return (
     <div
       className="flip-card"
@@ -90,23 +97,39 @@ export default function EventCard({ event, index = 0 }) {
           </div>
         </div>
 
-        {/* BACK: centered title/actions + details */}
-        <div className="flip-card-back card">
-          <h3>{event.title}</h3>
-          <p style={{ color: '#cfd6da' }}>{event.short}</p>
-          <div style={{ display: 'flex', gap: 8, marginTop: 10 }}>
-            <Link to={`/events/${event.id}`} className="btn" onClick={stopAnd()} style={{ textDecoration: 'none' }}>
-              Details
-            </Link>
+        {/* BACK: show OP image full-bleed; keep details overlay on top */}
+        <div className="flip-card-back">
+          {/* OP image fills the back */}
+          <div className="flip-back-image-wrap" aria-hidden>
+            <img src={opImg} alt="OP card" />
+          </div>
 
-            <Link
-              to={`/register?event=${encodeURIComponent(event.id)}`}
-              className="btn"
-              onClick={stopAnd()}
-              style={{ background: '#ff6b61', textDecoration: 'none' }}
-            >
-              Register
-            </Link>
+          {/* overlay content (title, short, actions) remains usable */}
+          <div className="back-overlay" style={{ color: 'white' }}>
+            <div className="back-top" style={{ color: 'white' }} >
+              <div className="back-title" style={{ color: 'white' }} >{event.title}</div>
+              <div className="back-actions">
+                <Link to={`/events/${event.id}`} className="btn" onClick={stopAnd()} style={{ textDecoration: 'none' }}>
+                  Details
+                </Link>
+
+                {/* Register button uses per-card translucent background */}
+                <Link
+                  to={`/register?event=${encodeURIComponent(event.id)}`}
+                  className="btn primary"
+                  onClick={stopAnd()}
+                  style={{ textDecoration: 'none', background: registerBg, border: registerBorder }}
+                >
+                  Register
+                </Link>
+              </div>
+            </div>
+
+            <div className="back-short" style={{ color: 'white' }}>{event.short}</div>
+
+            <div className="back-details" style={{ color: 'white' }} aria-live="polite">
+              {event.details}
+            </div>
           </div>
         </div>
       </div>

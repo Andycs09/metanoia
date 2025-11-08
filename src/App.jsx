@@ -8,7 +8,6 @@ import About from './pages/About';
 import Events from './pages/Events';
 import EventDetail from './pages/EventDetail';
 import Schedule from './pages/Schedule';
-import Starfield from './components/Starfield';
 import Register from './pages/Register'; // new
 
 export default function App() {
@@ -25,7 +24,12 @@ export default function App() {
 
   return (
     <div className="app unoverse-theme">
-      <Starfield intensity={1.0} sparkPerMove={4} /> {/* interactive background */}
+      {/* Global aurora wave background (site-wide) */}
+      <div className="aurora-global" aria-hidden>
+        <div className="aurora-wave aurora-wave--one" />
+        <div className="aurora-wave aurora-wave--two" />
+      </div>
+
       <Header />
       <main>
         <Switch>
