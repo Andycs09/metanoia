@@ -8,6 +8,7 @@ import About from './pages/About';
 import Events from './pages/Events';
 import EventDetail from './pages/EventDetail';
 import Schedule from './pages/Schedule';
+import Starfield from './components/Starfield';
 
 export default function App() {
   useEffect(() => {
@@ -23,6 +24,7 @@ export default function App() {
 
   return (
     <div className="app unoverse-theme">
+      <Starfield intensity={1.0} sparkPerMove={4} /> {/* interactive background */}
       <Header />
       <main>
         <Switch>

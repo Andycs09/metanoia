@@ -1,11 +1,20 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="black">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
     <title>UNOVERSE</title>
     <!-- Cabin (bold) + fallback to Arial Bold -->
     <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@700;800&display=swap" rel="stylesheet">
+    <style>
+      /* make overall app black by default and keep text readable */
+      :root { --bg-color: #000; --text-color: #fff; --muted: #cfd6da; }
+      html,body { height:100%; margin:0; background:var(--bg-color); color:var(--text-color); }
+      a, .btn { color: var(--text-color); }
+      /* ensure elements that relied on previous background still look good */
+      .events-page h2 { color: var(--text-color); }
+    </style>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>

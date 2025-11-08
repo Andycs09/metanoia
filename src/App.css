@@ -5,7 +5,17 @@
   --text:#f6f7f4;
   --muted:#cfd6da;
   --header-height: 72px; /* adjust if your header height differs */
+  --header-height-sm: 64px;
+  --card-gap: 1.5rem;
+  --card-min: 260px;
   font-family: "Cabin", "Arial", sans-serif;
+}
+
+/* black-neon variables: near-black text with a very subtle outer glow/rim */
+:root {
+  --neon-color: rgba(10,10,10,0.96); /* almost black */
+  --neon-glow-1: rgba(255,255,255,0.03); /* faint rim for legibility */
+  --neon-glow-2: rgba(255,255,255,0.01);
 }
 
 body, html, #root { height: 100%; margin:0; background: var(--bg); color:var(--text); }
@@ -17,7 +27,7 @@ body, html, #root { height: 100%; margin:0; background: var(--bg); color:var(--t
 
 /* push content below header */
 .app main,
-.app > div { padding-top: calc(var(--header-height) + 20px); }
+.app > div { padding-top: calc(var(--header-height) + 28px); }
 
 /* Header/footer */
 .header, .footer { display:flex; align-items:center; justify-content:space-between; padding: 1rem 2rem; }
@@ -167,105 +177,423 @@ body, html, #root { height: 100%; margin:0; background: var(--bg); color:var(--t
 /* Featured events spacing */
 .featured { padding: 48px 1rem 120px; }
 
-/* Events grid: keep 4 columns on desktop */
+/* Events grid: larger cards on desktop, responsive changes below */
 .events-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1.25rem;
+  grid-template-columns: repeat(4, minmax(var(--card-min), 1fr));
+  gap: var(--card-gap);
   align-items: start;
 }
 
-/* Flip card: use aspect-ratio so images are large and consistent */
+/* Flip card sizing for desktop */
 .flip-card {
   perspective: 1000px;
   cursor: pointer;
   width: 100%;
-  aspect-ratio: 4 / 3; /* control card size; change to 16/9 or 1/1 if you prefer */
+  aspect-ratio: 3 / 4;
   position: relative;
+  min-height: 360px;
 }
 
-/* inner container handles transform */
+/* inner fills the entire card */
 .flip-card-inner {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  transition: transform 0.75s;
+  transition: transform 0.72s cubic-bezier(.2,.8,.2,1);
   transform-style: preserve-3d;
 }
 
-/* flipped state rotates inner */
+/* flipped state */
 .flip-card-inner.is-flipped {
   transform: rotateY(180deg);
 }
 
-/* front/back faces: occupy full card area for perfect flip */
+/* front & back faces occupy the whole card area */
 .flip-card-front,
 .flip-card-back {
   position: absolute;
   inset: 0;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
-  border-radius: 10px;
+  border-radius: 12px;
   overflow: hidden;
   padding: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: stretch;
+  box-sizing: border-box; /* include border in sizing */
+  /* thick black border for each card */
+  border: 8px solid #000;
+  /* ensure backgrounds don't bleed under the border on some browsers */
+  background-clip: padding-box;
+  /* subtle inner shadow for depth */
+  box-shadow: inset 0 -6px 18px rgba(0,0,0,0.35), 0 8px 30px rgba(0,0,0,0.45);
 }
 
-/* FRONT: image area fills the entire face */
-.card-image {
+/* FRONT: full-bleed image wrapper */
+.full-image-wrapper {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background: #0b1530;
+  background: #081426;
+  /* keep slight inner rounding so border remains visible */
+  border-radius: 4px;
 }
-.card-image img {
+
+/* image fills entire face */
+.full-image-wrapper img {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
   transform-origin: center;
-  transition: transform 0.6s ease;
+  transition: transform 0.5s ease;
 }
 
-/* title overlay on image (bottom-left) */
-.card-title-overlay {
+/* NEW: info overlay covering bottom portion (title + short) */
+.card-info-overlay {
   position: absolute;
-  left: 12px;
-  bottom: 12px;
-  background: linear-gradient(90deg, rgba(0,0,0,0.6), rgba(0,0,0,0.35));
-  padding: 8px 12px;
-  border-radius: 999px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 16px 18px;
+  background: linear-gradient(180deg, rgba(0,0,0,0.0), rgba(0,0,0,0.72));
   color: #fff;
-  font-weight: 700;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.6);
-  pointer-events: none;
+  z-index: 6;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: flex-start;
+}
+.card-info-overlay h3 {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 800;
+  line-height: 1.05;
+  text-shadow: 0 6px 14px rgba(0,0,0,0.6);
+}
+.card-info-overlay p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.9);
+  max-width: 100%;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.55);
+  opacity: 0.95;
 }
 
-/* BACK face (rotated) */
+/* fade overlay when flipped so back content is fully visible */
+.flip-card-inner.is-flipped .card-info-overlay {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 280ms ease, transform 280ms ease;
+}
+
+/* card info overlay normal state */
+.card-info-overlay {
+  pointer-events: none;
+  transition: opacity 280ms ease, transform 280ms ease;
+  opacity: 1;
+}
+
+/* BACK layout: center all content when flipped */
 .flip-card-back {
   transform: rotateY(180deg);
-  padding: 18px;
-  background: linear-gradient(180deg, rgba(0,0,0,0.18), rgba(0,0,0,0.38));
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;       /* center horizontally */
+  justify-content: center;   /* center vertically */
   box-sizing: border-box;
+  gap: 10px;
+  text-align: center;
 }
 
-/* hover effect: small zoom on image */
-.flip-card:not(.is-flipped):hover .card-image img {
-  transform: scale(1.03);
+/* top row centered and stacked vertically */
+.back-top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
 }
 
-/* responsive: 2 columns then 1 column */
-@media (max-width: 1100px) {
-  .events-grid { grid-template-columns: repeat(2, 1fr); }
+/* keep actions centered */
+.back-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
 }
+
+/* short description centered */
+.back-short {
+  color: #cfd6da;
+  font-size: 0.95rem;
+  margin-top: 2px;
+  width: 100%;
+}
+
+/* details area: constrained and scrollable to keep overall content centered */
+.back-details {
+  margin-top: 8px;
+  color: #e6eef6;
+  font-size: 0.92rem;
+  line-height: 1.4;
+  overflow: auto;
+  max-height: 36%;        /* keeps details area limited so center stays */
+  width: 100%;
+  padding: 6px 8px;
+  box-sizing: border-box;
+  background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.06));
+  border-radius: 6px;
+}
+
+/* ensure buttons remain clickable and visually centered */
+.flip-card .btn { pointer-events: auto; }
+
+/* responsive tweaks to keep centered layout on small screens */
 @media (max-width: 560px) {
-  .events-grid { grid-template-columns: 1fr; }
+  .back-details { max-height: 40%; font-size: 0.9rem; }
+  .back-actions { gap: 6px; }
 }
 
 /* Card */
 .card { background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(0,0,0,0.1)); padding:1rem; border-radius:8px; color:var(--text); }
 .btn { background:var(--accent); color:white; padding:0.5rem 1rem; border-radius:20px; border:none; cursor:pointer; }
+/* ensure back text starts muted and transitions are smooth */
+.flip-card-back .back-title,
+.flip-card-back .back-short,
+.flip-card-back .back-details {
+  color: var(--muted, #cfd6da);
+  transition: color 260ms ease, text-shadow 260ms ease, transform 260ms ease;
+  text-shadow: none;
+  transform: translateY(0);
+}
+
+/* when flipped apply "black neon" (dark text with subtle luminous rim) */
+.flip-card-inner.is-flipped .back-title,
+.flip-card-inner.is-flipped .back-short,
+.flip-card-inner.is-flipped .back-details {
+  color: var(--neon-color);
+  text-shadow:
+    0 0 6px var(--neon-glow-1),
+    0 0 14px var(--neon-glow-2),
+    0 4px 14px rgba(0,0,0,0.6);
+  transform: translateY(-4px);
+}
+
+/* slightly emphasize the title more than the body */
+.flip-card-inner.is-flipped .back-title {
+  font-size: 1.18rem;
+  letter-spacing: 0.6px;
+  text-shadow:
+    0 0 8px var(--neon-glow-1),
+    0 0 20px var(--neon-glow-2),
+    0 6px 22px rgba(0,0,0,0.6);
+}
+
+/* keep details area readable with a subtle backdrop when "black neon" is active */
+.flip-card-inner.is-flipped .back-details {
+  background: rgba(0,0,0,0.06);
+  border-radius: 6px;
+  padding: 6px;
+}
+
+/* Ensure buttons are positioned for pseudo-elements */
+.btn {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  transition: transform 220ms ease, box-shadow 220ms ease, opacity 200ms ease;
+  z-index: 1;
+}
+
+/* Hidden default sheen element (created with ::before) */
+.btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-120%) rotate(6deg);
+  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.55) 50%, rgba(255,255,255,0) 100%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Pop-in animation used when card flips */
+@keyframes popIn {
+  0% { transform: translateY(12px) scale(0.92); opacity: 0; filter: blur(4px); }
+  60% { transform: translateY(-6px) scale(1.03); opacity: 1; filter: blur(0); }
+  100% { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+/* subtle floating glow for active buttons */
+@keyframes floatGlow {
+  0% { box-shadow: 0 8px 20px rgba(0,0,0,0.45), 0 0 0 rgba(0,0,0,0); transform: translateY(0); }
+  50% { box-shadow: 0 18px 36px rgba(0,0,0,0.55), 0 0 20px rgba(255,255,255,0.02) inset; transform: translateY(-4px); }
+  100% { box-shadow: 0 8px 20px rgba(0,0,0,0.45), 0 0 0 rgba(0,0,0,0); transform: translateY(0); }
+}
+
+/* sheen slide animation */
+@keyframes shine {
+  0% { transform: translateX(-120%) rotate(6deg); opacity: 0; }
+  35% { transform: translateX(-30%) rotate(6deg); opacity: 0.9; }
+  70% { transform: translateX(30%) rotate(6deg); opacity: 0.6; }
+  100% { transform: translateX(120%) rotate(6deg); opacity: 0; }
+}
+
+/* when the card is flipped: animate and style buttons to look cool */
+.flip-card-inner.is-flipped .btn {
+  /* stronger contrast background if needed (keeps existing color if you rely on inline styles) */
+  color: #fff;
+  transform-origin: center;
+  animation: popIn 360ms cubic-bezier(.2,.9,.3,1) both;
+  /* add subtle floating glow */
+  box-shadow: 0 10px 30px rgba(0,0,0,0.55), 0 0 18px rgba(0,0,0,0.25) inset;
+}
+
+/* bigger visual for primary/register button on flip (if using inline background change) */
+.flip-card-inner.is-flipped .btn[style*="background: #ff6b61"], /* heuristic: Register button */
+.flip-card-inner.is-flipped .btn.primary {
+  background: linear-gradient(90deg,#ff705f,#ff4b3f);
+  border: 2px solid rgba(255,255,255,0.06);
+  box-shadow: 0 18px 46px rgba(255,86,66,0.12), 0 6px 18px rgba(0,0,0,0.6);
+}
+
+/* make sheen slide repeatedly but subtly on flipped state */
+.flip-card-inner.is-flipped .btn::before {
+  opacity: 1;
+  animation: shine 2.2s linear 300ms infinite;
+}
+
+/* hover effects for interactive feel */
+.flip-card-inner.is-flipped .btn:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 22px 60px rgba(0,0,0,0.6), 0 0 30px rgba(255,255,255,0.03) inset;
+}
+
+/* optional tiny pulse glow for prominent CTA */
+@keyframes neonPulse {
+  0% { box-shadow: 0 6px 18px rgba(255,86,66,0.06), 0 0 0 rgba(255,86,66,0); }
+  50% { box-shadow: 0 24px 60px rgba(255,86,66,0.14), 0 0 30px rgba(255,86,66,0.04) inset; }
+  100% { box-shadow: 0 6px 18px rgba(255,86,66,0.06), 0 0 0 rgba(255,86,66,0); }
+}
+
+/* apply pulse to the register button only to attract attention */
+.flip-card-inner.is-flipped .btn[style*="background: #ff6b61"] {
+  animation: popIn 360ms cubic-bezier(.2,.9,.3,1) both, neonPulse 2.8s ease-in-out 650ms infinite;
+}
+
+/* ensure pseudo-element respects border-radius */
+.btn::before { border-radius: inherit; }
+
+/* make sure button text sits above pseudo-element */
+.btn > * { position: relative; z-index: 2; }
+
+/* ==========================
+   Responsive: tablets & phones
+   ========================== */
+
+/* Medium screens: 2 columns */
+@media (max-width: 1100px) {
+  :root { --header-height: var(--header-height-sm); }
+  .events-grid {
+    grid-template-columns: repeat(2, minmax(220px, 1fr));
+  }
+  .flip-card { aspect-ratio: 4 / 5; min-height: 340px; }
+}
+
+/* Small screens / phones: 1 column, full-width cards, larger buttons, readable text */
+@media (max-width: 560px) {
+  /* header smaller and less obtrusive */
+  :root { --header-height: 64px; }
+  .header {
+    height: var(--header-height);
+    padding: 0 12px;
+  }
+  .header nav {
+    gap: 14px;
+    font-size: 13px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  /* stack events into a single column that fills the container */
+  .events-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    padding: 0 12px;
+  }
+
+  /* cards become wider and shorter for phones (landscape-friendly) */
+  .flip-card {
+    aspect-ratio: 16 / 9; /* wider on phones */
+    min-height: 220px;
+    border-radius: 10px;
+  }
+
+  /* ensure front image fills and stays crisp */
+  .full-image-wrapper img {
+    object-position: center top;
+  }
+
+  /* overlay text slightly smaller but readable */
+  .card-info-overlay { padding: 12px; }
+  .card-info-overlay h3 { font-size: 1.05rem; }
+  .card-info-overlay p { font-size: 0.85rem; }
+
+  /* back content centered and touch-friendly */
+  .back-top { gap: 6px; }
+  .back-title { font-size: 1.05rem; }
+  .back-short { font-size: 0.92rem; }
+
+  /* details area constrained and scrollable */
+  .back-details { max-height: 36%; font-size: 0.88rem; }
+
+  /* enlarge buttons for touch */
+  .btn {
+    padding: 12px 18px;
+    border-radius: 999px;
+    font-size: 0.95rem;
+  }
+
+  /* increase spacing around page */
+  .featured, .hero, .events-page { padding-left: 8px; padding-right: 8px; }
+
+  /* reduce hero image size on small screens */
+  .hero-image { width: 100%; max-width: 420px; }
+
+  /* ensure main content is pushed below header */
+  .app main,
+  .app > div { padding-top: calc(var(--header-height) + 18px); }
+}
+
+/* Extra-small screens: very small devices */
+@media (max-width: 360px) {
+  .card-info-overlay h3 { font-size: 1rem; }
+  .card-info-overlay p { font-size: 0.8rem; }
+  .back-title { font-size: 0.98rem; }
+  .btn { padding: 10px 14px; font-size: 0.9rem; }
+  .events-grid { gap: 10px; padding-left: 6px; padding-right: 6px; }
+}
+
+/* starfield overlay: full-screen canvas mounted inside this container */
+.starfield-container {
+  position: fixed;
+  inset: 0;
+  z-index: 8; /* behind header (header z-index:60) but above content for visual; adjust if needed */
+  pointer-events: none; /* allow clicks to pass through */
+  mix-blend-mode: screen; /* brightening effect on dark background */
+  will-change: contents;
+}
+
+/* if you prefer the starfield behind everything (including background), set z-index: 0 and adjust header/footer */
+/* .starfield-container { z-index: 0; } */
+
+/* small performance hint: hide on very small or low-power devices (optional) */
+@media (max-device-width: 480px) and (prefers-reduced-motion: reduce) {
+  .starfield-container { display: none; }
+}
