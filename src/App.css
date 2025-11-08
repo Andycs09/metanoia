@@ -4,12 +4,20 @@
   --card-shadow: rgba(0,0,0,0.35);
   --text:#f6f7f4;
   --muted:#cfd6da;
+  --header-height: 72px; /* adjust if your header height differs */
   font-family: "Cabin", "Arial", sans-serif;
 }
 
 body, html, #root { height: 100%; margin:0; background: var(--bg); color:var(--text); }
 
-.app main { padding: 2rem; min-height: calc(100vh - 140px); }
+.app main { padding: 2rem; padding-top: calc(var(--header-height) + 20px); /* extra spacing */ min-height: calc(100vh - 140px); }
+
+/* Ensure main content sits below fixed header */
+:root { --header-height: 72px; }
+
+/* push content below header */
+.app main,
+.app > div { padding-top: calc(var(--header-height) + 20px); }
 
 /* Header/footer */
 .header, .footer { display:flex; align-items:center; justify-content:space-between; padding: 1rem 2rem; }
@@ -18,16 +26,16 @@ body, html, #root { height: 100%; margin:0; background: var(--bg); color:var(--t
 
 /* Header: make nav large and centered across top to match the mock */
 .header {
+  height: var(--header-height);
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  height: 72px;
+  z-index: 60;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 0 2rem;
-  z-index: 60;
   background: linear-gradient(180deg, rgba(0,0,0,0.15), rgba(0,0,0,0.02));
   backdrop-filter: blur(4px);
 }
@@ -159,18 +167,103 @@ body, html, #root { height: 100%; margin:0; background: var(--bg); color:var(--t
 /* Featured events spacing */
 .featured { padding: 48px 1rem 120px; }
 
-/* responsive tweaks */
-@media (max-width: 900px) {
-  .header { height: 64px; }
-  .header nav { gap: 20px; font-size: 13px; }
-  .hero-image { width: 92%; max-width: 520px; }
-  .hero-title { font-size: clamp(36px, 12vw, 56px); }
+/* Events grid: keep 4 columns on desktop */
+.events-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+  align-items: start;
 }
-@media (max-width: 480px) {
-  .header nav { gap: 12px; font-size: 12px; }
-  .hero { padding-top: 90px; }
-  .hero-sub { padding: 0 12px; }
-  .hero-image { width: 100%; max-width: 380px; }
+
+/* Flip card: use aspect-ratio so images are large and consistent */
+.flip-card {
+  perspective: 1000px;
+  cursor: pointer;
+  width: 100%;
+  aspect-ratio: 4 / 3; /* control card size; change to 16/9 or 1/1 if you prefer */
+  position: relative;
+}
+
+/* inner container handles transform */
+.flip-card-inner {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.75s;
+  transform-style: preserve-3d;
+}
+
+/* flipped state rotates inner */
+.flip-card-inner.is-flipped {
+  transform: rotateY(180deg);
+}
+
+/* front/back faces: occupy full card area for perfect flip */
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 10px;
+  overflow: hidden;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+}
+
+/* FRONT: image area fills the entire face */
+.card-image {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #0b1530;
+}
+.card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transform-origin: center;
+  transition: transform 0.6s ease;
+}
+
+/* title overlay on image (bottom-left) */
+.card-title-overlay {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  background: linear-gradient(90deg, rgba(0,0,0,0.6), rgba(0,0,0,0.35));
+  padding: 8px 12px;
+  border-radius: 999px;
+  color: #fff;
+  font-weight: 700;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.6);
+  pointer-events: none;
+}
+
+/* BACK face (rotated) */
+.flip-card-back {
+  transform: rotateY(180deg);
+  padding: 18px;
+  background: linear-gradient(180deg, rgba(0,0,0,0.18), rgba(0,0,0,0.38));
+  box-sizing: border-box;
+}
+
+/* hover effect: small zoom on image */
+.flip-card:not(.is-flipped):hover .card-image img {
+  transform: scale(1.03);
+}
+
+/* responsive: 2 columns then 1 column */
+@media (max-width: 1100px) {
+  .events-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 560px) {
+  .events-grid { grid-template-columns: 1fr; }
 }
 
 /* Card */
