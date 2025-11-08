@@ -1,0 +1,178 @@
+:root{
+  --bg:#071133;
+  --accent:#d62b1f;
+  --card-shadow: rgba(0,0,0,0.35);
+  --text:#f6f7f4;
+  --muted:#cfd6da;
+  font-family: "Cabin", "Arial", sans-serif;
+}
+
+body, html, #root { height: 100%; margin:0; background: var(--bg); color:var(--text); }
+
+.app main { padding: 2rem; min-height: calc(100vh - 140px); }
+
+/* Header/footer */
+.header, .footer { display:flex; align-items:center; justify-content:space-between; padding: 1rem 2rem; }
+.header { border-bottom: 1px solid rgba(255,255,255,0.04); }
+.footer { border-top: 1px solid rgba(255,255,255,0.04); font-size:0.9rem; color:var(--muted); }
+
+/* Header: make nav large and centered across top to match the mock */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 2rem;
+  z-index: 60;
+  background: linear-gradient(180deg, rgba(0,0,0,0.15), rgba(0,0,0,0.02));
+  backdrop-filter: blur(4px);
+}
+
+/* hide the small logo-left layout and center nav items */
+.header > div:first-child { display:none; }
+
+/* nav styling (large spaced uppercase items) */
+.header nav {
+  display: flex;
+  gap: 48px;
+  align-items: center;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+.header nav a {
+  color: var(--text);
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 14px;
+  opacity: 0.95;
+}
+
+/* Hero */
+.hero { text-align:center; padding: 4rem 1rem; }
+.hero h1 { font-weight:800; font-size:6rem; letter-spacing:2px; margin:0; }
+.hero p { max-width:700px; margin:1rem auto; color:var(--muted); }
+
+/* animated UNO ring (illustrative) */
+.uno-ring { margin-top:2rem; display:flex; justify-content:center; gap:1rem; flex-wrap:wrap; }
+.uno-card {
+  width:120px; height:80px; border-radius:8px; display:flex; align-items:center; justify-content:center; color:white;
+  font-weight:700; font-size:2rem; box-shadow: 0 8px 20px var(--card-shadow); transform-origin:center;
+  animation: float 6s ease-in-out infinite;
+}
+.uno-card.red { background: linear-gradient(45deg,#d62b1f,#a71b17); }
+.uno-card.green { background: linear-gradient(45deg,#2fbf5f,#1b8b45); animation-delay:0.6s; }
+.uno-card.blue { background: linear-gradient(45deg,#1e90ff,#0b6bd6); animation-delay:1.2s; }
+.uno-card.yellow { background: linear-gradient(45deg,#ffcc00,#d19a00); animation-delay:1.8s; }
+
+@keyframes float {
+  0% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-18px) rotate(-4deg); }
+  50% { transform: translateY(0) rotate(0deg); }
+  75% { transform: translateY(18px) rotate(4deg); }
+  100% { transform: translateY(0) rotate(0deg); }
+}
+
+/* Hero: starry background and large centered content */
+.hero {
+  padding-top: 120px; /* leave room for fixed header */
+  padding-bottom: 40px;
+  min-height: calc(100vh - 140px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  text-align: center;
+  overflow: hidden;
+  background: radial-gradient(1200px 600px at 10% 20%, rgba(18,32,72,0.45), transparent 15%),
+              radial-gradient(800px 400px at 90% 80%, rgba(6,18,40,0.4), transparent 10%),
+              linear-gradient(180deg, #071233 0%, #041028 60%);
+}
+
+/* subtle stars using repeating-radial for texture */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(2px 2px at 10% 20%, rgba(255,255,255,0.9) 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 40% 80%, rgba(255,255,255,0.85) 50%, transparent 51%),
+    radial-gradient(1px 1px at 70% 40%, rgba(255,255,255,0.8) 50%, transparent 51%);
+  background-repeat: repeat;
+  opacity: 0.6;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+/* Title large and bold like the image */
+.hero-title {
+  font-size: clamp(48px, 9vw, 96px);
+  margin: 0;
+  font-weight: 800;
+  color: #f6f7f4;
+  letter-spacing: 4px;
+  text-shadow: 0 6px 18px rgba(0,0,0,0.6);
+  line-height: 0.95;
+}
+
+/* subtitle under heading */
+.hero-sub {
+  color: var(--muted);
+  max-width: 820px;
+  margin: 18px auto 12px;
+  font-size: clamp(14px, 1.6vw, 18px);
+}
+
+/* CTA */
+.hero-cta { margin-top: 12px; }
+.hero-cta .btn { padding: 12px 26px; border-radius: 28px; font-weight:700; }
+
+/* Hero GIF wrapper and image */
+.hero-image-wrap {
+  margin-top: 32px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+.hero-image {
+  max-width: 920px;
+  width: 78%;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 20px 40px rgba(0,0,0,0.7));
+  transform: translateY(0);
+  transition: transform 0.6s ease;
+}
+
+/* slight float animation for the GIF */
+@keyframes heroFloat {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+  100% { transform: translateY(0); }
+}
+.hero-image { animation: heroFloat 6s ease-in-out infinite; }
+
+/* Featured events spacing */
+.featured { padding: 48px 1rem 120px; }
+
+/* responsive tweaks */
+@media (max-width: 900px) {
+  .header { height: 64px; }
+  .header nav { gap: 20px; font-size: 13px; }
+  .hero-image { width: 92%; max-width: 520px; }
+  .hero-title { font-size: clamp(36px, 12vw, 56px); }
+}
+@media (max-width: 480px) {
+  .header nav { gap: 12px; font-size: 12px; }
+  .hero { padding-top: 90px; }
+  .hero-sub { padding: 0 12px; }
+  .hero-image { width: 100%; max-width: 380px; }
+}
+
+/* Card */
+.card { background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(0,0,0,0.1)); padding:1rem; border-radius:8px; color:var(--text); }
+.btn { background:var(--accent); color:white; padding:0.5rem 1rem; border-radius:20px; border:none; cursor:pointer; }
