@@ -9,6 +9,7 @@ import Events from './pages/Events';
 import EventDetail from './pages/EventDetail';
 import Schedule from './pages/Schedule';
 import Starfield from './components/Starfield';
+import Register from './pages/Register'; // new
 
 export default function App() {
   useEffect(() => {
@@ -33,6 +34,7 @@ export default function App() {
           <Route path="/events" exact component={Events} />
           <Route path="/events/:id" component={EventDetail} />
           <Route path="/schedule" component={Schedule} />
+          <Route path="/register" component={Register} /> {/* added */}
         </Switch>
       </main>
       <Footer />

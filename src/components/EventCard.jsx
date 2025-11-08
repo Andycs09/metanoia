@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import RegisterModal from './RegisterModal';
 
 export default function EventCard({ event, index = 0 }) {
   const [flipped, setFlipped] = useState(false);
@@ -15,6 +14,7 @@ export default function EventCard({ event, index = 0 }) {
     // fallback to event.image
   }
 
+  // play a short tone using WebAudio; different waveform/frequency per index
   function playFlipSound(i = 0) {
     try {
       const AudioCtx = window.AudioContext || window.webkitAudioContext;
@@ -22,19 +22,16 @@ export default function EventCard({ event, index = 0 }) {
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
 
-      // choose waveform based on index for variety
       const waveforms = ['sine', 'square', 'sawtooth', 'triangle'];
       osc.type = waveforms[i % waveforms.length] || 'sine';
 
-      // map index to a musical interval for distinct pitches
-      const baseFreq = 220; // A3
-      const freq = baseFreq * Math.pow(2, (i % 12) / 12); // semitone steps
+      const baseFreq = 220;
+      const freq = baseFreq * Math.pow(2, (i % 12) / 12);
       osc.frequency.setValueAtTime(freq, ctx.currentTime);
 
       osc.connect(gain);
       gain.connect(ctx.destination);
 
-      // quick attack and decay
       gain.gain.setValueAtTime(0.0001, ctx.currentTime);
       gain.gain.exponentialRampToValueAtTime(0.12, ctx.currentTime + 0.01);
       gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.5);
@@ -42,20 +39,16 @@ export default function EventCard({ event, index = 0 }) {
       osc.start(ctx.currentTime);
       osc.stop(ctx.currentTime + 0.6);
 
-      // close context shortly after to free resources
       setTimeout(() => {
-        try { ctx.close(); } catch (e) { /* ignore */ }
+        try { ctx.close(); } catch (e) {}
       }, 1000);
     } catch (err) {
-      // fallback: small console log if audio fails (e.g., blocked)
       console.warn('Audio playback failed', err);
     }
   }
 
   useEffect(() => {
-    if (flipped) {
-      playFlipSound(index);
-    }
+    if (flipped) playFlipSound(index);
   }, [flipped, index]);
 
   function handleCardClick() {
@@ -97,40 +90,26 @@ export default function EventCard({ event, index = 0 }) {
           </div>
         </div>
 
-        {/* BACK: top row (title + actions) + short + scrollable details */}
-        <div className="flip-card-back">
-          <div className="back-top">
-            <div className="back-title">{event.title}</div>
-            <div className="back-actions">
-              <Link
-                to={`/events/${event.id}`}
-                className="btn"
-                onClick={stopAnd()}
-                style={{ textDecoration: 'none' }}
-              >
-                Details
-              </Link>
+        {/* BACK: centered title/actions + details */}
+        <div className="flip-card-back card">
+          <h3>{event.title}</h3>
+          <p style={{ color: '#cfd6da' }}>{event.short}</p>
+          <div style={{ display: 'flex', gap: 8, marginTop: 10 }}>
+            <Link to={`/events/${event.id}`} className="btn" onClick={stopAnd()} style={{ textDecoration: 'none' }}>
+              Details
+            </Link>
 
-              <button
-                type="button"
-                className="btn"
-                onClick={stopAnd(() => setOpen(true))}
-                style={{ background: '#ff6b61' }}
-              >
-                Register
-              </button>
-            </div>
-          </div>
-
-          <div className="back-short">{event.short}</div>
-
-          <div className="back-details" aria-live="polite">
-            {event.details}
+            <Link
+              to={`/register?event=${encodeURIComponent(event.id)}`}
+              className="btn"
+              onClick={stopAnd()}
+              style={{ background: '#ff6b61', textDecoration: 'none' }}
+            >
+              Register
+            </Link>
           </div>
         </div>
       </div>
-
-      <RegisterModal isOpen={open} onRequestClose={stopAnd(() => setOpen(false))} eventId={event.id} eventTitle={event.title} />
     </div>
   );
 }

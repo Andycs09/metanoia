@@ -253,6 +253,30 @@ body, html, #root { height: 100%; margin:0; background: var(--bg); color:var(--t
   transition: transform 0.5s ease;
 }
 
+/* wrapper for three.js canvas to fill the front face */
+.three-front-wrapper {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #081426;
+}
+
+/* three canvas itself */
+.three-card-canvas {
+  width: 100%;
+  height: 100%;
+}
+
+/* ensure canvas element fills parent (react-three-fiber creates a canvas) */
+.three-card-canvas canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+}
+
 /* NEW: info overlay covering bottom portion (title + short) */
 .card-info-overlay {
   position: absolute;
@@ -267,6 +291,7 @@ body, html, #root { height: 100%; margin:0; background: var(--bg); color:var(--t
   flex-direction: column;
   gap: 6px;
   align-items: flex-start;
+  pointer-events: none;
 }
 .card-info-overlay h3 {
   margin: 0;
@@ -596,4 +621,174 @@ body, html, #root { height: 100%; margin:0; background: var(--bg); color:var(--t
 /* small performance hint: hide on very small or low-power devices (optional) */
 @media (max-device-width: 480px) and (prefers-reduced-motion: reduce) {
   .starfield-container { display: none; }
+}
+
+.three-scene-wrap { position: relative; width: 100%; height: 100%; overflow: hidden; }
+.three-canvas-container { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 10; pointer-events: auto; }
+.three-canvas-container canvas { display: block; width: 100% !important; height: 100% !important; }
+
+/* dim overlay when focusing a card */
+.three-dim-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 25;
+  pointer-events: none;
+  transition: opacity 0.32s ease;
+}
+
+/* info panel that appears when a card is focused */
+.three-info-panel {
+  position: absolute;
+  z-index: 32;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  background: linear-gradient(180deg, rgba(10,10,12,0.96), rgba(4,6,10,0.92));
+  padding: 20px;
+  border-radius: 12px;
+  width: min(660px, 92%);
+  color: #fff;
+  box-shadow: 0 14px 50px rgba(0,0,0,0.6);
+  border: 4px solid rgba(0,0,0,0.7);
+}
+
+/* ensure info text is neon/dark themed */
+.three-info-panel h3 { margin: 0 0 8px 0; font-weight: 800; color: #fff; }
+.three-info-panel p { margin: 0; color: #d7dbe0; }
+
+/* buttons inside the panel */
+.three-info-panel .btn { padding: 10px 14px; border-radius: 8px; }
+
+/* responsive tweaks */
+@media (max-width: 760px) {
+  .three-info-panel { width: min(420px, 94%); padding: 14px; }
+  section[style] { height: 480px; }
+}
+
+/* Register page video background */
+.register-page { overflow: hidden; position: relative; min-height: 100vh; display:flex; align-items:center; justify-content:center; }
+.register-bg-video {
+  position: fixed; /* cover viewport */
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: 1;
+  filter: saturate(0.95) contrast(0.9);
+  pointer-events: none;
+}
+
+/* stronger, darker overlay so large card stands out */
+.register-bg-overlay {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.62), rgba(0,0,0,0.78));
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* BIG card to match image (desktop) — transparent gray background (not black) */
+.register-card {
+  position: relative;
+  z-index: 10;
+  width: min(1100px, 92%);
+  max-width: 1100px;
+  margin: 0 auto;
+  /* Transparent gray background instead of deep black */
+  background: linear-gradient(180deg, rgba(200,200,200,0.06), rgba(120,120,120,0.06));
+  border-radius: 22px;
+  padding: 34px;
+  box-shadow: 0 32px 80px rgba(0,0,0,0.55), 0 8px 30px rgba(0,0,0,0.45) inset;
+  border: 8px solid rgba(255,255,255,0.03);
+  backdrop-filter: blur(10px) saturate(1.06);
+  display: block;
+  transition: transform 360ms ease, opacity 360ms ease;
+}
+
+/* Larger heading */
+.register-card h2 {
+  margin: 0 0 18px 0;
+  font-weight: 900;
+  font-size: 32px;
+  color: #ffffff;
+  letter-spacing: 0.6px;
+}
+
+/* form fields layout — bigger inputs */
+.field { display: block; margin-bottom: 14px; color: var(--muted); }
+.input {
+  display: block;
+  width: 100%;
+  padding: 14px 14px;
+  margin-top: 8px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.02);
+  color: var(--text);
+  font-size: 15px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.45) inset;
+}
+.input.small { width: 180px; }
+
+/* participant field larger and more spacious */
+.participant-fieldset {
+  border: 1px solid rgba(255,255,255,0.06);
+  padding: 14px;
+  margin-bottom: 12px;
+  border-radius: 10px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.04));
+}
+.participant-fieldset legend { font-weight:800; color:#fff; }
+
+/* rows spacing */
+.row { display:flex; gap:12px; flex-wrap:wrap; margin-bottom:10px; }
+
+/* Controls: bigger buttons for a large modal */
+.controls { display:flex; gap:14px; align-items:center; margin-top:14px; }
+.btn { padding:12px 18px; border-radius:999px; border:none; cursor:pointer; background:rgba(255,255,255,0.04); color:var(--text); font-size:15px; }
+.btn.primary { padding:12px 20px; background: linear-gradient(90deg,#ff705f,#ff4b3f); color:#fff; font-weight:800; border:2px solid rgba(255,255,255,0.04); }
+
+/* message box slightly larger */
+.msg { margin-top:14px; padding:12px; border-radius:10px; font-size:14px; }
+
+/* Animated event display larger */
+.event-display {
+  position: relative;
+  z-index: 5;
+  height: 48px;
+  line-height: 48px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.04);
+  color: #4da6ff;
+  font-weight: 800;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+}
+
+/* gradient text scale up */
+.animated-gradient {
+  background: linear-gradient(90deg, #1e90ff 0%, #4da6ff 25%, #60a5fa 50%, #7dd3fc 75%, #1e90ff 100%);
+  background-size: 240% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: gradientMove 3s linear infinite;
+  font-size: 18px;
+}
+
+/* responsive adjustments */
+@media (max-width: 1100px) {
+  .register-card { width: min(920px, 94%); padding: 28px; border-radius: 18px; }
+  .event-display, .animated-gradient { font-size: 16px; height:44px; line-height:44px; }
+}
+@media (max-width: 560px) {
+  .register-card { width: 96%; padding: 16px; border-radius: 12px; margin: 12px; }
+  .controls { flex-direction: column; gap: 10px; }
+  .btn { width: 100%; text-align: center; }
+  .input.small { width: 120px; }
 }

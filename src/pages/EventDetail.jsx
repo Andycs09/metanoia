@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import events from '../data/events';
 import RegisterModal from '../components/RegisterModal';
 
@@ -11,9 +11,9 @@ export default function EventDetail(){
   return (
     <div>
       <h2>{event.title}</h2>
-      <img src={event.image} alt={event.title} style={{width:'100%',maxHeight:320,objectFit:'cover',borderRadius:8}} />
+      <img src={event.image.startsWith('/') ? event.image : new URL(`../../images/${event.image}`, import.meta.url).href} alt={event.title} style={{width:'100%',maxHeight:320,objectFit:'cover',borderRadius:8}} />
       <p style={{color:'#cfd6da'}}>{event.details}</p>
-      <button className="btn" onClick={()=>setOpen(true)}>Register</button>
+      <Link to={`/register?event=${encodeURIComponent(event.id)}`} className="btn">Register</Link>
       <RegisterModal isOpen={open} onRequestClose={()=>setOpen(false)} eventId={event.id} eventTitle={event.title} />
     </div>
   );
