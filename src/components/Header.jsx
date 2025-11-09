@@ -68,6 +68,7 @@ export default function Header() {
           <li><Link to="/events">Events</Link></li>
           <li><Link to="/about">About</Link></li>
           <li><Link to="/schedule">Schedule</Link></li>
+          <li><Link to="/game">Play UNO</Link></li>
         </ul>
 
         <div className="navbar-right-section">

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import events from '../data/events';
 import EventCard from '../components/EventCard';
+import bgImage from '../assets/home page theme.png';
 
 export default function Events() {
 	// Fisher‑Yates shuffle helper
@@ -17,58 +18,163 @@ export default function Events() {
 	const [eventsList] = useState(() => shuffleArray(events));
 
 	useEffect(() => {
-		// Shuffle animation for grid cards on page load:
-		// - scatter cards randomly with transform + z-index stagger
-		// - after duration, animate them back to their grid positions
-		const doShuffle = () => {
-			const grid = document.querySelector('.events-grid');
-			if (!grid) return;
-			const cards = Array.from(grid.querySelectorAll('.flip-card'));
-			if (!cards.length) return;
+		console.log('🎴 Scatter animation useEffect triggered');
+		const prefersReduced = window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;
+		if (prefersReduced) {
+			console.log('⏸️ Reduced motion preference detected, skipping animation');
+			return;
+		}
 
-			// small stagger and random transforms
-			cards.forEach((card, i) => {
-				// ensure card has will-change for smoother animation
-				card.style.willChange = 'transform, opacity';
-				const dx = Math.round((Math.random() - 0.5) * 1200); // horizontal spread
-				const dy = Math.round((Math.random() - 0.5) * 600);  // vertical spread
-				const rot = Math.round((Math.random() - 0.5) * 40);   // rotation degrees
-				const scl = (1 + (Math.random() * 0.12)).toFixed(3);
-				// stagger timing via transition delay
-				const delay = (i * 45); // ms
-				card.style.transition = `transform 900ms cubic-bezier(.2,.8,.2,1) ${delay}ms, opacity 700ms ${delay}ms`;
-				card.style.transform = `translate(${dx}px, ${dy}px) rotate(${rot}deg) scale(${scl})`;
-				card.style.zIndex = 2000 + i;
+		const grid = document.querySelector('.events-grid');
+		if (!grid) {
+			console.log('❌ Grid not found');
+			return;
+		}
+		const cards = Array.from(grid.querySelectorAll('.flip-card'));
+		if (!cards.length) {
+			console.log('❌ No cards found');
+			return;
+		}
+		
+		console.log(`✅ Found ${cards.length} cards, starting scatter animation`);
+
+		// Helper: wait for all images inside cards to load (max 1s)
+		const waitImages = (root) =>
+			new Promise((resolve) => {
+				const imgs = Array.from(root.querySelectorAll('img'));
+				if (imgs.length === 0) return resolve();
+				let done = 0;
+				const finish = () => (++done >= imgs.length ? resolve() : null);
+				const to = setTimeout(resolve, 1000);
+				imgs.forEach((img) => {
+					if (img.complete) return finish();
+					img.addEventListener('load', finish, { once: true });
+					img.addEventListener('error', finish, { once: true });
+				});
 			});
 
-			// return to grid after a pause
-			const totalDelay = 900 + (cards.length * 45);
-			const hold = 900; // how long cards stay scattered before returning
-			setTimeout(() => {
-				cards.forEach((card, i) => {
-					// restore with small stagger
-					const delay = (i * 30);
-					card.style.transition = `transform 900ms cubic-bezier(.2,.8,.2,1) ${delay}ms, opacity 700ms ${delay}ms`;
-					card.style.transform = '';
-					// clear z-index after transition ends
-					setTimeout(() => {
-						card.style.zIndex = '';
-						card.style.willChange = '';
-						// keep transition property minimal
-						card.style.transition = '';
-					}, 1200 + delay);
-				});
-			}, totalDelay + hold);
-		};
+		(async () => {
+			await waitImages(grid);
 
-		// run shuffle shortly after mount so DOM is ready
-		const timeout = setTimeout(doShuffle, 320);
-		return () => clearTimeout(timeout);
-	}, [eventsList]); // re-run if eventsList changes
+			const vw = window.innerWidth;
+			const vh = window.innerHeight;
+			const finals = cards.map((el) => el.getBoundingClientRect());
+
+			grid.classList.add('events-grid--animating');
+
+			// Phase 1: Set cards to scattered positions IMMEDIATELY (this is the starting state)
+			console.log('📍 Setting initial scattered positions...');
+			cards.forEach((el, i) => {
+				const f = finals[i];
+				const centerX = f.left + f.width / 2;
+				const centerY = f.top + f.height / 2;
+
+				// Random target within safe viewport bounds
+				const targetX = vw * (0.15 + Math.random() * 0.7);
+				const targetY = vh * (0.15 + Math.random() * 0.7);
+
+				const dx = targetX - centerX;
+				const dy = targetY - centerY;
+				const rot = (Math.random() * 2 - 1) * 60; // -60..60 for more dramatic
+				const scale = 0.7 + Math.random() * 0.4;
+
+				// Remove zig-zag classes temporarily
+				el.classList.remove('zig-left', 'zig-right');
+				
+				el.style.transition = 'none';
+				el.style.willChange = 'transform';
+				el.style.transformOrigin = '50% 50%';
+				el.style.transform = `translate3d(${dx}px, ${dy}px, 0) rotate(${rot}deg) scale(${scale})`;
+				el.style.zIndex = String(2000 + i);
+
+				console.log(`Card ${i}: scattered to dx=${Math.round(dx)}, dy=${Math.round(dy)}, rot=${Math.round(rot)}°`);
+
+				// Force reflow for this element so the browser commits phase 1
+				// eslint-disable-next-line no-unused-expressions
+				el.offsetWidth;
+			});
+			console.log('✨ Cards are scattered! Settling immediately...');
+
+			// Phase 2: Smoothly animate cards to their grid positions
+			requestAnimationFrame(() => {
+				requestAnimationFrame(() => {
+					console.log('🎯 Settling cards to grid positions...');
+					cards.forEach((el, i) => {
+						const delay = i * 80; // Slightly faster stagger
+						
+						// Restore zig-zag class
+						if (i % 2 === 0) {
+							el.classList.add('zig-left');
+						} else {
+							el.classList.add('zig-right');
+						}
+						
+						// Smoother easing curve for more fluid motion
+						el.style.transition = `transform 1400ms cubic-bezier(0.34, 1.56, 0.64, 1) ${delay}ms`;
+						el.style.transform = '';
+					});
+
+					const total = 1400 + (cards.length - 1) * 80 + 400;
+					setTimeout(() => {
+						console.log('🧹 Cleaning up animation styles...');
+						cards.forEach((el) => {
+							el.style.transition = '';
+							el.style.transform = '';
+							el.style.willChange = '';
+							el.style.zIndex = '';
+							el.style.transformOrigin = '';
+						});
+						grid.classList.remove('events-grid--animating');
+						console.log('✅ Animation complete!');
+					}, total);
+				});
+			});
+		})();
+
+		// no cleanup necessary (one-shot)
+	}, [eventsList]);
 
 	return (
-		<div className="events-page">
-			{/* Primary events grid (Three.js scene removed) */}
+		<div className="events-page" style={{ backgroundImage: `url(${bgImage})` }}>
+			<style>{`
+				.events-page {
+					min-height: 100vh;
+					background-size: cover;
+					background-position: center top;
+					background-repeat: no-repeat;
+					background-attachment: scroll;
+					position: relative;
+					padding: 20px;
+					padding-top: 120px;
+					padding-bottom: 100px;
+				}
+				.events-page::before {
+					content: '';
+					position: absolute;
+					top: 0; left: 0; right: 0; bottom: 0;
+					background: rgba(0, 0, 0, 0.4);
+					z-index: 0;
+					pointer-events: none;
+				}
+				.events-grid {
+					position: relative;
+					z-index: 1;
+					text-align: center;
+					margin-bottom: 60px;
+				}
+				/* Override zig-zag during scatter animation */
+				.events-grid--animating .flip-card.zig-left,
+				.events-grid--animating .flip-card.zig-right,
+				.events-grid--animating .flip-card.is-flipped.zig-left,
+				.events-grid--animating .flip-card.is-flipped.zig-right {
+					transform: none !important;
+					text-align: center;
+					margin-bottom: 60px;
+				}
+				/* Disable interactions during animation */
+				.events-grid--animating .flip-card { pointer-events: none; }
+			`}</style>
+
 			<div className="events-grid">
 				{eventsList.map((ev, i) => (
 					<EventCard key={ev.id} event={ev} index={i} />

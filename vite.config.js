@@ -5,7 +5,7 @@ export default defineConfig({
   plugins: [react()],
 
   server: {
-    allowedHosts: ['5165aaa18efb.ngrok-free.app'], // ✅ allow your ngrok URL
+    allowedHosts: ['32e5aa50886b.ngrok-free.app'], // ✅ allow your ngrok URL
   },
 
   optimizeDeps: {
@@ -13,4 +13,11 @@ export default defineConfig({
       loader: { '.js': 'jsx' },
     },
   },
+
+  // GIT USAGE (reference):
+  // fetch:      git fetch --all
+  // new branch: git checkout -b new-branch origin/new-branch
+  // switch:     git switch new-branch
+  // pull:       git pull
+  // push:       git push -u origin new-branch
 });

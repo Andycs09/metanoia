@@ -89,6 +89,7 @@ export default function Home() {
             <li><Link to="/events">Events</Link></li>
             <li><Link to="/about">About</Link></li>
             <li><Link to="/schedule">Schedule</Link></li>
+            <li><Link to="/game">Play UNO</Link></li>
           </ul>
 
           <div className="navbar-right-section">
@@ -176,7 +177,7 @@ export default function Home() {
         <div className="section-container">
           <h2 className="section-title">Featured Events</h2>
           <div className="events-grid">
-            {events.slice(0, 6).map(event => (
+            {events.slice(0, 4).map(event => (
               <EventCard key={event.id} event={event} />
             ))}
           </div>

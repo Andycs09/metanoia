@@ -8,6 +8,8 @@ import Events from './pages/Events';
 import EventDetail from './pages/EventDetail';
 import Schedule from './pages/Schedule';
 import Register from './pages/Register';
+import UnoGame from './pages/UnoGame';
+import UnoRegister from './pages/UnoRegister';
 import Starfield from './components/Starfield';
 import { Routes, Route, useLocation } from 'react-router-dom';
 
@@ -57,6 +59,8 @@ export default function App() {
           <Route path="/events/:id" element={<EventDetail />} />
           <Route path="/schedule" element={<Schedule />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/game/register" element={<UnoRegister />} />
+          <Route path="/game" element={<UnoGame />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
