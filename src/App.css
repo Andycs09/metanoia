@@ -1274,3 +1274,84 @@ body, html, #root { height: 100%; margin:0; background: var(--bg); color:var(--t
 /* ==========================
    End CSS file
    ========================== */
+/* ==========================
+   🔧 FIX: Clickable Back Side
+   ========================== */
+
+/* When flipped, disable pointer events on front so it doesn't block the back */
+.flip-card.is-flipped .flip-card-front,
+.flip-card-inner.is-flipped .flip-card-front {
+  pointer-events: none;
+}
+
+/* Enable pointer events on back when flipped */
+.flip-card.is-flipped .flip-card-back,
+.flip-card-inner.is-flipped .flip-card-back {
+  pointer-events: auto;
+  z-index: 3; /* ensure back is above front */
+}
+
+/* Just to ensure 3D stacking behaves consistently across browsers */
+.flip-card,
+.flip-card-inner {
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Ensure button clicks register on back overlay area */
+.flip-card-back .back-overlay,
+.flip-card-back .back-actions,
+.flip-card-back .btn {
+  pointer-events: auto;
+  position: relative;
+  z-index: 4;
+}
+/* ==========================
+   ✅ Chrome 3D Flip Fix
+   ========================== */
+
+/* Force Chrome to isolate the 3D context for back side */
+.flip-card {
+  isolation: isolate; /* creates a new stacking context for safety */
+  will-change: transform;
+}
+
+.flip-card-inner {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.72s cubic-bezier(.2,.8,.2,1);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Promote both faces to their own GPU layers (critical for Chrome) */
+.flip-card-front,
+.flip-card-back {
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  will-change: transform, opacity;
+}
+
+/* Disable clicks on front when flipped */
+.flip-card.is-flipped .flip-card-front {
+  pointer-events: none !important;
+  visibility: hidden; /* 👈 Chrome needs this to ignore the front plane */
+}
+
+/* Enable back when flipped */
+.flip-card.is-flipped .flip-card-back {
+  pointer-events: auto !important;
+  visibility: visible;
+  z-index: 10;
+}
+
+/* Ensure back overlay/buttons are active */
+.flip-card-back .back-overlay,
+.flip-card-back .btn,
+.flip-card-back button {
+  pointer-events: auto !important;
+  position: relative;
+  z-index: 20;
+}

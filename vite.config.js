@@ -3,10 +3,14 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [react()],
+
+  server: {
+    allowedHosts: ['5165aaa18efb.ngrok-free.app'], // ✅ allow your ngrok URL
+  },
+
   optimizeDeps: {
-    // make esbuild parse .js files as JSX during dependency scanning
     esbuildOptions: {
-      loader: { '.js': 'jsx' }
-    }
-  }
+      loader: { '.js': 'jsx' },
+    },
+  },
 });
