@@ -1,14 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap');
+
 :root{
   --bg:#071133;
   --accent:#d62b1f;
   --card-shadow: rgba(0,0,0,0.35);
   --text:#f6f7f4;
   --muted:#cfd6da;
-  --header-height: 72px; /* adjust if your header height differs */
+  --header-height: 72px;
   --header-height-sm: 64px;
   --card-gap: 1.5rem;
   --card-min: 260px;
-  font-family: "Cabin", "Arial", sans-serif;
+  --primary-color: #00d4ff;
+  --secondary-color: #ff006e;
+  --accent-color: #ffbe0b;
+  font-family: 'Poppins', 'Cabin', 'Arial', sans-serif;
 }
 
 /* black-neon variables: near-black text with a very subtle outer glow/rim */
