@@ -634,10 +634,10 @@ main:has(.unoverse-home) {
 /* Featured Events Section */
 .featured-events-section {
   background: transparent;
-  padding: 0;
+  padding: 0 0 4rem 0;
   width: 100%;
   overflow: hidden;
-  margin-top: -3rem; /* Move carousel up */
+  margin-top: -3rem;
 }
 
 /* Carousel Container */
@@ -646,7 +646,8 @@ main:has(.unoverse-home) {
   width: 100%;
   overflow: hidden;
   margin-bottom: 1rem;
-  padding: 1rem 0;
+  /* padding: 1rem 0; */
+  margin-top: -5rem;
 }
 
 .events-carousel {
@@ -781,7 +782,9 @@ main:has(.unoverse-home) {
 }
 
 /* ========== RESPONSIVE ========== */
+/* Tablet and Mobile Responsive */
 @media (max-width: 768px) {
+  /* Navbar */
   .mobile-menu-toggle {
     display: flex;
   }
@@ -791,10 +794,14 @@ main:has(.unoverse-home) {
     top: 100%;
     left: 0;
     right: 0;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
     background: rgba(10, 14, 39, 0.98);
-    padding: 2rem;
-    gap: 1.5rem;
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
+    padding: 1.5rem;
+    gap: 1rem;
     transform: translateY(-100%);
     opacity: 0;
     pointer-events: none;
@@ -805,6 +812,35 @@ main:has(.unoverse-home) {
     transform: translateY(0);
     opacity: 1;
     pointer-events: all;
+  }
+
+  .navbar-links li {
+    flex: 0 0 calc(50% - 0.5rem);
+    max-width: 200px;
+  }
+
+  .navbar-links li a {
+    display: block;
+    padding: 1.2rem 1.5rem;
+    background: rgba(0, 212, 255, 0.1);
+    border: 2px solid var(--primary-color);
+    border-radius: 10px;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 700;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 212, 255, 0.2);
+  }
+
+  .navbar-links li a:hover,
+  .navbar-links li a:active {
+    background: rgba(0, 212, 255, 0.2);
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(0, 212, 255, 0.4);
+  }
+
+  .navbar-links li a::after {
+    display: none;
   }
 
   .navbar-right-section img {
@@ -821,12 +857,14 @@ main:has(.unoverse-home) {
     height: 20px;
   }
 
-  .hero-title {
-    font-size: 2.5rem;
+  /* Hero Section */
+  .hero-section {
+    padding: 6rem 1.5rem 3rem;
+    min-height: 90vh;
   }
 
-  .hero-tagline {
-    font-size: 1.1rem;
+  .hero-content {
+    max-width: 100%;
   }
 
   .department-title {
@@ -834,8 +872,18 @@ main:has(.unoverse-home) {
     letter-spacing: 2px;
   }
 
-  .cs-logo-main {
+  .partner-logos {
+    gap: 1.5rem;
+    flex-direction: column;
+  }
+
+  .partner-logo {
     height: 60px;
+  }
+
+  .collab-logos-horizontal {
+    gap: 1rem;
+    flex-wrap: wrap;
   }
 
   .samagra-logo {
@@ -846,10 +894,6 @@ main:has(.unoverse-home) {
     height: 90px;
   }
 
-  .collab-logos-horizontal {
-    gap: 1rem;
-  }
-
   .collab-x {
     font-size: 2rem;
   }
@@ -858,16 +902,24 @@ main:has(.unoverse-home) {
     height: 140px;
   }
 
+  .event-date {
+    font-size: 1.4rem;
+  }
+
   .hero-cta {
     flex-direction: column;
     align-items: center;
+    gap: 1rem;
   }
 
   .cta-button {
     width: 100%;
     max-width: 300px;
+    padding: 0.9rem 2rem;
+    font-size: 0.95rem;
   }
 
+  /* Floating Cards */
   .floating-card {
     width: 60px;
     opacity: 0.5;
@@ -878,12 +930,29 @@ main:has(.unoverse-home) {
     display: none;
   }
 
-  .section-title {
-    font-size: 2rem;
+  /* Featured Events */
+  .featured-events-section {
+    margin-top: -2rem;
+    padding: 0 0 3rem 0;
   }
 
-  .about-card {
-    padding: 2rem;
+  .section-container {
+    padding: 2rem 1rem;
+  }
+
+  .section-title {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .carousel-container {
+    padding: 1rem 0;
+    margin-top: -3rem;
+  }
+
+  .events-carousel {
+    gap: 1.5rem;
+    padding: 1rem 0;
   }
 
   .carousel-slide {
@@ -894,27 +963,68 @@ main:has(.unoverse-home) {
     transform: scale(1);
   }
 
-
-
-  .events-carousel {
-    gap: 1.5rem;
-    padding: 1rem 0;
+  .carousel-indicators {
+    margin-top: 1.5rem;
   }
 
-  .carousel-container {
-    padding: 1rem 0;
-  }
-
-  .featured-events-section {
-    margin-top: -2rem;
-  }
-
-  .partners-grid {
-    grid-template-columns: 1fr;
+  .indicator {
+    width: 10px;
+    height: 10px;
   }
 }
 
+/* Mobile Small Screens */
 @media (max-width: 480px) {
+  /* Navbar */
+  .unoverse-navbar {
+    padding: 0.4rem 1rem;
+  }
+
+  .navbar-logo img {
+    height: 40px;
+  }
+
+  .audio-toggle-btn {
+    width: 35px;
+    height: 35px;
+  }
+
+  /* Hero Section */
+  .hero-section {
+    padding: 5rem 1rem 2rem;
+    min-height: 85vh;
+  }
+
+  .department-title {
+    font-size: 1rem;
+    letter-spacing: 1px;
+  }
+
+  .partner-logos {
+    gap: 1rem;
+  }
+
+  .partner-logo,
+  .samagra-logo {
+    height: 45px;
+  }
+
+  .google-logo {
+    height: 70px;
+  }
+
+  .collab-x {
+    font-size: 1.5rem;
+  }
+
+  .uno-logo {
+    height: 100px;
+  }
+
+  .event-date {
+    font-size: 1.2rem;
+  }
+
   .hero-title {
     font-size: 2rem;
   }
@@ -928,8 +1038,96 @@ main:has(.unoverse-home) {
     gap: 1rem;
   }
 
+  .cta-button {
+    padding: 0.8rem 1.5rem;
+    font-size: 0.9rem;
+  }
+
+  /* Floating Cards */
+  .floating-card {
+    width: 45px;
+  }
+
+  .card-3,
+  .card-4 {
+    display: none;
+  }
+
+  /* Featured Events */
+  .featured-events-section {
+    margin-top: -1.5rem;
+    padding: 0 0 2rem 0;
+  }
+
+  .section-container {
+    padding: 1.5rem 0.75rem;
+  }
+
   .section-title {
     font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .carousel-container {
+    margin-top: -2rem;
+  }
+
+  .carousel-slide {
+    width: 260px;
+  }
+
+  .events-carousel {
+    gap: 1rem;
+  }
+
+  .carousel-indicators {
+    margin-top: 1rem;
+  }
+
+  .indicator {
+    width: 8px;
+    height: 8px;
+  }
+}
+
+/* Extra Small Devices */
+@media (max-width: 360px) {
+  .navbar-logo img {
+    height: 35px;
+  }
+
+  .department-title {
+    font-size: 0.85rem;
+  }
+
+  .partner-logo,
+  .samagra-logo {
+    height: 40px;
+  }
+
+  .google-logo {
+    height: 60px;
+  }
+
+  .uno-logo {
+    height: 80px;
+  }
+
+  .event-date {
+    font-size: 1rem;
+  }
+
+  .cta-button {
+    padding: 0.7rem 1.2rem;
+    font-size: 0.85rem;
+  }
+
+  .carousel-slide {
+    width: 240px;
+  }
+
+  .section-title {
+    font-size: 1.3rem;
   }
 
   .carousel-slide {
