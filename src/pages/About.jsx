@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import '../styles/About.css';
+import { useEffect, useState } from 'react';
+import './About.css';
+import bgImage from '../assets/home page theme.png';
 
-// Import assets (add your actual images here)
+//Import assets (add your actual images here)
 // import heroBanner from '../assets/about-hero.jpg';
 // import facultyPhoto1 from '../assets/faculty-1.jpg';
 // import facultyPhoto2 from '../assets/faculty-2.jpg';
@@ -37,17 +38,16 @@ export default function About() {
     },
     {
       id: 2,
-      name: 'Dr. Faculty Name 2',
-      designation: 'Associate Professor & Event Coordinator',
-      linkedin: 'https://www.linkedin.com/in/example2',
-      // photo: facultyPhoto2,
+      name: 'Dr. Deepa S',
+      designation: 'President',
+      linkedin: 'https://www.linkedin.com/in/deepa-s-703390167/',
+      // photo: facultyPhoto3,
     },
     {
       id: 3,
-      name: 'Dr. Faculty Name 3',
-      designation: 'Assistant Professor & Technical Lead',
-      linkedin: 'https://www.linkedin.com/in/example3',
-      // photo: facultyPhoto3,
+      name: 'Dr. Gayathry S Warrier',
+      designation: ' Vice President ',
+      linkedin: 'https://www.linkedin.com/in/dr-gayathry-s-warrier-2153a018/'
     },
   ];
 
@@ -56,27 +56,17 @@ export default function About() {
   };
 
   return (
-    <div className="about-page">
-      {/* Hero Section */}
-      <section className="about-hero">
-        <div className="hero-overlay"></div>
-        <div className="hero-content">
-          <h1 className="hero-title">About UnoVerse</h1>
-          <p className="hero-subtitle">
-            Where Innovation Meets Excellence in Computer Science
-          </p>
-        </div>
-      </section>
-
+    <div className="about-page" style={{ backgroundImage: `url(${bgImage})` }}>
       {/* UnoVerse Section */}
       <section
         id="unoverse"
-        className={`about-section ${visibleSections.includes('unoverse') ? 'visible' : ''}`}>
+        className={`about-section ${visibleSections.includes('unoverse') ? 'visible' : ''}`}
+      >
         <div className="section-container">
-          <h2 className="section-heading">UNOVERSE</h2>
+          <h2 className="section-heading">METANOIA</h2>
           <div className="section-content">
             <p>
-              'UnoVerse' stands as the pinnacle event within the realm of Samagra, the Computer
+              'Metanoia' stands as the pinnacle event within the realm of Samagra, the Computer
               Science Association. It is a celebration of innovation, a gathering of minds eager
               to push the boundaries of technology and creativity. From November 23rd to November
               24th, 2025, participants and spectators alike are invited to immerse themselves in
@@ -215,6 +205,6 @@ export default function About() {
           <path d="M18 15l-6-6-6 6" />
         </svg>
       </button>
-    </div>
-  );
+    </div>
+  );
 }
