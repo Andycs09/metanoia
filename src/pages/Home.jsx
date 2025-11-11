@@ -81,13 +81,13 @@ export default function Home() {
     if (carouselRef.current) {
       const cardWidth = 240; // Fixed card width (reduced)
       const gap = 32; // 2rem gap
-      
+
       // Calculate the offset to center the current card
       const containerWidth = window.innerWidth;
       const centerOffset = (containerWidth / 2) - (cardWidth / 2);
       const slideOffset = currentSlide * (cardWidth + gap);
       const totalOffset = slideOffset - centerOffset;
-      
+
       carouselRef.current.style.transform = `translateX(-${Math.max(0, totalOffset)}px)`;
     }
   }, [currentSlide]);
@@ -120,7 +120,7 @@ export default function Home() {
           </ul>
 
           <div className="navbar-right-section">
-            <button 
+            <button
               className="audio-toggle-btn"
               onClick={toggleAudio}
               aria-label={audioPlaying ? "Pause audio" : "Play audio"}
@@ -146,18 +146,6 @@ export default function Home() {
 
       {/* Hero Section */}
       <section className="hero-section">
-        {/* Shooting Stars */}
-        <div className="shooting-stars">
-          {[...Array(10)].map((_, i) => (
-            <div key={i} className="shooting-star" style={{
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 5}s`,
-              animationDuration: `${1 + Math.random() * 2}s`
-            }}></div>
-          ))}
-        </div>
-
         {/* Floating UNO Cards */}
         <div className="floating-cards">
           {unoCards.map((card, index) => (
@@ -206,8 +194,8 @@ export default function Home() {
           <div className="carousel-container">
             <div className="events-carousel" ref={carouselRef}>
               {events.map((event, index) => (
-                <div 
-                  key={event.id} 
+                <div
+                  key={event.id}
                   className={`carousel-slide ${index === currentSlide ? 'active' : ''}`}
                 >
                   <EventCard event={event} index={index} />
@@ -215,7 +203,7 @@ export default function Home() {
               ))}
             </div>
           </div>
-          
+
           {/* Carousel Indicators */}
           <div className="carousel-indicators">
             {events.map((_, index) => (

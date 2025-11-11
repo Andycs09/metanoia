@@ -11,6 +11,8 @@ import Register from './pages/Register';
 import UnoGame from './pages/UnoGame';
 import UnoRegister from './pages/UnoRegister';
 import Starfield from './components/Starfield';
+import ShootingStars from './components/ShootingStars';
+import Preloader from './components/Preloader';
 import { Routes, Route, useLocation } from 'react-router-dom';
 
 const NotFound = () => (
@@ -39,6 +41,9 @@ export default function App() {
 
   return (
     <>
+      {/* Preloader - Shows before site loads */}
+      <Preloader />
+
       {/* Global aurora wave background (site-wide) */}
       <div className="aurora-global" aria-hidden>
         <div className="aurora-wave aurora-wave--one" />
@@ -47,6 +52,9 @@ export default function App() {
 
       {/* Global interactive starfield (follows pointer / touch) */}
       <Starfield />
+
+      {/* Global shooting stars animation */}
+      <ShootingStars />
 
       {/* Hide default header on home page since it has custom navbar */}
       {!isHomePage && <Header />}
