@@ -17,10 +17,10 @@ import audioFile from '../assets/yes.mp3';
 // Import UNO cards from images folder
 const unoCards = [
   '/images/card_1_c185b98b.png',
-  '/images/card_2_c305cb2a.png',
+  'src/assets/uno7.png',
   '/images/card_3_4dab2dee.png',
   '/images/card_4_fc0ce148.png',
-  '/images/card_5_dd7a31d0.png',
+  'src/assets/unoflip.png',
   '/images/card_6_1ad3c40f.png',
 ];
 
@@ -189,12 +189,12 @@ export default function Home() {
           </div>
 
           {/* Event Date */}
-          <p className="event-date">24th-25th November,2025 <br /> (Monday & Tuesday)</p>
+          <p className="event-date">24th-25th November,2025</p>
 
           {/* CTA Buttons */}
           <div className="hero-cta">
             <Link to="/events" className="cta-button primary">Explore Events</Link>
-            <Link to="/about" className="cta-button secondary">About UnoVerse</Link>
+            <Link to="/about" className="cta-button secondary">About Metanoia</Link>
           </div>
         </div>
       </section>

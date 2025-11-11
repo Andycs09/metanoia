@@ -1,6 +1,6 @@
 const events = [
   { id: 'treasure-hunt', title: 'Treasure Hunt', image: 'card_1_c185b98b.png', short: 'Search for hidden UNO treasures.', details: 'A team-based treasure hunt with UNO-themed clues.', maxParticipants: 2 },
-  { id: 'uno-tournament', title: 'UNO Tournament', image: 'card_2_c305cb2a.png', short: 'Knockout UNO matches.', details: 'Play rounds of UNO to be crowned champion.', maxParticipants: 4 },
+  { id: 'uno-tournament', title: 'UNO Tournament', image: 'card_2', short: 'Knockout UNO matches.', details: 'Play rounds of UNO to be crowned champion.', maxParticipants: 4 },
   { id: 'card-art', title: 'Card Art', image: 'card_3_4dab2dee.png', short: 'Design custom UNO cards.', details: 'Create and present original UNO card art.', maxParticipants: 1 },
   { id: 'relay-race', title: 'Relay Race', image: 'card_4_fc0ce148.png', short: 'Team relay with UNO challenges.', details: 'Compete in physical & puzzle relay events.', maxParticipants: 3 },
   { id: 'trivia', title: 'UNO Trivia', image: 'card_5_dd7a31d0.png', short: 'Test UNO knowledge.', details: 'Answer rapid-fire UNO-themed questions.', maxParticipants: 2 },
