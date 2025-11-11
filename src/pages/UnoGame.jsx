@@ -5,10 +5,8 @@ import bgImage from '../assets/home page theme.png';
 // Card colors and types
 const COLORS = ['red', 'blue', 'green', 'yellow'];
 const NUMBERS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-const SPECIAL_CARDS = ['skip', 'reverse', 'draw2'];
-const WILD_CARDS = ['wild', 'wild4'];
 
-// Create a full UNO deck
+// Create a simplified UNO deck (numbers, +2, +4 only - no wildcards)
 const createDeck = () => {
   const deck = [];
   
@@ -21,19 +19,15 @@ const createDeck = () => {
     });
   });
   
-  // Special cards (2 per color)
+  // +2 cards (2 per color)
   COLORS.forEach(color => {
-    SPECIAL_CARDS.forEach(special => {
-      deck.push({ color, value: special, type: 'special' });
-      deck.push({ color, value: special, type: 'special' });
-    });
+    deck.push({ color, value: 'draw2', type: 'special' });
+    deck.push({ color, value: 'draw2', type: 'special' });
   });
   
-  // Wild cards (4 of each)
-  WILD_CARDS.forEach(wild => {
-    for (let i = 0; i < 4; i++) {
-      deck.push({ color: 'wild', value: wild, type: 'wild' });
-    }
+  // +4 cards (1 per color - no wild functionality)
+  COLORS.forEach(color => {
+    deck.push({ color, value: 'draw4', type: 'special' });
   });
   
   return deck;
@@ -58,7 +52,6 @@ export default function UnoGame() {
   const [gameStarted, setGameStarted] = useState(false);
   const [numPlayers, setNumPlayers] = useState(3);
   const [winner, setWinner] = useState(null);
-  const [colorChoice, setColorChoice] = useState(null);
   const [message, setMessage] = useState('');
   const [showRecommendations, setShowRecommendations] = useState(true);
   const [showRegistration, setShowRegistration] = useState(true);
@@ -168,7 +161,6 @@ export default function UnoGame() {
 
   // Check if card can be played
   const canPlayCard = (card, topCard) => {
-    if (card.type === 'wild') return true;
     if (card.color === topCard.color) return true;
     if (card.value === topCard.value) return true;
     return false;
@@ -199,19 +191,6 @@ export default function UnoGame() {
     }
     
     setPlayers(newPlayers);
-    
-    // Handle wild cards
-    if (card.type === 'wild') {
-      if (playerIndex === 0) {
-        setColorChoice(card);
-        return;
-      } else {
-        // AI chooses color
-        const randomColor = COLORS[Math.floor(Math.random() * COLORS.length)];
-        card.chosenColor = randomColor;
-      }
-    }
-    
     setDiscardPile([...discardPile, card]);
     
     // Handle special cards
@@ -222,45 +201,31 @@ export default function UnoGame() {
   const handleSpecialCard = (card) => {
     let nextPlayer = currentPlayer;
     
-    if (card.value === 'skip') {
-      nextPlayer = (currentPlayer + direction + numPlayers) % numPlayers;
-      setMessage(`${players[(currentPlayer + direction + numPlayers) % numPlayers].name} is skipped!`);
-    } else if (card.value === 'reverse') {
-      setDirection(direction * -1);
-      setMessage('Direction reversed!');
-    } else if (card.value === 'draw2') {
+    if (card.value === 'draw2') {
       const targetPlayer = (currentPlayer + direction + numPlayers) % numPlayers;
       drawCard(targetPlayer);
       drawCard(targetPlayer);
       nextPlayer = (targetPlayer + direction + numPlayers) % numPlayers;
       setMessage(`${players[targetPlayer].name} draws 2 cards!`);
-    } else if (card.value === 'wild4') {
+    } else if (card.value === 'draw4') {
       const targetPlayer = (currentPlayer + direction + numPlayers) % numPlayers;
       for (let i = 0; i < 4; i++) {
         drawCard(targetPlayer);
       }
       nextPlayer = (targetPlayer + direction + numPlayers) % numPlayers;
       setMessage(`${players[targetPlayer].name} draws 4 cards!`);
-    }
-    
-    if (card.value !== 'skip' && card.value !== 'draw2' && card.value !== 'wild4') {
+    } else {
       nextPlayer = (currentPlayer + direction + numPlayers) % numPlayers;
     }
     
     setCurrentPlayer(nextPlayer);
   };
 
-  // Choose color for wild card
-  const chooseColor = (color) => {
-    const card = { ...colorChoice, chosenColor: color };
-    setDiscardPile([...discardPile, card]);
-    setColorChoice(null);
-    handleSpecialCard(card);
-  };
+
 
   // AI turn
   useEffect(() => {
-    if (!gameStarted || currentPlayer === 0 || colorChoice) return;
+    if (!gameStarted || currentPlayer === 0) return;
     
     const timer = setTimeout(() => {
       const player = players[currentPlayer];
@@ -280,7 +245,7 @@ export default function UnoGame() {
     }, 1000);
     
     return () => clearTimeout(timer);
-  }, [currentPlayer, gameStarted, colorChoice]);
+  }, [currentPlayer, gameStarted]);
 
   // Player draws card
   const handlePlayerDraw = () => {
@@ -294,8 +259,7 @@ export default function UnoGame() {
 
   // Render a card with proper UNO styling
   const renderCard = (card, isClickable = false, onClick = null) => {
-    const cardColor = card.chosenColor || card.color;
-    const isWild = card.type === 'wild';
+    const cardColor = card.color;
     
     return (
       <div 
@@ -312,7 +276,7 @@ export default function UnoGame() {
           
           {/* Center */}
           <div className="card-center">
-            <div className={`card-center-oval ${isWild ? 'wild-oval' : ''}`}>
+            <div className="card-center-oval">
               <div className="card-center-value">
                 {renderCardSymbol(card)}
               </div>
@@ -332,11 +296,8 @@ export default function UnoGame() {
 
   // Render card symbol/value
   const renderCardSymbol = (card) => {
-    if (card.value === 'skip') return <span className="symbol-skip">⊘</span>;
-    if (card.value === 'reverse') return <span className="symbol-reverse">⇄</span>;
     if (card.value === 'draw2') return <span className="symbol-draw">+2</span>;
-    if (card.value === 'wild') return <span className="symbol-wild">W</span>;
-    if (card.value === 'wild4') return <span className="symbol-wild4">+4</span>;
+    if (card.value === 'draw4') return <span className="symbol-draw">+4</span>;
     return card.value;
   };
 
@@ -527,25 +488,6 @@ export default function UnoGame() {
             </div>
           </div>
 
-          {/* Color chooser modal */}
-          {colorChoice && (
-            <div className="color-chooser-overlay">
-              <div className="color-chooser">
-                <h3>Choose a Color</h3>
-                <div className="color-options">
-                  {COLORS.map(color => (
-                    <button
-                      key={color}
-                      className={`color-btn color-${color}`}
-                      onClick={() => chooseColor(color)}
-                    >
-                      {color}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </div>
-          )}
             </>
           )}
         </>
