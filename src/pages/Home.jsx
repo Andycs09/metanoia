@@ -79,7 +79,7 @@ export default function Home() {
   // Smooth scroll effect for carousel
   useEffect(() => {
     if (carouselRef.current) {
-      const cardWidth = 320; // Fixed card width
+      const cardWidth = 240; // Fixed card width (reduced)
       const gap = 32; // 2rem gap
       
       // Calculate the offset to center the current card
@@ -210,7 +210,7 @@ export default function Home() {
                   key={event.id} 
                   className={`carousel-slide ${index === currentSlide ? 'active' : ''}`}
                 >
-                  <EventCard event={event} />
+                  <EventCard event={event} index={index} />
                 </div>
               ))}
             </div>

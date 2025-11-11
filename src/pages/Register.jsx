@@ -2,6 +2,9 @@ import React, { useEffect, useState, useRef, useMemo, useCallback } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
 import events from '../data/events';
 
+// Import home page background theme
+import bgImage from '../assets/home page theme.png';
+
 const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec'; // <-- replace with your URL
 
 function useQuery() {
@@ -20,17 +23,127 @@ function loadGsap() {
   return gsapPromise.then(mod => mod?.gsap || mod?.default || null);
 }
 
-// PERF + UX: styles (add flip lock + button-like anchors with bigger hit-area)
+// Clean, responsive register page styles
 const REGISTER_STYLE = `
-  .register-page { font-family: 'Stack Sans Notch', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; }
+  .register-page { 
+    font-family: 'Poppins', sans-serif; 
+    color: #e2e8f0;
+  }
   .register-card {
-    border: 10px solid gold;
-    box-shadow: inset 0 0 0 6px rgba(255,0,0,0.95);
-    background-clip: padding-box;
-    contain: layout paint style;
-    will-change: transform;
-    opacity:0;
-    transform:translateY(40px);
+    background: rgba(128, 128, 128, 0.3);
+    border: 4px solid #0080ff;
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 0 30px rgba(0, 128, 255, 0.3);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    opacity: 0;
+    transform: translateY(40px);
+    position: relative;
+    z-index: 1;
+    max-width: 700px;
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    min-height: 70vh;
+  }
+  
+  .register-header {
+    position: fixed;
+    top: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    width: 100%;
+    text-align: center;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  
+  .register-header.hidden {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-20px);
+    pointer-events: none;
+  }
+  
+  .register-card h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
+    margin: 0;
+    background: linear-gradient(45deg, #1a237e, #ffffff, #9c27b0, #e91e63, #1a237e);
+    background-size: 400% 400%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 2px;
+    text-shadow: 0 0 20px rgba(156, 39, 176, 0.5), 0 0 40px rgba(26, 35, 126, 0.3);
+    animation: gradientShift 3s ease-in-out infinite;
+    filter: drop-shadow(0 0 10px rgba(156, 39, 176, 0.6));
+  }
+  
+  @keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  
+  .participants {
+    max-height: none;
+    overflow: visible;
+  }
+  
+  .participant-fieldset {
+    margin-bottom: 1.5rem;
+    padding: 1.5rem;
+    border: 1px solid rgba(0, 212, 255, 0.2);
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.2);
+  }
+  
+  .participant-fieldset legend {
+    color: #00d4ff;
+    font-weight: 600;
+    padding: 0 0.5rem;
+  }
+  
+  /* Form content area */
+  .form-content {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 0.5rem;
+  }
+  
+  /* Card footer for controls */
+  .card-footer {
+    margin-top: auto;
+    padding-top: 1.5rem;
+    border-top: 2px solid rgba(0, 128, 255, 0.3);
+    background: rgba(0, 0, 0, 0.2);
+    margin: 1.5rem -2rem -2rem -2rem;
+    padding: 1.5rem 2rem;
+    border-radius: 0 0 16px 16px;
+  }
+  
+  .controls {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .register-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(128, 128, 128, 0.3);
+    border-top: 2px solid #0080ff;
+    padding: 1rem;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 100;
   }
   @keyframes cardEnter { 0% { opacity:0; transform:translateY(40px); } 100% { opacity:1; transform:translateY(0); } }
   .register-card.enter { animation: cardEnter .9s cubic-bezier(.17,.67,.33,1) forwards; }
@@ -79,7 +192,14 @@ const REGISTER_STYLE = `
 
   /* --- Register form styles --- */
   .native-select, .native-select option { color:#000; }
-  .input { font-size:16px; color:#fff; }
+  .input { 
+    font-size:16px; 
+    color:#fff; 
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    padding: 0.75rem;
+  }
   .input.small { font-size:16px; }
   .input.name { color:#ff2b2b; } .input.name::placeholder { color:rgba(255,43,43,0.7); }
   .input.cls { color:#2bd16a; } .input.cls::placeholder { color:rgba(43,209,106,0.7); }
@@ -87,6 +207,31 @@ const REGISTER_STYLE = `
   .input.phone { color:#3fb0ff; } .input.phone::placeholder { color:rgba(63,176,255,0.75); }
   .input.regno { color:#ffffff; } .input.regno::placeholder { color:rgba(255,255,255,0.65); }
   .input::placeholder, .input.small::placeholder { font-size:16px; opacity:1; }
+  .input:focus {
+    outline: none;
+    border-color: #0080ff;
+    box-shadow: 0 0 10px rgba(0, 128, 255, 0.3);
+  }
+  
+  .native-select { 
+    background: transparent; 
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    padding: 0.75rem;
+    color: #fff;
+  }
+  .native-select:focus {
+    outline: none;
+    border-color: #0080ff;
+    box-shadow: 0 0 10px rgba(0, 128, 255, 0.3);
+  }
+  .event-display {
+    background: transparent;
+    border: 1px solid rgba(0, 128, 255, 0.3);
+    border-radius: 8px;
+    padding: 0.75rem;
+    color: #0080ff;
+  }
 
   .flip-card.locked .flip-inner { transform: rotateY(180deg); }
 
@@ -252,12 +397,183 @@ const REGISTER_STYLE = `
   .flip-card:focus-within .flip-back,
   .flip-card.is-flipped .flip-back { pointer-events: auto; }
 
-  /* Ensure front/back stacking and pointer behavior when flipped */
-  .flip-card.is-flipped .flip-card-front {
-    pointer-events: none;
+  
+  /* Mobile and responsive design */
+  @media (max-width: 768px) {
+    .register-header {
+      top: 70px;
+    }
+    
+    .register-header h2 {
+      font-size: 1.2rem;
+      letter-spacing: 1px;
+      padding: 0 1rem;
+    }
+    
+    .register-card {
+      width: 95%;
+      padding: 1rem;
+      margin-top: 5rem;
+      max-height: calc(100vh - 200px);
+      border-radius: 15px;
+    }
+    
+    .participant-fieldset {
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
+    
+    .participant-fieldset legend {
+      font-size: 1rem;
+    }
+    
+    .row {
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    
+    .input {
+      padding: 0.875rem;
+      font-size: 16px; /* Prevents zoom on iOS */
+    }
+    
+    .native-select {
+      padding: 0.875rem;
+      font-size: 16px;
+    }
+    
+    .event-display {
+      padding: 0.875rem;
+      font-size: 0.9rem;
+    }
+    
+    .controls {
+      flex-direction: column;
+      gap: 0.75rem;
+      padding: 0 1rem;
+    }
+    
+    .btn {
+      width: 100%;
+      padding: 1rem;
+      font-size: 1rem;
+      min-height: 48px; /* Touch-friendly size */
+    }
+    
+    .card-footer {
+      padding: 1rem;
+      margin: 1rem -1rem -1rem -1rem;
+    }
+    
+    .msg {
+      margin: 1rem 0;
+      font-size: 0.9rem;
+    }
   }
-  .flip-card.is-flipped .flip-card-back {
-    pointer-events: auto;
+  
+  @media (max-width: 480px) {
+    .register-page {
+      padding: 1rem 0.5rem;
+      padding-top: 4rem;
+    }
+    
+    .register-header {
+      top: 60px;
+    }
+    
+    .register-header h2 {
+      font-size: 1rem;
+      letter-spacing: 0.5px;
+    }
+    
+    .register-card {
+      width: 98%;
+      padding: 0.75rem;
+      margin-top: 4rem;
+      max-height: calc(100vh - 180px);
+    }
+    
+    .participant-fieldset {
+      padding: 0.75rem;
+      border-radius: 8px;
+    }
+    
+    .participant-fieldset legend {
+      font-size: 0.9rem;
+      padding: 0 0.25rem;
+    }
+    
+    .input, .native-select {
+      padding: 0.75rem;
+      border-radius: 6px;
+    }
+    
+    .event-display {
+      padding: 0.75rem;
+      border-radius: 6px;
+    }
+    
+    .controls {
+      gap: 0.5rem;
+    }
+    
+    .btn {
+      padding: 0.875rem;
+      font-size: 0.9rem;
+      border-radius: 6px;
+    }
+    
+    .btn.link {
+      padding: 0.5rem;
+      font-size: 0.85rem;
+    }
+  }
+  
+  @media (max-width: 360px) {
+    .register-header h2 {
+      font-size: 0.9rem;
+    }
+    
+    .register-card {
+      padding: 0.5rem;
+      border-radius: 10px;
+      margin-top: 3.5rem;
+    }
+    
+    .participant-fieldset {
+      padding: 0.5rem;
+    }
+    
+    .input, .native-select, .event-display {
+      padding: 0.625rem;
+      font-size: 14px;
+    }
+    
+    .btn {
+      padding: 0.75rem;
+      font-size: 0.85rem;
+    }
+  }
+  
+  /* Landscape orientation adjustments */
+  @media (max-height: 600px) and (orientation: landscape) {
+    .register-card {
+      max-height: calc(100vh - 140px);
+      margin-top: 3rem;
+    }
+    
+    .register-header {
+      top: 50px;
+    }
+    
+    .register-header h2 {
+      font-size: 1.1rem;
+    }
+    
+    .participant-fieldset {
+      margin-bottom: 0.75rem;
+      padding: 1rem;
+    }
   }
 `;
 
@@ -302,9 +618,12 @@ export default function RegisterPage() {
   const [participants, setParticipants] = useState(() => [{ name: '', cls: '', email: '', phone: '', registrationNo: '' }]);
   const [sending, setSending] = useState(false);
   const [message, setMessage] = useState(null);
+  const [headerVisible, setHeaderVisible] = useState(true);
 
   const formRef = useRef(null);
   const cardRef = useRef(null);
+  const headerRef = useRef(null);
+  const lastScrollY = useRef(0);
 
   useEffect(() => {
     // Normalize participants only if limit changed
@@ -339,6 +658,32 @@ export default function RegisterPage() {
     }
     meta.content = `Register participants for ${selectedEvent.title}.`;
   }, [selectedEvent.title]);
+
+  // Scroll handler for header visibility
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      const scrollThreshold = 100;
+      
+      if (currentScrollY > scrollThreshold) {
+        if (currentScrollY > lastScrollY.current && headerVisible) {
+          // Scrolling down - hide header
+          setHeaderVisible(false);
+        } else if (currentScrollY < lastScrollY.current && !headerVisible) {
+          // Scrolling up - show header
+          setHeaderVisible(true);
+        }
+      } else {
+        // At top of page - always show header
+        if (!headerVisible) setHeaderVisible(true);
+      }
+      
+      lastScrollY.current = currentScrollY;
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [headerVisible]);
 
   // Reduced motion & visibility pause for video
   useEffect(() => {
@@ -451,29 +796,45 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="register-page" style={{ position: 'relative', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+    <div className="register-page" style={{ 
+      position: 'relative', 
+      minHeight: '100vh', 
+      padding: '2rem 1rem',
+      paddingTop: '120px',
+      paddingBottom: '2rem',
+      display: 'flex', 
+      alignItems: 'flex-start', 
+      justifyContent: 'center',
+      backgroundImage: `url(${bgImage})`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center top',
+      backgroundRepeat: 'no-repeat',
+      backgroundAttachment: 'scroll',
+      overflowY: 'auto'
+    }}>
       <style>{REGISTER_STYLE}</style>
-      <video
-        ref={videoRef}
-        className="register-bg-video"
-        src={videoUrl}
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="none"
-        fetchPriority="low"
-        poster="/images/register-poster.jpg"
-        style={{ objectFit: 'cover', width: '100%', height: '100%', position: 'fixed', inset: 0, contain: 'layout paint', willChange: 'opacity' }}
-        aria-hidden
-      />
+      
+      {/* Background overlay for better readability - more blue tint */}
+      <div className="register-bg-overlay" style={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        background: 'rgba(0, 50, 100, 0.6)',
+        zIndex: 0,
+        pointerEvents: 'none'
+      }} aria-hidden />
 
-      <div className="register-bg-overlay" aria-hidden />
-
-      <div ref={cardRef} className="register-card" role="region" aria-labelledby="register-heading">
+      {/* Header positioned at top middle */}
+      <div ref={headerRef} className={`register-header ${!headerVisible ? 'hidden' : ''}`}>
         <h2 id="register-heading">Register for Event</h2>
+      </div>
 
-        <form ref={formRef} onSubmit={handleSubmit}>
+      <div ref={cardRef} className="register-card" role="region" aria-labelledby="register-heading" style={{ marginTop: '6rem' }}>
+        
+        <div className="form-content">
+          <form ref={formRef} id="register-form" onSubmit={handleSubmit}>
           <label className="field" style={{ position: 'relative' }}>
             Event
             <div className="event-select">
@@ -501,15 +862,18 @@ export default function RegisterPage() {
             ))}
           </div>
 
-          <div className="controls">
-            <button type="button" className="btn" onClick={addParticipant} disabled={participants.length >= maxParticipants}>Add participant</button>
-            <button type="submit" className="btn primary" disabled={sending}>{sending ? 'Sending…' : 'Submit'}</button>
-            {/* ANIMATED CANCEL */}
-            <button type="button" className="btn" onClick={handleCancel}>Cancel</button>
-          </div>
-
           {message && <div className={`msg ${message.type === 'error' ? 'error' : 'success'}`}>{message.text}</div>}
         </form>
+      </div>
+
+        {/* Card Footer with participant buttons */}
+        <div className="card-footer">
+          <div className="controls">
+            <button type="button" className="btn" onClick={addParticipant} disabled={participants.length >= maxParticipants}>Add participant</button>
+            <button type="submit" form={formRef.current?.id || 'register-form'} className="btn primary" disabled={sending}>{sending ? 'Sending…' : 'Submit'}</button>
+            <button type="button" className="btn" onClick={handleCancel}>Cancel</button>
+          </div>
+        </div>
       </div>
     </div>
   );

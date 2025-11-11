@@ -114,6 +114,29 @@
   color: #ffd700;
 }
 
+.pending-draw-indicator {
+  font-size: 1rem;
+  color: #ff4757;
+  font-weight: bold;
+  margin-top: 5px;
+  animation: pulse 1s infinite;
+}
+
+.draw-instruction {
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 71, 87, 0.9);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  white-space: nowrap;
+  animation: pulse 1s infinite;
+}
+
 .direction {
   font-size: 1.1rem;
 }
@@ -209,7 +232,7 @@
   padding: 15px;
   border-radius: 10px;
   text-align: center;
-  min-width: 200px;
+  min-width: 250px;
   transition: all 0.3s;
 }
 
@@ -226,9 +249,10 @@
 
 .player-cards {
   display: flex;
-  gap: -20px;
+  gap: 8px;
   justify-content: center;
   margin: 10px 0;
+  flex-wrap: wrap;
 }
 
 .card-count {
@@ -741,6 +765,15 @@
   
   .hand-cards {
     gap: 5px;
+  }
+  
+  .player-cards {
+    gap: 4px;
+  }
+  
+  .player-info {
+    min-width: 180px;
+    padding: 10px;
   }
   
   .color-btn {

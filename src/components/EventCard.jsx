@@ -1,6 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+// Import all UNO card images from assets/img folder
+import uno1 from '../assets/img/uno (1).png';
+import uno2 from '../assets/img/uno (2).png';
+import uno3 from '../assets/img/uno (3).png';
+import uno4 from '../assets/img/uno (4).png';
+import uno5 from '../assets/img/uno (5).png';
+import uno6 from '../assets/img/uno (6).png';
+import uno7 from '../assets/img/uno (7).png';
+
 export default function EventCard({ event, index = 0 }) {
   const [flipped, setFlipped] = useState(false);
   const [showPageBtn, setShowPageBtn] = useState(false);
@@ -19,6 +28,9 @@ export default function EventCard({ event, index = 0 }) {
       margin-inline: clamp(8px, 1vw, 14px);
       vertical-align: top;
       transition: transform .6s;
+      background: none;
+      border: none;
+      padding: 0;
     }
 
     /* Zig-zag positioning - more pronounced */
@@ -37,22 +49,26 @@ export default function EventCard({ event, index = 0 }) {
     }
 
     /* Flip mechanics */
-    .flip-card { position: relative; perspective: 1200px; cursor: pointer; transform-style: preserve-3d; }
+    .flip-card { 
+      position: relative; 
+      perspective: 1200px; 
+      cursor: pointer; 
+      transform-style: preserve-3d;
+      background: none !important;
+      border: none !important;
+      outline: none !important;
+    }
     .flip-face {
       position: absolute; inset: 0;
       width: 100%; height: 100%;
-      border-radius: 14px;
-      overflow: hidden;
+      border-radius: 0;
+      overflow: visible;
       backface-visibility: hidden; -webkit-backface-visibility: hidden;
       transform-style: preserve-3d;
       transition: transform .8s cubic-bezier(.2,.8,.2,1);
-      /* Thick black border on both faces */
-      border: 12px solid #000;
-      /* subtle inner rim + drop shadow for depth */
-      box-shadow:
-        inset 0 0 0 2px rgba(255,255,255,0.15),
-        0 14px 28px rgba(0,0,0,0.45);
-      background: #000; /* backdrop behind image edges */
+      border: none;
+      box-shadow: none;
+      background: none;
     }
     .flip-front { transform: rotateY(0deg); z-index: 2; }
     .flip-back  { transform: rotateY(180deg); z-index: 1; pointer-events: none; }
@@ -199,21 +215,138 @@ export default function EventCard({ event, index = 0 }) {
       z-index: 5; 
     }
 
-    /* Ensure images fill nicely inside bordered face */
-    .full-image-wrapper, .flip-back-image-wrap { position: absolute; inset: 0; }
-    .full-image-wrapper img, .flip-back-image-wrap img {
-      width: 100%; height: 100%; object-fit: cover; display: block;
+    /* UNO Card Back Design */
+    .uno-back-design {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      border-radius: 14px;
+      overflow: hidden;
+    }
+    
+    .uno-back-content {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    /* Decorative dots */
+    .decorative-dots {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+    
+    .dot {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.8;
+    }
+    
+    .dot-1 { width: 20px; height: 20px; background: #FFD700; top: 15%; left: 20%; }
+    .dot-2 { width: 15px; height: 15px; background: #00BFFF; top: 25%; right: 15%; }
+    .dot-3 { width: 18px; height: 18px; background: #FF6347; top: 35%; left: 10%; }
+    .dot-4 { width: 12px; height: 12px; background: #32CD32; bottom: 30%; right: 20%; }
+    .dot-5 { width: 16px; height: 16px; background: #FF69B4; bottom: 20%; left: 25%; }
+    .dot-6 { width: 14px; height: 14px; background: #FFA500; top: 45%; right: 30%; }
+    
+    /* Main red oval */
+    .red-oval {
+      width: 80%;
+      height: 60%;
+      background: #DC143C;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      box-shadow: 0 0 20px rgba(220, 20, 60, 0.5);
+    }
+    
+    .event-text {
+      text-align: center;
+      color: white;
+      z-index: 2;
+    }
+    
+    .event-name {
+      font-family: 'Arial Black', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 900;
+      margin: 0;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    /* Bottom text */
+    .uno-bottom-text {
+      position: absolute;
+      bottom: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: white;
+      font-family: 'Arial Black', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-align: center;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+    }
+    
+    /* Action buttons overlay */
+    .back-actions-overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      gap: 12px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 10;
+      background: rgba(0, 0, 0, 0.7);
+      padding: 15px;
+      border-radius: 10px;
+      backdrop-filter: blur(10px);
+    }
+    
+    .flip-back:hover .back-actions-overlay {
+      opacity: 1;
+    }
+
+    /* Image IS the card - no container */
+    .full-image-wrapper { 
+      position: absolute; 
+      inset: 0; 
+      background: none;
+      border: none;
+      border-radius: 0;
+    }
+    .full-image-wrapper img {
+      width: 100%; 
+      height: 100%; 
+      object-fit: cover; 
+      display: block;
+      border: none;
+      border-radius: 14px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     }
   `;
 
-  // imageSrc fallback to event.image
-  let imageSrc = event.image || '';
-  try {
-    if (imageSrc && !imageSrc.startsWith('/')) {
-      imageSrc = new URL(`../../images/${imageSrc}`, import.meta.url).href;
-    }
-  } catch {}
-  const opImg = new URL('../../images/op.png', import.meta.url).href;
+  // Array of imported UNO card images
+  const unoImages = [uno1, uno2, uno3, uno4, uno5, uno6, uno7];
+  
+  // Get image based on card index (cycles through available images)
+  const imageSrc = unoImages[index % unoImages.length];
 
   useEffect(() => { if (flipped) setShowPageBtn(false); }, [flipped]);
   useEffect(() => {
@@ -305,6 +438,48 @@ export default function EventCard({ event, index = 0 }) {
   const registerBorder = `1px solid rgba(255,255,255,0.06)`;
   const zigClass = index % 2 === 0 ? 'zig-left' : 'zig-right';
 
+  // UNO card colors based on index
+  const cardColors = [
+    '#4CAF50', // Green
+    '#F44336', // Red  
+    '#2196F3', // Blue
+    '#FFEB3B', // Yellow
+    '#F44336', // Red
+    '#2196F3', // Blue
+    '#FF9800', // Orange
+    '#9C27B0'  // Purple
+  ];
+  
+  const cardColor = cardColors[index % cardColors.length];
+  
+  // Special card designs for certain events
+  const getCardDesign = () => {
+    if (event.id === 'music') {
+      return {
+        background: `linear-gradient(45deg, #FF6B6B, #4ECDC4, #45B7D1, #96CEB4)`,
+        backgroundSize: '400% 400%',
+        animation: 'gradientShift 3s ease infinite'
+      };
+    }
+    
+    if (event.id === 'cosplay') {
+      return {
+        background: `linear-gradient(135deg, ${cardColor}dd, ${cardColor}aa, ${cardColor}dd)`,
+        backgroundImage: `
+          radial-gradient(circle at 20% 80%, rgba(255,255,255,0.1) 0%, transparent 50%),
+          radial-gradient(circle at 80% 20%, rgba(255,255,255,0.1) 0%, transparent 50%),
+          radial-gradient(circle at 40% 40%, rgba(255,255,255,0.05) 0%, transparent 50%)
+        `
+      };
+    }
+    
+    return {
+      background: `linear-gradient(135deg, ${cardColor}, ${cardColor}dd)`
+    };
+  };
+  
+  const cardStyle = getCardDesign();
+
   return (
     <div
       className={`flip-card ${zigClass} ${flipped ? 'is-flipped' : ''}`}
@@ -313,50 +488,31 @@ export default function EventCard({ event, index = 0 }) {
     >
       <style>{CARD_CSS}</style>
 
-      {/* FRONT */}
+      {/* FRONT - Clean card image */}
       <div className="flip-face flip-front">
         <div className="full-image-wrapper">
           <img src={imageSrc} alt={event.title} />
-          <div className="card-info-overlay">
-            <h3>{event.title}</h3>
-            <p>{event.short}</p>
-          </div>
         </div>
       </div>
 
-      {/* BACK */}
+      {/* BACK - Same image with overlay */}
       <div className="flip-face flip-back">
-        <div className="flip-back-image-wrap" aria-hidden>
-          <img src={opImg} alt="OP card" />
+        <div className="full-image-wrapper">
+          <img src={imageSrc} alt={event.title} />
         </div>
-
-        <div className="back-overlay" onClick={(e) => e.stopPropagation()}>
-          <div className="back-title" style={{ color: 'white' }}>{event.title}</div>
-
-          <div className="back-actions" style={{ display: 'flex', gap: '12px' }}>
-            <button className="btn" onClick={(e) => navigateTo(`/events/${event.id}`, e)}>
-              Details
-            </button>
-
-            <button
-              className="btn primary"
-              onClick={(e) => navigateTo(`/register?event=${encodeURIComponent(event.id)}`, e)}
-              style={{ background: registerBg, border: registerBorder }}
-            >
-              Register
-            </button>
-
-            {/* {showPageBtn && ( */}
-              {/* // <button className="btn page" onClick={(e) => navigateTo(`/page`, e)> */}
-              {/* //   Page */}
-              {/* // </button> */}
-            {/* // )} */}
-          </div>
-
-          <div className="back-short" style={{ color: 'white' }}>{event.short}</div>
-          <div className="back-details" style={{ color: 'white' }} aria-live="polite">
-            {event.details}
-          </div>
+        
+        {/* Action buttons overlay */}
+        <div className="back-actions-overlay" onClick={(e) => e.stopPropagation()}>
+          <button className="btn" onClick={(e) => navigateTo(`/events/${event.id}`, e)}>
+            Details
+          </button>
+          <button
+            className="btn primary"
+            onClick={(e) => navigateTo(`/register?event=${encodeURIComponent(event.id)}`, e)}
+            style={{ background: registerBg, border: registerBorder }}
+          >
+            Register
+          </button>
         </div>
       </div>
     </div>

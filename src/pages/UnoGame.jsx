@@ -55,6 +55,7 @@ export default function UnoGame() {
   const [message, setMessage] = useState('');
   const [showRecommendations, setShowRecommendations] = useState(true);
   const [showRegistration, setShowRegistration] = useState(true);
+  const [pendingDraw, setPendingDraw] = useState({ player: null, count: 0 });
   const [formData, setFormData] = useState({
     name: '',
     class: '',
@@ -115,7 +116,7 @@ export default function UnoGame() {
     for (let i = 0; i < numPlayers; i++) {
       newPlayers.push({
         id: i,
-        name: i === 0 ? 'You' : `Player ${i + 1}`,
+        name: i === 0 ? formData.name || 'You' : `Player ${i + 1}`,
         hand: newDeck.splice(0, 7),
         score: 0
       });
@@ -138,25 +139,29 @@ export default function UnoGame() {
     setDirection(1);
     setGameStarted(true);
     setWinner(null);
+    setPendingDraw({ player: null, count: 0 });
     setMessage(`${newPlayers[0].name} starts!`);
   };
 
   // Draw card from deck
-  const drawCard = (playerIndex) => {
-    if (deck.length === 0) {
+  const drawCard = (playerIndex, count = 1) => {
+    if (deck.length < count) {
       // Reshuffle discard pile into deck
       const topCard = discardPile[discardPile.length - 1];
       const newDeck = shuffleDeck(discardPile.slice(0, -1));
       setDeck(newDeck);
       setDiscardPile([topCard]);
-      return;
     }
     
     const newPlayers = [...players];
-    const card = deck[0];
-    newPlayers[playerIndex].hand.push(card);
+    for (let i = 0; i < count; i++) {
+      if (deck.length > i) {
+        const card = deck[i];
+        newPlayers[playerIndex].hand.push(card);
+      }
+    }
     setPlayers(newPlayers);
-    setDeck(deck.slice(1));
+    setDeck(deck.slice(count));
   };
 
   // Check if card can be played
@@ -169,6 +174,13 @@ export default function UnoGame() {
   // Play a card
   const playCard = (playerIndex, cardIndex) => {
     if (playerIndex !== currentPlayer) return;
+    
+    // If player has pending draw, they must draw first
+    if (pendingDraw.player === playerIndex) {
+      const playerName = playerIndex === 0 ? (players[0]?.name || 'You') : players[playerIndex]?.name;
+      setMessage(`${playerName} must draw ${pendingDraw.count} cards first!`);
+      return;
+    }
     
     const card = players[playerIndex].hand[cardIndex];
     const topCard = discardPile[discardPile.length - 1];
@@ -199,26 +211,34 @@ export default function UnoGame() {
 
   // Handle special card effects
   const handleSpecialCard = (card) => {
-    let nextPlayer = currentPlayer;
-    
     if (card.value === 'draw2') {
       const targetPlayer = (currentPlayer + direction + numPlayers) % numPlayers;
-      drawCard(targetPlayer);
-      drawCard(targetPlayer);
-      nextPlayer = (targetPlayer + direction + numPlayers) % numPlayers;
-      setMessage(`${players[targetPlayer].name} draws 2 cards!`);
+      setPendingDraw({ player: targetPlayer, count: 2 });
+      setCurrentPlayer(targetPlayer);
+      setMessage(`${players[targetPlayer].name} must draw 2 cards!`);
     } else if (card.value === 'draw4') {
       const targetPlayer = (currentPlayer + direction + numPlayers) % numPlayers;
-      for (let i = 0; i < 4; i++) {
-        drawCard(targetPlayer);
-      }
-      nextPlayer = (targetPlayer + direction + numPlayers) % numPlayers;
-      setMessage(`${players[targetPlayer].name} draws 4 cards!`);
+      setPendingDraw({ player: targetPlayer, count: 4 });
+      setCurrentPlayer(targetPlayer);
+      setMessage(`${players[targetPlayer].name} must draw 4 cards!`);
     } else {
-      nextPlayer = (currentPlayer + direction + numPlayers) % numPlayers;
+      // Regular number card
+      const nextPlayer = (currentPlayer + direction + numPlayers) % numPlayers;
+      setCurrentPlayer(nextPlayer);
     }
+  };
+
+  // Handle mandatory drawing
+  const handleMandatoryDraw = () => {
+    if (pendingDraw.player === null) return;
     
+    drawCard(pendingDraw.player, pendingDraw.count);
+    setMessage(`${players[pendingDraw.player].name} drew ${pendingDraw.count} cards`);
+    
+    // Move to next player after drawing
+    const nextPlayer = (pendingDraw.player + direction + numPlayers) % numPlayers;
     setCurrentPlayer(nextPlayer);
+    setPendingDraw({ player: null, count: 0 });
   };
 
 
@@ -228,6 +248,12 @@ export default function UnoGame() {
     if (!gameStarted || currentPlayer === 0) return;
     
     const timer = setTimeout(() => {
+      // Check if current player has pending draw
+      if (pendingDraw.player === currentPlayer) {
+        handleMandatoryDraw();
+        return;
+      }
+      
       const player = players[currentPlayer];
       const topCard = discardPile[discardPile.length - 1];
       
@@ -238,20 +264,27 @@ export default function UnoGame() {
         playCard(currentPlayer, playableIndex);
       } else {
         // Draw card
-        drawCard(currentPlayer);
+        drawCard(currentPlayer, 1);
         setMessage(`${player.name} draws a card`);
         setCurrentPlayer((currentPlayer + direction + numPlayers) % numPlayers);
       }
     }, 1000);
     
     return () => clearTimeout(timer);
-  }, [currentPlayer, gameStarted]);
+  }, [currentPlayer, gameStarted, pendingDraw]);
 
   // Player draws card
   const handlePlayerDraw = () => {
     if (currentPlayer !== 0) return;
-    drawCard(0);
-    setMessage('You drew a card');
+    
+    // Check if player has pending mandatory draw
+    if (pendingDraw.player === 0) {
+      handleMandatoryDraw();
+      return;
+    }
+    
+    drawCard(0, 1);
+    setMessage(`${players[0]?.name || 'You'} drew a card`);
     setCurrentPlayer((currentPlayer + direction + numPlayers) % numPlayers);
   };
 
@@ -411,6 +444,11 @@ export default function UnoGame() {
               <div className="game-info">
             <div className="current-player">
               <strong>{players[currentPlayer]?.name}'s Turn</strong>
+              {pendingDraw.player === currentPlayer && (
+                <div className="pending-draw-indicator">
+                  Must draw {pendingDraw.count} cards!
+                </div>
+              )}
             </div>
             <div className="direction">
               Direction: {direction === 1 ? '↻ Clockwise' : '↺ Counter-clockwise'}
@@ -463,6 +501,11 @@ export default function UnoGame() {
                     </div>
                   </div>
                   <div className="deck-count">{deck.length}</div>
+                  {pendingDraw.player === 0 && (
+                    <div className="draw-instruction">
+                      Click to draw {pendingDraw.count} cards
+                    </div>
+                  )}
                 </div>
                 
                 <div className="discard-pile">
@@ -473,13 +516,13 @@ export default function UnoGame() {
 
             {/* Player hand */}
             <div className="player-hand">
-              <h3>Your Hand</h3>
+              <h3>{players[0]?.name || 'Your'} Hand</h3>
               <div className="hand-cards">
                 {players[0]?.hand.map((card, idx) => (
                   <div key={idx}>
                     {renderCard(
                       card, 
-                      canPlayCard(card, topCard) && currentPlayer === 0,
+                      canPlayCard(card, topCard) && currentPlayer === 0 && pendingDraw.player !== 0,
                       () => currentPlayer === 0 && playCard(0, idx)
                     )}
                   </div>

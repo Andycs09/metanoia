@@ -661,7 +661,7 @@ main:has(.unoverse-home) {
 
 .carousel-slide {
   flex: 0 0 auto;
-  width: 320px;
+  width: 240px;
   transition: all 0.3s ease;
   position: relative;
   z-index: 1;
@@ -887,7 +887,7 @@ main:has(.unoverse-home) {
   }
 
   .carousel-slide {
-    width: 280px;
+    width: 200px;
   }
 
   .carousel-slide.active {
@@ -933,7 +933,7 @@ main:has(.unoverse-home) {
   }
 
   .carousel-slide {
-    width: 250px;
+    width: 180px;
   }
 
   .carousel-slide.active {
