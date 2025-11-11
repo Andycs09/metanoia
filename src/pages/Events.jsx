@@ -17,6 +17,25 @@ export default function Events() {
 	// store shuffled events so order is different each load
 	const [eventsList] = useState(() => shuffleArray(events));
 
+	// Scroll to middle of page when component mounts
+	useEffect(() => {
+		const scrollToMiddle = () => {
+			const viewportHeight = window.innerHeight;
+			const documentHeight = document.documentElement.scrollHeight;
+			const middlePosition = (documentHeight - viewportHeight) / 2;
+			
+			// Small delay to ensure page is fully rendered
+			setTimeout(() => {
+				window.scrollTo({
+					top: middlePosition,
+					behavior: 'smooth'
+				});
+			}, 100);
+		};
+
+		scrollToMiddle();
+	}, []);
+
 	useEffect(() => {
 		console.log('🎴 Scatter animation useEffect triggered');
 		const prefersReduced = window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;

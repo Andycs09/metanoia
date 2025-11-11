@@ -11,7 +11,7 @@ import christLogoImg from '../assets/christ logo.png';
 import samagraLogoImg from '../assets/samagra logo .png';
 import unoLogoImg from '../assets/logo.png';
 import googleLogoImg from '../assets/google.png';
-import departmentLogoImg from '../assets/department.png';
+
 import audioFile from '../assets/yes.mp3';
 
 // Import UNO cards from images folder
@@ -28,7 +28,9 @@ export default function Home() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [audioPlaying, setAudioPlaying] = useState(false);
+  const [currentSlide, setCurrentSlide] = useState(0);
   const audioRef = useRef(null);
+  const carouselRef = useRef(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -64,6 +66,31 @@ export default function Home() {
       setAudioPlaying(!audioPlaying);
     }
   };
+
+  // Sequential cyclic carousel
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % events.length);
+    }, 3000); // Change slide every 3 seconds
+
+    return () => clearInterval(interval);
+  }, []);
+
+  // Smooth scroll effect for carousel
+  useEffect(() => {
+    if (carouselRef.current) {
+      const cardWidth = 320; // Fixed card width
+      const gap = 32; // 2rem gap
+      
+      // Calculate the offset to center the current card
+      const containerWidth = window.innerWidth;
+      const centerOffset = (containerWidth / 2) - (cardWidth / 2);
+      const slideOffset = currentSlide * (cardWidth + gap);
+      const totalOffset = slideOffset - centerOffset;
+      
+      carouselRef.current.style.transform = `translateX(-${Math.max(0, totalOffset)}px)`;
+    }
+  }, [currentSlide]);
 
   return (
     <div className="unoverse-home" style={{ backgroundImage: `url(${bgImage})` }}>
@@ -162,7 +189,7 @@ export default function Home() {
           </div>
 
           {/* Event Date */}
-          <p className="event-date">23-24 November 2025</p>
+          <p className="event-date">24th-25th November,2025 <br /> (Monday & Tuesday)</p>
 
           {/* CTA Buttons */}
           <div className="hero-cta">
@@ -176,13 +203,29 @@ export default function Home() {
       <section className="featured-events-section">
         <div className="section-container">
           <h2 className="section-title">Featured Events</h2>
-          <div className="events-grid">
-            {events.slice(0, 4).map(event => (
-              <EventCard key={event.id} event={event} />
-            ))}
+          <div className="carousel-container">
+            <div className="events-carousel" ref={carouselRef}>
+              {events.map((event, index) => (
+                <div 
+                  key={event.id} 
+                  className={`carousel-slide ${index === currentSlide ? 'active' : ''}`}
+                >
+                  <EventCard event={event} />
+                </div>
+              ))}
+            </div>
           </div>
-          <div className="view-all-container">
-            <Link to="/events" className="view-all-button">View All Events</Link>
+          
+          {/* Carousel Indicators */}
+          <div className="carousel-indicators">
+            {events.map((_, index) => (
+              <button
+                key={index}
+                className={`indicator ${index === currentSlide ? 'active' : ''}`}
+                onClick={() => setCurrentSlide(index)}
+                aria-label={`Go to slide ${index + 1}`}
+              />
+            ))}
           </div>
         </div>
       </section>
