@@ -22,7 +22,7 @@ import img2_4 from '../assets/img2/img (4).jpg';
 import img2_5 from '../assets/img2/img (5).jpg';
 import img2_6 from '../assets/img2/img (6).jpg';
 
-export default function EventCard({ event, index = 0 }) {
+export default function EventCard({ event, index = 0, disableZigZag = false }) {
   const [flipped, setFlipped] = useState(false);
   const navigate = useNavigate();
   const audioCtxRef = useRef(null);
@@ -30,7 +30,7 @@ export default function EventCard({ event, index = 0 }) {
   // CSS injected locally (safe if App.css isn't available)
   const CARD_CSS = `
     /* Top spacing from navbar + grid-friendly sizing */
-    :root { --card-top-gap: clamp(72px, 12vh, 160px); }
+    :root { --card-top-gap: clamp(40px, 6vh, 80px); }
     .flip-card {
       margin-block-start: var(--card-top-gap);
       display: inline-block;
@@ -46,17 +46,17 @@ export default function EventCard({ event, index = 0 }) {
 
     /* Zig-zag positioning - more pronounced */
     .flip-card.zig-left {
-      transform: translateY(-30px) !important;
+      transform: translateY(-15px) !important;
     }
     .flip-card.zig-right {
-      transform: translateY(30px) !important;
+      transform: translateY(15px) !important;
     }
     
     .flip-card.is-flipped.zig-left {
-      transform: translateY(-30px) !important;
+      transform: translateY(-15px) !important;
     }
     .flip-card.is-flipped.zig-right {
-      transform: translateY(30px) !important;
+      transform: translateY(15px) !important;
     }
 
     /* Flip mechanics */
@@ -349,21 +349,19 @@ export default function EventCard({ event, index = 0 }) {
       font-weight: 600;
     }
     
-    /* Button layout - positioned at very bottom where purple is marked */
+    /* Button layout - positioned vertically at bottom right */
     .flip-back .card-buttons {
       position: absolute;
-      bottom: 5px;
-      left: 50%;
-      transform: translateX(-50%);
+      bottom: 8px;
+      right: 8px;
       display: flex;
+      flex-direction: column;
       gap: 6px;
       z-index: 15;
-      width: 90%;
-      justify-content: center;
     }
     
     .flip-back .card-btn {
-      padding: 6px 14px;
+      padding: 8px 16px;
       font-size: 0.75rem;
       font-weight: 700;
       border-radius: 6px;
@@ -375,8 +373,7 @@ export default function EventCard({ event, index = 0 }) {
       pointer-events: auto;
       position: relative;
       overflow: hidden;
-      flex: 1;
-      max-width: 80px;
+      min-width: 85px;
       text-align: center;
     }
     
@@ -522,15 +519,15 @@ export default function EventCard({ event, index = 0 }) {
       }
       
       .flip-back .card-btn {
-        padding: 5px 10px;
+        padding: 6px 12px;
         font-size: 0.7rem;
-        max-width: 70px;
+        min-width: 75px;
       }
       
       .flip-back .card-buttons {
-        bottom: 4px;
+        bottom: 6px;
+        right: 6px;
         gap: 5px;
-        width: 92%;
       }
     }
     
@@ -545,15 +542,15 @@ export default function EventCard({ event, index = 0 }) {
       }
       
       .flip-back .card-btn {
-        padding: 4px 8px;
+        padding: 5px 10px;
         font-size: 0.65rem;
-        max-width: 60px;
+        min-width: 65px;
       }
       
       .flip-back .card-buttons {
-        bottom: 3px;
+        bottom: 5px;
+        right: 5px;
         gap: 4px;
-        width: 92%;
       }
     }
 
@@ -713,7 +710,7 @@ export default function EventCard({ event, index = 0 }) {
     navigate(path);
   };
 
-  const zigClass = index % 2 === 0 ? 'zig-left' : 'zig-right';
+  const zigClass = disableZigZag ? '' : (index % 2 === 0 ? 'zig-left' : 'zig-right');
 
   // UNO card colors based on index
   const cardColors = [

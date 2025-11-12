@@ -4,7 +4,7 @@ import axios from 'axios';
 
 Modal.setAppElement('#root');
 
-const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec'; // <--- replace
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxy_m675sauTDwM3v4V7eoXZBVP4B0DLC7H7IJW099nSpt1scDKdoW6EXiQceZItdMu/exechttps://script.google.com/macros/s/AKfycbxy_m675sauTDwM3v4V7eoXZBVP4B0DLC7H7IJW099nSpt1scDKdoW6EXiQceZItdMu/exec '; // <--- replace
 
 export default function RegisterModal({ isOpen, onRequestClose, eventId, eventTitle }) {
   const [participants, setParticipants] = useState([

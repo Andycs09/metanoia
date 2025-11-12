@@ -5,7 +5,7 @@ import events from '../data/events';
 // Import home page background theme
 import bgImage from '../assets/home page theme.png';
 
-const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec'; // <-- replace with your URL
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxy_m675sauTDwM3v4V7eoXZBVP4B0DLC7H7IJW099nSpt1scDKdoW6EXiQceZItdMu/exec';
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -873,14 +873,17 @@ export default function RegisterPage() {
     };
 
     try {
+      // Google Apps Script doesn't support CORS preflight, so we use a workaround
       const resp = await fetch(GOOGLE_SCRIPT_URL, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        mode: 'no-cors', // This bypasses CORS but we won't get response details
+        headers: { 'Content-Type': 'text/plain' }, // Changed to avoid preflight
         body: JSON.stringify(payload),
         signal: controller.signal
       });
       clearTimeout(timeoutId);
-      if (!resp.ok) throw new Error('Network response not OK');
+      
+      // With no-cors mode, we can't check response status, so we assume success
       setMessage({ type: 'success', text: 'Registration submitted — thank you!' });
 
       // success animation using GSAP if available

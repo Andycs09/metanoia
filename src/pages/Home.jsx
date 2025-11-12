@@ -198,7 +198,7 @@ export default function Home() {
                   key={event.id}
                   className={`carousel-slide ${index === currentSlide ? 'active' : ''}`}
                 >
-                  <EventCard event={event} index={index} />
+                  <EventCard event={event} index={index} disableZigZag={true} />
                 </div>
               ))}
             </div>
