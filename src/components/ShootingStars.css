@@ -13,65 +13,166 @@
 /* Individual Shooting Star */
 .shooting-star {
   position: absolute;
-  width: 3px;
-  height: 3px;
-  background: #ffffff;
+  width: 4px;
+  height: 4px;
+  background: radial-gradient(circle, #ffffff 0%, rgba(255, 255, 255, 0.8) 50%, transparent 100%);
   border-radius: 50%;
-  box-shadow: 0 0 15px 3px rgba(255, 255, 255, 0.9),
-              0 0 25px 5px rgba(135, 206, 235, 0.6);
-  animation: shoot 3s linear infinite;
+  box-shadow:
+    0 0 8px 2px rgba(255, 255, 255, 1),
+    0 0 15px 4px rgba(135, 206, 235, 0.8),
+    0 0 25px 6px rgba(0, 212, 255, 0.5),
+    0 0 35px 8px rgba(0, 150, 255, 0.3);
+  animation: shoot 5s ease-out infinite;
   opacity: 0;
+  filter: brightness(1.2);
 }
 
-/* Shooting Star Animation */
+/* Shooting Star Animation - Slower and smoother */
 @keyframes shoot {
   0% {
-    transform: translate(0, 0) rotate(-45deg);
+    transform: translate(0, 0) rotate(-45deg) scale(1);
+    opacity: 0;
+  }
+
+  5% {
     opacity: 1;
   }
-  70% {
-    opacity: 1;
+
+  80% {
+    opacity: 0.8;
   }
+
   100% {
-    transform: translate(-300px, 300px) rotate(-45deg);
+    transform: translate(-400px, 400px) rotate(-45deg) scale(0.5);
     opacity: 0;
   }
 }
 
-/* Shooting Star Trail */
+/* Shooting Star Trail - Enhanced */
 .shooting-star::before {
   content: '';
   position: absolute;
-  top: 0;
-  right: 0;
-  width: 80px;
-  height: 2px;
-  background: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.9) 50%,
-    rgba(135, 206, 235, 0.7) 100%
-  );
-  transform: translateX(2px) rotate(-45deg);
-  transform-origin: right;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  top: 50%;
+  right: 50%;
+  width: 120px;
+  height: 3px;
+  background: linear-gradient(90deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.3) 20%,
+      rgba(255, 255, 255, 0.9) 50%,
+      rgba(135, 206, 235, 0.8) 70%,
+      rgba(0, 212, 255, 0.6) 85%,
+      rgba(0, 150, 255, 0.3) 100%);
+  transform: translateY(-50%) rotate(-45deg);
+  transform-origin: right center;
+  box-shadow:
+    0 0 8px rgba(255, 255, 255, 0.6),
+    0 0 15px rgba(135, 206, 235, 0.4),
+    0 0 25px rgba(0, 212, 255, 0.2);
+  border-radius: 50%;
+  filter: blur(0.5px);
+}
+
+/* Add a subtle glow effect */
+.shooting-star::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 12px;
+  height: 12px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.4) 0%, transparent 70%);
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  animation: glow 2s ease-in-out infinite;
+}
+
+@keyframes glow {
+
+  0%,
+  100% {
+    opacity: 0.6;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.3);
+  }
 }
 
 /* Responsive: Reduce shooting stars on mobile */
 @media (max-width: 768px) {
+  .shooting-star {
+    width: 3px;
+    height: 3px;
+  }
+
   .shooting-star::before {
-    width: 35px;
+    width: 70px;
+    height: 2px;
+  }
+
+  .shooting-star::after {
+    width: 10px;
+    height: 10px;
+  }
+
+  @keyframes shoot {
+    0% {
+      transform: translate(0, 0) rotate(-45deg) scale(1);
+      opacity: 0;
+    }
+
+    5% {
+      opacity: 1;
+    }
+
+    80% {
+      opacity: 0.8;
+    }
+
+    100% {
+      transform: translate(-300px, 300px) rotate(-45deg) scale(0.5);
+      opacity: 0;
+    }
   }
 }
 
 @media (max-width: 480px) {
   .shooting-star {
-    width: 1.5px;
-    height: 1.5px;
+    width: 2.5px;
+    height: 2.5px;
   }
-  
+
   .shooting-star::before {
-    width: 25px;
+    width: 50px;
+    height: 2px;
+  }
+
+  .shooting-star::after {
+    width: 8px;
+    height: 8px;
+  }
+
+  @keyframes shoot {
+    0% {
+      transform: translate(0, 0) rotate(-45deg) scale(1);
+      opacity: 0;
+    }
+
+    5% {
+      opacity: 1;
+    }
+
+    80% {
+      opacity: 0.8;
+    }
+
+    100% {
+      transform: translate(-250px, 250px) rotate(-45deg) scale(0.5);
+      opacity: 0;
+    }
   }
 }
 

@@ -14,18 +14,22 @@ export default function ShootingStars() {
       star.className = 'shooting-star';
       
       // Random starting position (top and right areas of screen)
-      const startX = 20 + Math.random() * 80;
-      const startY = Math.random() * 40;
+      const startX = 30 + Math.random() * 70;
+      const startY = Math.random() * 30;
       
       star.style.left = `${startX}%`;
       star.style.top = `${startY}%`;
       
-      // Random animation delay and duration
-      const delay = Math.random() * 3;
-      const duration = 2.5 + Math.random() * 1.5;
+      // Slower animation with more variation
+      const delay = Math.random() * 4;
+      const duration = 4 + Math.random() * 3; // Slower: 4-7 seconds
       
       star.style.animationDelay = `${delay}s`;
       star.style.animationDuration = `${duration}s`;
+      
+      // Random size variation for more natural look
+      const size = 0.8 + Math.random() * 0.4; // 0.8x to 1.2x
+      star.style.transform = `scale(${size})`;
       
       container.appendChild(star);
       
@@ -37,15 +41,15 @@ export default function ShootingStars() {
       }, (delay + duration) * 1000);
     };
 
-    // Create initial batch of stars
-    for (let i = 0; i < 12; i++) {
-      setTimeout(() => createShootingStar(), i * 500);
+    // Create initial batch of stars (fewer for slower effect)
+    for (let i = 0; i < 8; i++) {
+      setTimeout(() => createShootingStar(), i * 800);
     }
 
-    // Create new stars periodically
+    // Create new stars periodically (less frequent)
     const interval = setInterval(() => {
       createShootingStar();
-    }, 2000);
+    }, 3500);
 
     return () => {
       clearInterval(interval);
