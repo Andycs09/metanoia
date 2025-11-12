@@ -500,7 +500,7 @@ export default function EventCard({ event, index = 0 }) {
   const img2Images = [img2_1, img2_2, img2_3, img2_4, img2_5, img2_6];
   
   // Get image based on card index (cycles through available images)
-  // Replace images for cards 4 and 7 (purple marked cards) with a.jpg and b.jpg
+  // Replace images for cards 4 and 7 with a.jpg and b.jpg
   let frontImageSrc;
   if (index === 4) {
     frontImageSrc = aImage;
