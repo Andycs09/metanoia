@@ -11,8 +11,8 @@ import uno6 from '../assets/img/uno (6).png';
 import uno7 from '../assets/img/uno (7).png';
 
 // Import special replacement images
-import aImage from '../assets/img/a.png';
-import bImage from '../assets/img/b.png';
+import aImage from '../assets/img/a.jpg';
+import bImage from '../assets/img/b.jpg';
 
 // Import all UNO card images from assets/img2 folder (back side when flipped)
 import img2_1 from '../assets/img2/img (1).jpg';
@@ -27,44 +27,6 @@ export default function EventCard({ event, index = 0 }) {
   const [showPageBtn, setShowPageBtn] = useState(false);
   const navigate = useNavigate();
   const audioCtxRef = useRef(null);
-
-  // Event data with titles and descriptions
-  const eventData = [
-    {
-      title: "UNO Reverse Alibi",
-      description: "Solve the case… but only after flipping the clues."
-    },
-    {
-      title: "Wild Card Auction", 
-      description: "Pick your players, flip your luck"
-    },
-    {
-      title: "UNO Frame: Capture the Colors",
-      description: "See the world in four colors — Red, Blue, Green, Yellow."
-    },
-    {
-      title: "Draw 4 Arena (Online Gaming)",
-      description: "Play hard. Flip harder"
-    },
-    {
-      title: "Skip the Obvious",
-      description: "Follow the clues… unless the card tells you to skip."
-    },
-    {
-      title: "UNO Reverse Alibi (Murder Mystery)",
-      description: "Solve the case… but only after flipping the clues"
-    },
-    {
-      title: "Logic Reverse: The Brain Battle",
-      description: "Outsmart. Outthink. UNO-reverse your opponent."
-    },
-    {
-      title: "Color Chaos Quiz",
-      description: "Guess. Climb. But beware… one snake can reverse it all"
-    }
-  ];
-
-  const currentEventData = eventData[index % eventData.length];
 
   // CSS injected locally (safe if App.css isn't available)
   const CARD_CSS = `
@@ -492,6 +454,44 @@ export default function EventCard({ event, index = 0 }) {
       box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     }
   `;
+
+  // Event data with titles and descriptions
+  const eventData = [
+    {
+      title: "UNO Reverse Alibi",
+      description: "Solve the case… but only after flipping the clues."
+    },
+    {
+      title: "Wild Card Auction", 
+      description: "Pick your players, flip your luck"
+    },
+    {
+      title: "UNO Frame: Capture the Colors",
+      description: "See the world in four colors — Red, Blue, Green, Yellow."
+    },
+    {
+      title: "Draw 4 Arena (Online Gaming)",
+      description: "Play hard. Flip harder"
+    },
+    {
+      title: "Skip the Obvious",
+      description: "Follow the clues… unless the card tells you to skip."
+    },
+    {
+      title: "UNO Reverse Alibi (Murder Mystery)",
+      description: "Solve the case… but only after flipping the clues"
+    },
+    {
+      title: "Logic Reverse: The Brain Battle",
+      description: "Outsmart. Outthink. UNO-reverse your opponent."
+    },
+    {
+      title: "Color Chaos Quiz",
+      description: "Guess. Climb. But beware… one snake can reverse it all"
+    }
+  ];
+
+  const currentEventData = eventData[index % eventData.length];
 
   // Array of imported UNO card images for front side
   const unoImages = [uno1, uno2, uno3, uno4, uno5, uno6, uno7];
