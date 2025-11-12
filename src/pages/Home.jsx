@@ -32,6 +32,9 @@ export default function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const audioRef = useRef(null);
   const carouselRef = useRef(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -92,6 +95,33 @@ export default function Home() {
       carouselRef.current.style.transform = `translateX(-${Math.max(0, totalOffset)}px)`;
     }
   }, [currentSlide]);
+
+  // Drag/Swipe handlers
+  const handleMouseDown = (e) => {
+    setIsDragging(true);
+    setStartX(e.pageX || e.touches?.[0]?.pageX);
+  };
+
+  const handleMouseMove = (e) => {
+    if (!isDragging) return;
+    e.preventDefault();
+    const x = e.pageX || e.touches?.[0]?.pageX;
+    const walk = (startX - x) * 2;
+    
+    if (Math.abs(walk) > 50) {
+      if (walk > 0 && currentSlide < events.length - 1) {
+        setCurrentSlide(currentSlide + 1);
+        setIsDragging(false);
+      } else if (walk < 0 && currentSlide > 0) {
+        setCurrentSlide(currentSlide - 1);
+        setIsDragging(false);
+      }
+    }
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
 
   return (
     <div className="unoverse-home" style={{ backgroundImage: `url(${bgImage})` }}>
@@ -192,7 +222,17 @@ export default function Home() {
       <section className="featured-events-section">
         <div className="section-container">
           <h2 className="section-title">Featured Events</h2>
-          <div className="carousel-container">
+          <div 
+            className="carousel-container"
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}
+            onMouseLeave={handleMouseUp}
+            onTouchStart={handleMouseDown}
+            onTouchMove={handleMouseMove}
+            onTouchEnd={handleMouseUp}
+            style={{ cursor: isDragging ? 'grabbing' : 'grab' }}
+          >
             <div className="events-carousel" ref={carouselRef}>
               {events.map((event, index) => (
                 <div

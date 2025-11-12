@@ -19,7 +19,7 @@ export default function Schedule(){
                 <tr>
                   <th>Event</th>
                   <th>Time</th>
-                  <th>Class</th>
+                  <th>Venue</th>
                 </tr>
               </thead>
               <tbody>

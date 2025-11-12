@@ -515,19 +515,36 @@ const REGISTER_STYLE = `
   /* Mobile and responsive design */
   @media (max-width: 768px) {
     .register-header {
-      top: 70px;
+      top: 90px;
+      opacity: 1 !important;
+      transform: translateX(-50%) translateY(0) !important;
+      pointer-events: auto !important;
+    }
+    
+    .register-header.hidden {
+      opacity: 1 !important;
+      transform: translateX(-50%) translateY(0) !important;
+      pointer-events: auto !important;
     }
     
     .register-header h2 {
-      font-size: 1.2rem;
+      font-size: 1.5rem;
       letter-spacing: 1px;
-      padding: 0 1rem;
+      padding: 0.5rem 1rem;
+      background: linear-gradient(45deg, #1a237e, #ffffff, #9c27b0, #e91e63, #1a237e);
+      background-size: 400% 400%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: gradientShift 3s ease-in-out infinite;
+      display: block;
+      width: 100%;
     }
     
     .register-card {
       width: 95%;
       padding: 1rem;
-      margin-top: 5rem;
+      margin-top: 7rem;
       max-height: calc(100vh - 200px);
       border-radius: 15px;
     }
@@ -592,18 +609,30 @@ const REGISTER_STYLE = `
     }
     
     .register-header {
-      top: 60px;
+      top: 80px;
+      opacity: 1 !important;
+      transform: translateX(-50%) translateY(0) !important;
+      pointer-events: auto !important;
+    }
+    
+    .register-header.hidden {
+      opacity: 1 !important;
+      transform: translateX(-50%) translateY(0) !important;
+      pointer-events: auto !important;
     }
     
     .register-header h2 {
-      font-size: 1rem;
+      font-size: 1.3rem;
       letter-spacing: 0.5px;
+      padding: 0.5rem 0.75rem;
+      display: block;
+      width: 100%;
     }
     
     .register-card {
       width: 98%;
       padding: 0.75rem;
-      margin-top: 4rem;
+      margin-top: 6rem;
       max-height: calc(100vh - 180px);
     }
     
@@ -644,14 +673,30 @@ const REGISTER_STYLE = `
   }
   
   @media (max-width: 360px) {
+    .register-header {
+      top: 75px;
+      opacity: 1 !important;
+      transform: translateX(-50%) translateY(0) !important;
+      pointer-events: auto !important;
+    }
+    
+    .register-header.hidden {
+      opacity: 1 !important;
+      transform: translateX(-50%) translateY(0) !important;
+      pointer-events: auto !important;
+    }
+    
     .register-header h2 {
-      font-size: 0.9rem;
+      font-size: 1.1rem;
+      padding: 0.5rem;
+      display: block;
+      width: 100%;
     }
     
     .register-card {
       padding: 0.5rem;
       border-radius: 10px;
-      margin-top: 3.5rem;
+      margin-top: 5.5rem;
     }
     
     .participant-fieldset {

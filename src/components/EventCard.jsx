@@ -565,7 +565,7 @@ export default function EventCard({ event, index = 0, disableZigZag = false }) {
     .full-image-wrapper img {
       width: 100%; 
       height: 100%; 
-      object-fit: cover; 
+      object-fit: contain; 
       display: block;
       border: none;
       border-radius: 14px;
