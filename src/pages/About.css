@@ -471,9 +471,24 @@
 }
 
 /* Responsive Design */
+@media (max-width: 1024px) {
+    .about-section {
+        padding: 4rem 1.5rem;
+    }
+
+    .section-container {
+        padding: 2.5rem;
+    }
+
+    .faculty-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2.5rem;
+    }
+}
+
 @media (max-width: 768px) {
     .about-page {
-        padding-top: 60px;
+        padding-top: 120px;
     }
 
     .about-hero {
@@ -490,15 +505,32 @@
     }
 
     .about-section {
-        padding: 3rem 1.5rem;
+        padding: 2.5rem 1rem;
+    }
+
+    .section-container {
+        padding: 2rem 1.5rem;
+        border-radius: 15px;
     }
 
     .section-heading {
-        font-size: 1.8rem;
+        font-size: 1.6rem;
+        margin-bottom: 2rem;
+        letter-spacing: 1px;
+    }
+
+    .section-heading::after {
+        width: 80px;
+        height: 3px;
     }
 
     .section-content {
-        font-size: 1rem;
+        font-size: 0.95rem;
+        line-height: 1.7;
+    }
+
+    .section-content p {
+        margin-bottom: 1.2rem;
     }
 
     .faculty-grid {
@@ -506,12 +538,27 @@
         gap: 2rem;
     }
 
+    .faculty-card {
+        padding: 1.5rem;
+    }
+
+    .faculty-photo {
+        width: 130px;
+        height: 130px;
+    }
+
     .vision-points {
         grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .vision-point {
+        padding: 1.5rem;
     }
 
     .cta-section {
         padding: 2rem 1.5rem;
+        margin-top: 3rem;
     }
 
     .cta-section h3 {
@@ -527,26 +574,152 @@
 }
 
 @media (max-width: 480px) {
+    .about-page {
+        padding-top: 110px;
+    }
+
     .hero-title {
-        font-size: 1.8rem;
-        letter-spacing: 2px;
+        font-size: 1.6rem;
+        letter-spacing: 1.5px;
+    }
+
+    .hero-subtitle {
+        font-size: 0.9rem;
+    }
+
+    .about-section {
+        padding: 2rem 0.8rem;
+    }
+
+    .section-container {
+        padding: 1.5rem 1rem;
+        border-radius: 12px;
     }
 
     .section-heading {
-        font-size: 1.5rem;
+        font-size: 1.3rem;
+        margin-bottom: 1.5rem;
+        letter-spacing: 0.5px;
+    }
+
+    .section-heading::after {
+        width: 60px;
+        height: 2px;
+        margin-top: 0.8rem;
+    }
+
+    .section-content {
+        font-size: 0.9rem;
+        line-height: 1.6;
+    }
+
+    .section-content p {
+        margin-bottom: 1rem;
+    }
+
+    .faculty-grid {
+        gap: 1.5rem;
+    }
+
+    .faculty-card {
+        padding: 1.2rem;
+        border-radius: 15px;
     }
 
     .faculty-photo {
-        width: 120px;
-        height: 120px;
+        width: 110px;
+        height: 110px;
+        margin-bottom: 1rem;
     }
 
     .faculty-name {
+        font-size: 1.1rem;
+    }
+
+    .faculty-designation {
+        font-size: 0.9rem;
+    }
+
+    .linkedin-link {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.85rem;
+        margin-top: 0.8rem;
+    }
+
+    .linkedin-link svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    .vision-point {
+        padding: 1.2rem;
+    }
+
+    .vision-icon {
+        font-size: 2.5rem;
+    }
+
+    .vision-point h3 {
+        font-size: 1.1rem;
+    }
+
+    .vision-point p {
+        font-size: 0.9rem;
+    }
+
+    .cta-section {
+        padding: 1.5rem 1rem;
+        margin-top: 2rem;
+        border-radius: 15px;
+    }
+
+    .cta-section h3 {
         font-size: 1.2rem;
     }
 
     .cta-button {
-        padding: 0.8rem 2rem;
+        padding: 0.7rem 1.8rem;
+        font-size: 0.9rem;
+        margin-top: 1rem;
+    }
+
+    .back-to-top {
+        width: 40px;
+        height: 40px;
+        bottom: 1rem;
+        right: 1rem;
+    }
+
+    .back-to-top svg {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+@media (max-width: 360px) {
+    .about-page {
+        padding-top: 100px;
+    }
+
+    .section-heading {
+        font-size: 1.1rem;
+    }
+
+    .section-content {
+        font-size: 0.85rem;
+    }
+
+    .faculty-photo {
+        width: 100px;
+        height: 100px;
+    }
+
+    .faculty-name {
         font-size: 1rem;
+    }
+
+    .cta-button {
+        padding: 0.6rem 1.5rem;
+        font-size: 0.85rem;
     }
 }

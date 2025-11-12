@@ -220,7 +220,7 @@ main:has(.unoverse-home) {
   align-items: center;
   justify-content: center;
   overflow: visible;
-  padding: 8rem 2rem 4rem;
+  padding: 8rem 1rem 4rem;
   background: transparent;
   z-index: 2;
 }
@@ -240,16 +240,16 @@ main:has(.unoverse-home) {
   position: absolute;
   width: 100px;
   height: auto;
-  opacity: 0.7;
+  opacity: 0.95;
   animation: float 6s ease-in-out infinite;
-  filter: drop-shadow(0 0 15px rgba(255, 190, 11, 0.4));
+  filter: brightness(1.3) drop-shadow(0 0 20px rgba(255, 190, 11, 0.8)) drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
   transition: all 0.3s ease;
 }
 
 .floating-card:hover {
   opacity: 1;
-  transform: scale(1.1);
-  filter: drop-shadow(0 0 25px rgba(255, 190, 11, 0.8));
+  transform: scale(1.15);
+  filter: brightness(1.5) drop-shadow(0 0 30px rgba(255, 190, 11, 1)) drop-shadow(0 0 15px rgba(255, 255, 255, 0.8));
 }
 
 .card-1 {
@@ -313,20 +313,31 @@ main:has(.unoverse-home) {
   position: relative;
   z-index: 3;
   text-align: center;
-  max-width: 1200px;
+  max-width: 90%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
 }
 
 /* Department Title at Top */
 .department-title {
   font-family: 'Orbitron', sans-serif;
-  font-size: clamp(1.2rem, 3vw, 2.5rem);
+  font-size: clamp(0.85rem, 4vw, 2.5rem);
   font-weight: 900;
   color: #ffbe0b;
   text-transform: uppercase;
-  letter-spacing: 3px;
-  margin: 0 0 1.5rem 0;
+  letter-spacing: clamp(1px, 0.5vw, 3px);
+  margin: 0 auto 1.5rem auto;
   text-align: center;
   text-shadow: 0 0 20px rgba(255, 190, 11, 0.6), 0 4px 10px rgba(0, 0, 0, 0.8);
+  width: 100%;
+  max-width: 100%;
+  display: block;
+  padding: 0 0.5rem;
+  line-height: 1.2;
 }
 
 /* CS Logo Container */
@@ -346,37 +357,50 @@ main:has(.unoverse-home) {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
-  margin-bottom: 2rem;
+  margin-bottom: 0.01rem;
+  width: 100%;
 }
 
 .collab-logos-horizontal {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1.5rem;
+  gap: clamp(0.3rem, 1.5vw, 0.8rem);
+  width: 100%;
+  flex-wrap: nowrap;
 }
 
 .samagra-logo {
-  height: 80px;
+  height: clamp(60px, 12vw, 100px);
   width: auto;
   object-fit: contain;
   filter: drop-shadow(0 0 15px rgba(0, 212, 255, 0.4));
+  display: block;
+  margin: 0 auto;
+  flex-shrink: 0;
 }
 
 .google-logo {
-  height: 120px;
+  height: clamp(90px, 18vw, 150px);
+  flex-shrink: 0;
   width: auto;
   object-fit: contain;
   filter: drop-shadow(0 0 15px rgba(0, 212, 255, 0.4));
+  display: block;
+  margin: 0 auto;
 }
 
 .collab-x {
-  font-size: 2.5rem;
+  font-size: clamp(1.5rem, 5vw, 2.5rem);
   font-weight: 700;
   color: var(--primary-color);
   text-shadow: 0 0 15px rgba(0, 212, 255, 0.6);
   animation: pulse 2s ease-in-out infinite;
+  display: block;
+  text-align: center;
+  flex-shrink: 0;
 }
 
 .collab-subtitle {
@@ -403,6 +427,10 @@ main:has(.unoverse-home) {
 
 .uno-logo-container {
   margin: 2rem 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .uno-logo {
@@ -417,7 +445,7 @@ main:has(.unoverse-home) {
   font-family: 'Orbitron', sans-serif;
   font-size: 1.8rem;
   font-weight: 700;
-  margin: 1.5rem 0;
+  margin: 1.5rem auto;
   text-align: center;
   letter-spacing: 2px;
   background: linear-gradient(
@@ -437,6 +465,8 @@ main:has(.unoverse-home) {
   animation: gradientShift 3s ease-in-out infinite;
   text-shadow: 0 0 30px rgba(135, 206, 235, 0.5);
   filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.3));
+  width: 100%;
+  display: block;
 }
 
 @keyframes gradientShift {
@@ -488,7 +518,9 @@ main:has(.unoverse-home) {
   display: flex;
   gap: 1.5rem;
   justify-content: center;
+  align-items: center;
   flex-wrap: wrap;
+  width: 100%;
 }
 
 .cta-button {
@@ -734,132 +766,154 @@ main:has(.unoverse-home) {
 /* ========== RESPONSIVE ========== */
 /* Tablet and Mobile Responsive */
 @media (max-width: 768px) {
-  /* Navbar */
-  .mobile-menu-toggle {
-    display: flex;
-  }
-
-  .navbar-links {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    background: rgba(10, 14, 39, 0.98);
-    backdrop-filter: blur(40px);
-    -webkit-backdrop-filter: blur(40px);
-    padding: 1.5rem;
-    gap: 1rem;
-    transform: translateY(-100%);
-    opacity: 0;
-    pointer-events: none;
-    transition: all 0.3s ease;
-  }
-
-  .navbar-links.open {
-    transform: translateY(0);
-    opacity: 1;
-    pointer-events: all;
-  }
-
-  .navbar-links li {
-    flex: 0 0 calc(50% - 0.5rem);
-    max-width: 200px;
-  }
-
-  .navbar-links li a {
+  /* Navbar - Keep visible but adjust */
+  .unoverse-navbar {
     display: block;
-    padding: 1.2rem 1.5rem;
-    background: rgba(0, 212, 255, 0.1);
-    border: 2px solid var(--primary-color);
-    border-radius: 10px;
-    text-align: center;
-    font-size: 1rem;
-    font-weight: 700;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(0, 212, 255, 0.2);
+    padding: 0.5rem 1rem;
   }
 
-  .navbar-links li a:hover,
-  .navbar-links li a:active {
-    background: rgba(0, 212, 255, 0.2);
-    transform: scale(1.05);
-    box-shadow: 0 6px 20px rgba(0, 212, 255, 0.4);
+  .navbar-container {
+    gap: 1rem;
   }
 
-  .navbar-links li a::after {
-    display: none;
-  }
-
-  .navbar-right-section img {
-    display: none;
-  }
-
-  .audio-toggle-btn {
-    width: 40px;
+  .navbar-logo img {
     height: 40px;
   }
 
+  .mobile-menu-toggle {
+    display: none;
+  }
+
+  .navbar-links {
+    display: none;
+  }
+
+  .navbar-right-section {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .navbar-right-section img {
+    height: 40px;
+  }
+
+  .audio-toggle-btn {
+    width: 35px;
+    height: 35px;
+  }
+
   .audio-toggle-btn svg {
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
   }
 
   /* Hero Section */
   .hero-section {
-    padding: 6rem 1.5rem 3rem;
+    padding: 7rem 0.5rem 3rem;
     min-height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .hero-content {
-    max-width: 100%;
+    max-width: 95%;
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0;
+    margin: 0 auto;
   }
 
   .department-title {
-    font-size: 1.2rem;
-    letter-spacing: 2px;
+    font-size: clamp(0.9rem, 3.5vw, 1.2rem);
+    letter-spacing: 1.5px;
+    text-align: center;
+    width: 100%;
+    margin: 0 auto 1.2rem auto;
+    padding: 0;
+    line-height: 1.3;
   }
 
   .partner-logos {
     gap: 1.5rem;
     flex-direction: column;
+    align-items: center;
   }
 
   .partner-logo {
     height: 60px;
   }
 
+  .collab-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 0 auto;
+  }
+
   .collab-logos-horizontal {
-    gap: 1rem;
-    flex-wrap: wrap;
+    gap: clamp(0.3rem, 2vw, 0.6rem);
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 0 auto;
   }
 
   .samagra-logo {
-    height: 60px;
+    height: clamp(70px, 14vw, 100px);
+    margin: 0;
+    display: block;
+    flex-shrink: 0;
   }
 
   .google-logo {
-    height: 90px;
+    height: clamp(105px, 21vw, 150px);
+    margin: 0;
+    display: block;
+    flex-shrink: 0;
   }
 
   .collab-x {
-    font-size: 2rem;
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    flex-shrink: 0;
+  }
+
+  .uno-logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 1.5rem auto;
   }
 
   .uno-logo {
-    height: 140px;
+    height: clamp(120px, 20vw, 160px);
+    margin: 0 auto;
   }
 
   .event-date {
-    font-size: 1.4rem;
+    font-size: clamp(1.1rem, 3.5vw, 1.4rem);
+    text-align: center;
+    width: 100%;
+    margin: 1.2rem auto;
+    padding: 0 0.5rem;
+    line-height: 1.4;
   }
 
   .hero-cta {
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     gap: 1rem;
+    width: 100%;
+    margin: 0 auto;
   }
 
   .cta-button {
@@ -867,6 +921,9 @@ main:has(.unoverse-home) {
     max-width: 300px;
     padding: 0.9rem 2rem;
     font-size: 0.95rem;
+    text-align: center;
+    margin: 0 auto;
+    display: block;
   }
 
   /* Floating Cards */
@@ -927,70 +984,137 @@ main:has(.unoverse-home) {
 @media (max-width: 480px) {
   /* Navbar */
   .unoverse-navbar {
-    padding: 0.4rem 1rem;
+    display: block;
+    padding: 0.4rem 0.8rem;
   }
 
   .navbar-logo img {
-    height: 40px;
+    height: 35px;
+  }
+
+  .navbar-right-section img {
+    height: 35px;
   }
 
   .audio-toggle-btn {
-    width: 35px;
-    height: 35px;
+    width: 32px;
+    height: 32px;
+  }
+
+  .audio-toggle-btn svg {
+    width: 16px;
+    height: 16px;
   }
 
   /* Hero Section */
   .hero-section {
-    padding: 5rem 1rem 2rem;
+    padding: 6rem 0.8rem 2rem;
     min-height: 85vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 0.8rem;
   }
 
   .department-title {
     font-size: 1rem;
     letter-spacing: 1px;
+    text-align: center;
+    width: 100%;
+    margin: 0 auto 1.2rem auto;
+    padding: 0 0.5rem;
   }
 
   .partner-logos {
     gap: 1rem;
+    flex-direction: column;
+    align-items: center;
   }
 
   .partner-logo,
   .samagra-logo {
-    height: 45px;
+    height: 80px;
+    margin: 0 auto;
+    display: block;
   }
 
   .google-logo {
-    height: 70px;
+    height: 120px;
+    margin: 0 auto;
+    display: block;
+  }
+
+  .collab-section {
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .collab-logos-horizontal {
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 0 auto;
   }
 
   .collab-x {
     font-size: 1.5rem;
   }
 
+  .uno-logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 1.2rem auto;
+  }
+
   .uno-logo {
     height: 100px;
+    margin: 0 auto;
   }
 
   .event-date {
     font-size: 1.2rem;
+    text-align: center;
+    width: 100%;
+    margin: 1.2rem auto;
+    padding: 0 0.5rem;
   }
 
   .hero-title {
     font-size: 2rem;
+    text-align: center;
   }
 
   .hero-tagline {
     font-size: 1rem;
+    text-align: center;
   }
 
-  .partner-logos {
-    flex-direction: column;
-    gap: 1rem;
+  .hero-cta {
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 0 auto;
   }
 
   .cta-button {
     padding: 0.8rem 1.5rem;
     font-size: 0.9rem;
+    text-align: center;
+    margin: 0 auto;
+    display: block;
   }
 
   /* Floating Cards */
@@ -1042,74 +1166,178 @@ main:has(.unoverse-home) {
 
 /* Extra Small Devices */
 @media (max-width: 360px) {
+  .unoverse-navbar {
+    display: block;
+    padding: 0.3rem 0.5rem;
+  }
+
   .navbar-logo img {
-    height: 35px;
+    height: 30px;
+  }
+
+  .navbar-right-section img {
+    height: 30px;
+  }
+
+  .audio-toggle-btn {
+    width: 28px;
+    height: 28px;
+  }
+
+  .audio-toggle-btn svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .hero-section {
+    padding: 5.5rem 0.5rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 0.5rem;
   }
 
   .department-title {
     font-size: 0.85rem;
+    letter-spacing: 0.5px;
+    text-align: center;
+    width: 100%;
+    margin: 0 auto 1rem auto;
+    padding: 0 0.3rem;
   }
 
   .partner-logo,
   .samagra-logo {
-    height: 40px;
+    height: 60px;
+    margin: 0 auto;
+    display: block;
   }
 
   .google-logo {
-    height: 60px;
+    height: 90px;
+    margin: 0 auto;
+    display: block;
+  }
+
+  .collab-section {
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .collab-logos-horizontal {
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .collab-x {
+    font-size: 1.2rem;
+  }
+
+  .uno-logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 1rem auto;
   }
 
   .uno-logo {
-    height: 80px;
+    height: 200px;
+    margin: 0 auto;
   }
 
   .event-date {
-    font-size: 1rem;
+    font-size: 0.95rem;
+    letter-spacing: 1px;
+    text-align: center;
+    width: 100%;
+    margin: 1rem auto;
+    padding: 0 0.3rem;
+  }
+
+  .hero-cta {
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 0 auto;
   }
 
   .cta-button {
-    padding: 0.7rem 1.2rem;
-    font-size: 0.85rem;
-  }
-
-  .carousel-slide {
-    width: 240px;
+    padding: 0.65rem 1rem;
+    font-size: 0.8rem;
+    text-align: center;
+    margin: 0 auto;
+    display: block;
   }
 
   .section-title {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
   }
 
   .carousel-slide {
-    width: 180px;
+    width: 170px;
   }
 
   .carousel-slide.active {
     transform: scale(1);
   }
 
-
-
   .events-carousel {
-    gap: 1rem;
+    gap: 0.8rem;
     padding: 0.5rem 0;
   }
 
   .carousel-container {
     padding: 0.5rem 0;
+    margin-top: -2rem;
   }
 
   .featured-events-section {
     margin-top: -1.5rem;
+    padding: 0 0 1.5rem 0;
+  }
+
+  .section-container {
+    padding: 1rem 0.5rem;
   }
 
   .carousel-indicators {
     gap: 0.3rem;
+    margin-top: 0.8rem;
   }
 
   .indicator {
-    width: 10px;
-    height: 10px;
+    width: 8px;
+    height: 8px;
+  }
+
+  .floating-card {
+    width: 35px;
+  }
+
+  .card-1,
+  .card-2 {
+    display: block;
+  }
+
+  .card-3,
+  .card-4,
+  .card-5,
+  .card-6 {
+    display: none;
   }
 }
 

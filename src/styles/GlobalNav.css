@@ -156,45 +156,334 @@
   border-radius: 2px;
   transition: all 0.3s ease;
 }
-
-/* Mobile Responsive */
-@media (max-width: 768px) {
-  .mobile-menu-toggle {
-    display: flex;
+/* --- TABLET VERSION (769px - 1024px) --- */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .navbar-container {
+    gap: 1rem;
+    padding: 0 1rem;
   }
 
   .navbar-links {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    flex-direction: column;
-    background: rgba(10, 14, 39, 0.98);
-    padding: 2rem;
     gap: 1.5rem;
-    transform: translateY(-100%);
-    opacity: 0;
-    pointer-events: none;
-    transition: all 0.3s ease;
   }
 
-  .navbar-links.open {
-    transform: translateY(0);
-    opacity: 1;
-    pointer-events: all;
+  .navbar-links li a {
+    font-size: 0.9rem;
+  }
+
+  .navbar-logo img {
+    height: 45px;
   }
 
   .navbar-right-section img {
-    display: none;
+    height: 50px;
+  }
+}
+
+/* --- MOBILE VERSION (≤ 768px) --- */
+@media (max-width: 768px) {
+  /* Hide hamburger - we want full navbar visible */
+  .mobile-menu-toggle {
+    display: none !important;
+  }
+
+  /* Navbar background - dark blue like the example */
+  .global-navbar {
+    background: rgba(20, 30, 60, 0.95);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    padding: 0.6rem 0.3rem;
+  }
+
+  /* Navbar container - use grid layout */
+  .navbar-container {
+    display: grid !important;
+    grid-template-columns: auto 1fr !important;
+    grid-template-rows: auto auto;
+    gap: 0.6rem;
+    max-width: 100% !important;
+    width: 100% !important;
+    padding: 0 0.3rem;
+    overflow: visible !important;
+  }
+
+  /* Top left: UnoVerse logo */
+  .navbar-logo {
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: start;
+    align-self: center;
+    flex-shrink: 0;
+  }
+
+  .navbar-logo img {
+    height: 50px;
+    width: auto;
+    display: block;
+  }
+
+  /* Top right: Audio button and Christ logo */
+  .navbar-right-section {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: end;
+    align-self: center;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+    overflow: visible !important;
+    min-width: fit-content;
+  }
+
+  .navbar-right-section > * {
+    flex-shrink: 0 !important;
+  }
+
+  .navbar-right-section img {
+    height: 50px !important;
+    width: auto !important;
+    flex-shrink: 0 !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    max-width: none !important;
+  }
+
+  /* Force Christ logo to be visible */
+  .navbar-right-section img[alt="Christ Logo"] {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    height: 50px !important;
+    width: auto !important;
   }
 
   .audio-toggle-btn {
-    width: 40px;
-    height: 40px;
+    width: 40px !important;
+    height: 40px !important;
+    min-width: 40px !important;
+    min-height: 40px !important;
+    border: 2px solid rgba(0, 212, 255, 0.3) !important;
+    background: rgba(0, 212, 255, 0.05) !important;
+    flex-shrink: 0 !important;
+    display: flex !important;
+  }
+
+  .audio-toggle-btn:hover {
+    background: rgba(0, 212, 255, 0.15) !important;
+    border-color: rgba(0, 212, 255, 0.5) !important;
   }
 
   .audio-toggle-btn svg {
     width: 20px;
     height: 20px;
+  }
+
+  /* Bottom row: Full navbar links - simple text style */
+  .navbar-links,
+  .navbar-links.open {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-around !important;
+    align-items: center;
+    flex-wrap: nowrap !important;
+    gap: 0.2rem !important;
+    background: none !important;
+    position: static !important;
+    transform: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: all !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    padding: 0.3rem 0.2rem 0 0.2rem !important;
+    width: 100% !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
+  .navbar-links li {
+    flex: 0 0 auto !important;
+    white-space: nowrap !important;
+  }
+
+  /* Simple text links - no borders or backgrounds */
+  .navbar-links li a {
+    display: inline-block !important;
+    padding: 0.2rem 0.3rem !important;
+    border: none !important;
+    border-radius: 0 !important;
+    background: none !important;
+    color: #e2e8f0 !important;
+    font-weight: 600 !important;
+    text-decoration: none !important;
+    font-size: 0.7rem !important;
+    text-transform: capitalize !important;
+    transition: all 0.3s ease;
+    box-shadow: none !important;
+    text-align: center;
+    letter-spacing: 0.3px !important;
+    white-space: nowrap !important;
+  }
+
+  .navbar-links li a::after {
+    display: none !important;
+  }
+
+  .navbar-links li a:hover {
+    color: #00d4ff !important;
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    transform: none !important;
+  }
+
+  .navbar-links li a.game-link {
+    background: none !important;
+    border: none !important;
+    color: #e2e8f0 !important;
+    padding: 0.2rem 0.3rem !important;
+    font-size: 0.7rem !important;
+    box-shadow: none !important;
+    white-space: nowrap !important;
+  }
+
+  .navbar-links li a.game-link:hover {
+    color: #00d4ff !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+}
+
+/* --- SMALL MOBILE (≤ 480px) --- */
+@media (max-width: 480px) {
+  .global-navbar {
+    padding: 0.4rem 0.15rem;
+  }
+
+  .navbar-container {
+    gap: 0.4rem;
+    padding: 0 0.15rem;
+    grid-template-columns: auto 1fr;
+  }
+
+  .navbar-logo img {
+    height: 40px;
+  }
+
+  .navbar-right-section {
+    gap: 0.4rem !important;
+    min-width: fit-content !important;
+  }
+
+  .navbar-right-section img {
+    height: 40px !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+
+  .audio-toggle-btn {
+    width: 35px !important;
+    height: 35px !important;
+    min-width: 35px !important;
+    min-height: 35px !important;
+    border: 2px solid rgba(0, 212, 255, 0.3) !important;
+    background: rgba(0, 212, 255, 0.05) !important;
+  }
+
+  .audio-toggle-btn:hover {
+    background: rgba(0, 212, 255, 0.15) !important;
+    border-color: rgba(0, 212, 255, 0.5) !important;
+  }
+
+  .audio-toggle-btn svg {
+    width: 18px !important;
+    height: 18px !important;
+  }
+
+  .navbar-links,
+  .navbar-links.open {
+    gap: 0.1rem !important;
+    padding: 0.2rem 0.1rem 0 0.1rem !important;
+  }
+
+  .navbar-links li a {
+    padding: 0.12rem 0.18rem !important;
+    font-size: 0.58rem !important;
+    letter-spacing: 0px !important;
+  }
+
+  .navbar-links li a.game-link {
+    padding: 0.12rem 0.18rem !important;
+    font-size: 0.58rem !important;
+  }
+}
+
+/* --- EXTRA SMALL MOBILE (≤ 360px) --- */
+@media (max-width: 360px) {
+  .global-navbar {
+    padding: 0.3rem 0.1rem;
+  }
+
+  .navbar-container {
+    gap: 0.3rem;
+    padding: 0 0.1rem;
+  }
+
+  .navbar-logo img {
+    height: 35px;
+  }
+
+  .navbar-right-section {
+    gap: 0.35rem !important;
+    min-width: fit-content !important;
+  }
+
+  .navbar-right-section img {
+    height: 35px !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+
+  .audio-toggle-btn {
+    width: 32px !important;
+    height: 32px !important;
+    min-width: 32px !important;
+    min-height: 32px !important;
+    border: 2px solid rgba(0, 212, 255, 0.3) !important;
+    background: rgba(0, 212, 255, 0.05) !important;
+  }
+
+  .audio-toggle-btn:hover {
+    background: rgba(0, 212, 255, 0.15) !important;
+    border-color: rgba(0, 212, 255, 0.5) !important;
+  }
+
+  .audio-toggle-btn svg {
+    width: 16px !important;
+    height: 16px !important;
+  }
+
+  .navbar-links,
+  .navbar-links.open {
+    gap: 0.05rem !important;
+    padding: 0.15rem 0.05rem 0 0.05rem !important;
+  }
+
+  .navbar-links li a {
+    padding: 0.08rem 0.12rem !important;
+    font-size: 0.52rem !important;
+    letter-spacing: 0px !important;
+  }
+
+  .navbar-links li a.game-link {
+    padding: 0.08rem 0.12rem !important;
+    font-size: 0.52rem !important;
   }
 }

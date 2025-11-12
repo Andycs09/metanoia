@@ -16,12 +16,12 @@ import audioFile from '../assets/yes.mp3';
 
 // Import UNO cards from images folder
 const unoCards = [
-  '/images/card_1_c185b98b.png',
+  'src/assets/card_1_c185b98b.png',
   'src/assets/uno7.png',
-  '/images/card_3_4dab2dee.png',
-  '/images/card_4_fc0ce148.png',
+  'src/assets/card_3_4dab2dee.png',
+  'src/assets/card_4_fc0ce148.png',
   'src/assets/unoflip.png',
-  '/images/card_6_1ad3c40f.png',
+  'src/assets/card_2.png',
 ];
 
 export default function Home() {
