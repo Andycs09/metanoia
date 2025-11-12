@@ -11,18 +11,19 @@ import christLogoImg from '../assets/christ logo.png';
 import samagraLogoImg from '../assets/samagra logo .png';
 import unoLogoImg from '../assets/logo.png';
 import googleLogoImg from '../assets/google.png';
-
 import audioFile from '../assets/yes.mp3';
+import card1 from '../assets/card_1_c185b98b.png';
+import card2 from '../assets/uno7.png';
+import card3 from '../assets/card_3_4dab2dee.png';
+import card4 from '../assets/card_4_fc0ce148.png';
+import card5 from '../assets/unoflip.png';
+import card6 from '../assets/card_2.png';
+
+const unoCards = [card1, card2, card3, card4, card5, card6];
+
 
 // Import UNO cards from images folder
-const unoCards = [
-  'src/assets/card_1_c185b98b.png',
-  'src/assets/uno7.png',
-  'src/assets/card_3_4dab2dee.png',
-  'src/assets/card_4_fc0ce148.png',
-  'src/assets/unoflip.png',
-  'src/assets/card_2.png',
-];
+
 
 export default function Home() {
   const [scrolled, setScrolled] = useState(false);
