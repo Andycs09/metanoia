@@ -2,10 +2,12 @@ import { useEffect, useState } from 'react';
 import './About.css';
 import bgImage from '../assets/home page theme.png';
 
-//Import assets (add your actual images here)
-// import heroBanner from '../assets/about-hero.jpg';
-// import facultyPhoto1 from '../assets/faculty-1.jpg';
-// import facultyPhoto2 from '../assets/faculty-2.jpg';
+// Import faculty photos
+import vinayPhoto from '../assets/vinay.jpg';
+import deepaPhoto from '../assets/deepa.jpg';
+import gayathryPhoto from '../assets/gayathry.jpg';
+import mithunPhoto from '../assets/mithun.jpg';
+import thonatdariPhoto from '../assets/thonatdari.jpg';
 
 export default function About() {
   const [visibleSections, setVisibleSections] = useState([]);
@@ -34,20 +36,35 @@ export default function About() {
       name: 'Dr. Vinay M',
       designation: 'Professor & Head of Department',
       linkedin: 'https://www.linkedin.com/in/quickvinay/',
-      // photo: facultyPhoto1,
+      photo: vinayPhoto,
     },
     {
       id: 2,
       name: 'Dr. Deepa S',
       designation: 'President',
       linkedin: 'https://www.linkedin.com/in/deepa-s-703390167/',
-      // photo: facultyPhoto3,
+      photo: deepaPhoto,
     },
     {
       id: 3,
       name: 'Dr. Gayathry S Warrier',
-      designation: ' Vice President ',
-      linkedin: 'https://www.linkedin.com/in/dr-gayathry-s-warrier-2153a018/'
+      designation: 'Vice President',
+      linkedin: 'https://www.linkedin.com/in/dr-gayathry-s-warrier-2153a018/',
+      photo: gayathryPhoto,
+    },
+    {
+      id: 4,
+      name: 'Dr. Thontadari C',
+      designation: 'Faculty Coordinator',
+      linkedin: 'https://www.linkedin.com/in/thontadari-c-computer-science-yeshwanthpur-14b5a6350/',
+      photo: thonatdariPhoto,
+    },
+    {
+      id: 5,
+      name: 'Dr. Mithun D Souza',
+      designation: 'Faculty Coordinator',
+      linkedin: '#',
+      photo: mithunPhoto,
     },
   ];
 
