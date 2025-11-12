@@ -51,7 +51,7 @@ export default function App() {
       </div>
 
       {/* Global interactive starfield (follows pointer / touch) */}
-      <Starfield />
+      {/* <Starfield /> */}
 
       {/* Global shooting stars animation */}
       <ShootingStars />
