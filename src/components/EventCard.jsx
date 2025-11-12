@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-// Import all UNO card images from assets/img folder
+// Import all UNO card images from assets/img folder (front side)
 import uno1 from '../assets/img/uno (1).png';
 import uno2 from '../assets/img/uno (2).png';
 import uno3 from '../assets/img/uno (3).png';
@@ -10,11 +10,61 @@ import uno5 from '../assets/img/uno (5).png';
 import uno6 from '../assets/img/uno (6).png';
 import uno7 from '../assets/img/uno (7).png';
 
+// Import special replacement images
+import aImage from '../assets/img/a.png';
+import bImage from '../assets/img/b.png';
+
+// Import all UNO card images from assets/img2 folder (back side when flipped)
+import img2_1 from '../assets/img2/img (1).jpg';
+import img2_2 from '../assets/img2/img (2).jpg';
+import img2_3 from '../assets/img2/img (3).jpg';
+import img2_4 from '../assets/img2/img (4).jpg';
+import img2_5 from '../assets/img2/img (5).jpg';
+import img2_6 from '../assets/img2/img (6).jpg';
+
 export default function EventCard({ event, index = 0 }) {
   const [flipped, setFlipped] = useState(false);
   const [showPageBtn, setShowPageBtn] = useState(false);
   const navigate = useNavigate();
   const audioCtxRef = useRef(null);
+
+  // Event data with titles and descriptions
+  const eventData = [
+    {
+      title: "UNO Reverse Alibi",
+      description: "Solve the case… but only after flipping the clues."
+    },
+    {
+      title: "Wild Card Auction", 
+      description: "Pick your players, flip your luck"
+    },
+    {
+      title: "UNO Frame: Capture the Colors",
+      description: "See the world in four colors — Red, Blue, Green, Yellow."
+    },
+    {
+      title: "Draw 4 Arena (Online Gaming)",
+      description: "Play hard. Flip harder"
+    },
+    {
+      title: "Skip the Obvious",
+      description: "Follow the clues… unless the card tells you to skip."
+    },
+    {
+      title: "UNO Reverse Alibi (Murder Mystery)",
+      description: "Solve the case… but only after flipping the clues"
+    },
+    {
+      title: "Logic Reverse: The Brain Battle",
+      description: "Outsmart. Outthink. UNO-reverse your opponent."
+    },
+    {
+      title: "Color Chaos Quiz",
+      description: "Guess. Climb. But beware… one snake can reverse it all"
+    }
+  ];
+
+  const currentEventData = eventData[index % eventData.length];
 
   // CSS injected locally (safe if App.css isn't available)
   const CARD_CSS = `
@@ -302,25 +352,126 @@ export default function EventCard({ event, index = 0 }) {
       text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
     }
     
-    /* Action buttons overlay */
-    .back-actions-overlay {
+    /* Circle content overlay */
+    .circle-content {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
+      width: 70%;
+      height: 50%;
       display: flex;
-      gap: 12px;
-      opacity: 0;
-      transition: opacity 0.3s ease;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
       z-index: 10;
-      background: rgba(0, 0, 0, 0.7);
-      padding: 15px;
-      border-radius: 10px;
-      backdrop-filter: blur(10px);
+      pointer-events: none;
     }
     
-    .flip-back:hover .back-actions-overlay {
-      opacity: 1;
+    .circle-title {
+      font-family: 'Arial Black', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 900;
+      color: white;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.9);
+      margin-bottom: 8px;
+      line-height: 1.1;
+      text-transform: uppercase;
+    }
+    
+    .circle-description {
+      font-size: 0.8rem;
+      color: white;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+      line-height: 1.2;
+      font-weight: 600;
+    }
+    
+    /* New button layout - only on back face */
+    .flip-back .card-buttons {
+      position: absolute;
+      bottom: 25px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+      z-index: 15;
+    }
+    
+    .flip-back .card-btn {
+      padding: 6px 12px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      pointer-events: auto;
+    }
+    
+    .flip-back .card-btn.details {
+      background: rgba(255, 255, 255, 0.9);
+      color: #333;
+    }
+    
+    .flip-back .card-btn.register {
+      background: linear-gradient(135deg, #ff6b6b, #ff4757);
+      color: white;
+    }
+    
+    .flip-back .card-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+    
+    .flip-back .card-btn.details:hover {
+      background: white;
+    }
+    
+    .flip-back .card-btn.register:hover {
+      background: linear-gradient(135deg, #ff4757, #ff3838);
+    }
+    
+    /* Mobile responsive styles */
+    @media (max-width: 768px) {
+      .circle-title {
+        font-size: 0.9rem;
+        margin-bottom: 6px;
+      }
+      
+      .circle-description {
+        font-size: 0.7rem;
+        line-height: 1.1;
+      }
+      
+      .flip-back .card-btn {
+        padding: 5px 10px;
+        font-size: 0.7rem;
+      }
+      
+      .flip-back .card-buttons {
+        bottom: 20px;
+        gap: 6px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .circle-title {
+        font-size: 0.8rem;
+        margin-bottom: 4px;
+      }
+      
+      .circle-description {
+        font-size: 0.65rem;
+      }
+      
+      .flip-back .card-btn {
+        padding: 4px 8px;
+        font-size: 0.65rem;
+      }
     }
 
     /* Image IS the card - no container */
@@ -342,11 +493,24 @@ export default function EventCard({ event, index = 0 }) {
     }
   `;
 
-  // Array of imported UNO card images
+  // Array of imported UNO card images for front side
   const unoImages = [uno1, uno2, uno3, uno4, uno5, uno6, uno7];
   
+  // Array of imported UNO card images for back side (when flipped)
+  const img2Images = [img2_1, img2_2, img2_3, img2_4, img2_5, img2_6];
+  
   // Get image based on card index (cycles through available images)
-  const imageSrc = unoImages[index % unoImages.length];
+  // Replace images for cards 4 and 7 (purple marked cards) with a.jpg and b.jpg
+  let frontImageSrc;
+  if (index === 4) {
+    frontImageSrc = aImage;
+  } else if (index === 7) {
+    frontImageSrc = bImage;
+  } else {
+    frontImageSrc = unoImages[index % unoImages.length];
+  }
+  
+  const backImageSrc = img2Images[index % img2Images.length];
 
   useEffect(() => { if (flipped) setShowPageBtn(false); }, [flipped]);
   useEffect(() => {
@@ -491,29 +655,39 @@ export default function EventCard({ event, index = 0 }) {
       {/* FRONT - Clean card image */}
       <div className="flip-face flip-front">
         <div className="full-image-wrapper">
-          <img src={imageSrc} alt={event.title} />
+          <img src={frontImageSrc} alt={event.title} />
         </div>
       </div>
 
-      {/* BACK - Same image with overlay */}
+      {/* BACK - Different image from img2 folder with content in circle */}
       <div className="flip-face flip-back">
         <div className="full-image-wrapper">
-          <img src={imageSrc} alt={event.title} />
+          <img src={backImageSrc} alt={`${currentEventData.title} - Details`} />
         </div>
         
-        {/* Action buttons overlay */}
-        <div className="back-actions-overlay" onClick={(e) => e.stopPropagation()}>
-          <button className="btn" onClick={(e) => navigateTo(`/events/${event.id}`, e)}>
-            Details
-          </button>
-          <button
-            className="btn primary"
-            onClick={(e) => navigateTo(`/register?event=${encodeURIComponent(event.id)}`, e)}
-            style={{ background: registerBg, border: registerBorder }}
-          >
-            Register
-          </button>
+        {/* Content inside the circle */}
+        <div className="circle-content">
+          <div className="circle-title">{currentEventData.title}</div>
+          <div className="circle-description">{currentEventData.description}</div>
         </div>
+        
+        {/* New button layout at bottom - only render when flipped */}
+        {flipped && (
+          <div className="card-buttons" onClick={(e) => e.stopPropagation()}>
+            <button 
+              className="card-btn details" 
+              onClick={(e) => navigateTo(`/events/${event.id}`, e)}
+            >
+              Details
+            </button>
+            <button 
+              className="card-btn register" 
+              onClick={(e) => navigateTo(`/register?event=${encodeURIComponent(event.id)}`, e)}
+            >
+              Register
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
