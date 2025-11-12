@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 // Import all UNO card images from assets/img folder (front side)
@@ -11,8 +11,8 @@ import uno6 from '../assets/img/uno (6).png';
 import uno7 from '../assets/img/uno (7).png';
 
 // Import special replacement images
-import aImage from '../assets/img/a.jpg';
-import bImage from '../assets/img/b.jpg';
+import aImage from '../assets/img/a.png';
+import bImage from '../assets/img/b.png';
 
 // Import all UNO card images from assets/img2 folder (back side when flipped)
 import img2_1 from '../assets/img2/img (1).jpg';
@@ -24,7 +24,6 @@ import img2_6 from '../assets/img2/img (6).jpg';
 
 export default function EventCard({ event, index = 0 }) {
   const [flipped, setFlipped] = useState(false);
-  const [showPageBtn, setShowPageBtn] = useState(false);
   const navigate = useNavigate();
   const audioCtxRef = useRef(null);
 
@@ -350,51 +349,164 @@ export default function EventCard({ event, index = 0 }) {
       font-weight: 600;
     }
     
-    /* New button layout - only on back face */
+    /* Button layout - positioned at very bottom where purple is marked */
     .flip-back .card-buttons {
       position: absolute;
-      bottom: 25px;
+      bottom: 5px;
       left: 50%;
       transform: translateX(-50%);
       display: flex;
-      gap: 8px;
+      gap: 6px;
       z-index: 15;
+      width: 90%;
+      justify-content: center;
     }
     
     .flip-back .card-btn {
-      padding: 6px 12px;
+      padding: 6px 14px;
       font-size: 0.75rem;
       font-weight: 700;
       border-radius: 6px;
       border: none;
       cursor: pointer;
-      transition: all 0.3s;
+      transition: all 0.3s ease;
       text-transform: uppercase;
       letter-spacing: 0.5px;
       pointer-events: auto;
+      position: relative;
+      overflow: hidden;
+      flex: 1;
+      max-width: 80px;
+      text-align: center;
     }
     
     .flip-back .card-btn.details {
-      background: rgba(255, 255, 255, 0.9);
-      color: #333;
+      background: linear-gradient(135deg, #ffffff, #e3f2fd, #bbdefb);
+      background-size: 200% 200%;
+      color: #1565c0;
+      border: 1px solid #2196f3;
+      box-shadow: 0 2px 6px rgba(33, 150, 243, 0.3);
+      animation: blueWhiteFlow 3s ease-in-out infinite;
     }
     
     .flip-back .card-btn.register {
-      background: linear-gradient(135deg, #ff6b6b, #ff4757);
+      background: linear-gradient(135deg, #2196f3, #1976d2, #0d47a1);
+      background-size: 200% 200%;
       color: white;
+      border: 1px solid #1976d2;
+      box-shadow: 0 2px 8px rgba(25, 118, 210, 0.4);
+      animation: blueGradientFlow 3s ease-in-out infinite;
+    }
+    
+    @keyframes blueWhiteFlow {
+      0% { 
+        background-position: 0% 50%;
+        box-shadow: 0 2px 6px rgba(33, 150, 243, 0.3);
+        transform: scale(1);
+      }
+      50% { 
+        background-position: 100% 50%;
+        box-shadow: 0 4px 10px rgba(33, 150, 243, 0.5);
+        transform: scale(1.02);
+      }
+      100% { 
+        background-position: 0% 50%;
+        box-shadow: 0 2px 6px rgba(33, 150, 243, 0.3);
+        transform: scale(1);
+      }
+    }
+    
+    @keyframes blueGradientFlow {
+      0% { 
+        background-position: 0% 50%;
+        box-shadow: 0 2px 8px rgba(25, 118, 210, 0.4);
+        transform: scale(1);
+      }
+      50% { 
+        background-position: 100% 50%;
+        box-shadow: 0 4px 12px rgba(25, 118, 210, 0.6);
+        transform: scale(1.02);
+      }
+      100% { 
+        background-position: 0% 50%;
+        box-shadow: 0 2px 8px rgba(25, 118, 210, 0.4);
+        transform: scale(1);
+      }
+    }
+    
+    .flip-back .card-btn.details::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, 
+        transparent, 
+        rgba(255, 255, 255, 0.6) 50%, 
+        transparent);
+      animation: whiteShine 2.5s ease-in-out infinite;
+      transition: all 0.3s;
+    }
+    
+    .flip-back .card-btn.register::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, 
+        transparent, 
+        rgba(255, 255, 255, 0.4) 50%, 
+        transparent);
+      animation: blueShine 2.5s ease-in-out infinite;
+      transition: all 0.3s;
+    }
+    
+    @keyframes whiteShine {
+      0% { left: -100%; }
+      100% { left: 100%; }
+    }
+    
+    @keyframes blueShine {
+      0% { left: -100%; }
+      100% { left: 100%; }
     }
     
     .flip-back .card-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      transform: translateY(-2px) scale(1.05);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     }
     
     .flip-back .card-btn.details:hover {
-      background: white;
+      background: linear-gradient(135deg, #e3f2fd, #bbdefb, #90caf9);
+      background-size: 200% 200%;
+      animation: blueWhiteFlow 1.5s ease-in-out infinite, hoverPulse 0.6s ease-in-out;
+      box-shadow: 0 6px 14px rgba(33, 150, 243, 0.6);
+      color: #0d47a1;
     }
     
     .flip-back .card-btn.register:hover {
-      background: linear-gradient(135deg, #ff4757, #ff3838);
+      background: linear-gradient(135deg, #0d47a1, #1565c0, #1976d2);
+      background-size: 200% 200%;
+      animation: blueGradientFlow 1.5s ease-in-out infinite, hoverPulse 0.6s ease-in-out;
+      box-shadow: 0 6px 16px rgba(25, 118, 210, 0.7);
+    }
+    
+    @keyframes hoverPulse {
+      0%, 100% { transform: translateY(-2px) scale(1.05); }
+      50% { transform: translateY(-4px) scale(1.08); }
+    }
+    
+    @keyframes pulse {
+      0%, 100% { transform: translateY(-3px) scale(1.05); }
+      50% { transform: translateY(-5px) scale(1.08); }
+    }
+    
+    .flip-back .card-btn:active {
+      transform: translateY(-1px) scale(1.02);
+      transition: transform 0.1s;
     }
     
     /* Mobile responsive styles */
@@ -412,11 +524,13 @@ export default function EventCard({ event, index = 0 }) {
       .flip-back .card-btn {
         padding: 5px 10px;
         font-size: 0.7rem;
+        max-width: 70px;
       }
       
       .flip-back .card-buttons {
-        bottom: 20px;
-        gap: 6px;
+        bottom: 4px;
+        gap: 5px;
+        width: 92%;
       }
     }
     
@@ -433,6 +547,13 @@ export default function EventCard({ event, index = 0 }) {
       .flip-back .card-btn {
         padding: 4px 8px;
         font-size: 0.65rem;
+        max-width: 60px;
+      }
+      
+      .flip-back .card-buttons {
+        bottom: 3px;
+        gap: 4px;
+        width: 92%;
       }
     }
 
@@ -512,12 +633,7 @@ export default function EventCard({ event, index = 0 }) {
   
   const backImageSrc = img2Images[index % img2Images.length];
 
-  useEffect(() => { if (flipped) setShowPageBtn(false); }, [flipped]);
-  useEffect(() => {
-    let t;
-    if (flipped) t = setTimeout(() => setShowPageBtn(true), 620);
-    return () => clearTimeout(t);
-  }, [flipped]);
+
 
   // Play a short flip tone (~1.2s), different per-card hue/index
   function stopFlipSound() {
@@ -597,9 +713,6 @@ export default function EventCard({ event, index = 0 }) {
     navigate(path);
   };
 
-  const hue = (index * 47) % 360;
-  const registerBg = `linear-gradient(90deg, hsla(${hue},85%,60%,0.14), hsla(${(hue + 30) % 360},85%,60%,0.08))`;
-  const registerBorder = `1px solid rgba(255,255,255,0.06)`;
   const zigClass = index % 2 === 0 ? 'zig-left' : 'zig-right';
 
   // UNO card colors based on index
@@ -641,8 +754,6 @@ export default function EventCard({ event, index = 0 }) {
       background: `linear-gradient(135deg, ${cardColor}, ${cardColor}dd)`
     };
   };
-  
-  const cardStyle = getCardDesign();
 
   return (
     <div

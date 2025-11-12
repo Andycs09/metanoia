@@ -1,0 +1,138 @@
+[33mcommit 1abb55debe43236a40efdfc620081ce81fa8765e[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mnew[m[33m, [m[1;31morigin/new[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Keerat Jeet Singh <155800005+KeeratSingh78@users.noreply.github.com>
+Date:   Wed Nov 12 12:32:38 2025 +0530
+
+    about and event
+
+[33mcommit 375b0e33a50c86173ddbe45b18df4a4d0a6804ae[m
+Author: Keerat Jeet Singh <155800005+KeeratSingh78@users.noreply.github.com>
+Date:   Wed Nov 12 11:57:17 2025 +0530
+
+    detail page and the splash screen
+
+[33mcommit ec319c932ff4889291e21c725595dde10136d3d0[m
+Author: andycs <snapshare90@proton.me>
+Date:   Wed Nov 12 11:44:05 2025 +0530
+
+    done
+
+[33mcommit 6875ca51a112e3e2ea8ecdf01a3395046199a16f[m
+Author: andycs <snapshare90@proton.me>
+Date:   Wed Nov 12 11:37:36 2025 +0530
+
+    Remove node_modules from version control
+
+[33mcommit 830440e6fd7696a4962d002159214fa7da92f73d[m
+Author: andycs <snapshare90@proton.me>
+Date:   Wed Nov 12 11:30:56 2025 +0530
+
+    xyz
+
+[33mcommit 15ef7b53aae79ad6dd2964a449abc5650d32aba7[m
+Author: andycs <snapshare90@proton.me>
+Date:   Wed Nov 12 09:17:45 2025 +0530
+
+    n
+
+[33mcommit 7d82e273980cb689137bfea997a8fc7d037b2250[m
+Author: Keerat Jeet Singh <155800005+KeeratSingh78@users.noreply.github.com>
+Date:   Tue Nov 11 23:07:23 2025 +0530
+
+    event detail shooting star pre loader
+
+[33mcommit b59652d12fbdd1e0e7b37da5fd6037423a480553[m
+Merge: 1588a7d f426bb1
+Author: andycs <snapshare90@proton.me>
+Date:   Tue Nov 11 19:22:32 2025 +0530
+
+    Merge branch 'new' of https://github.com/Andycs09/metanoia into new
+
+[33mcommit 1588a7dcddc17cd72ccefc435f9fb4e906b78539[m
+Author: andycs <snapshare90@proton.me>
+Date:   Tue Nov 11 19:22:26 2025 +0530
+
+    ab
+
+[33mcommit f426bb1549d36df010e2b657e81e3bb49a8580fe[m
+Author: Keerat Jeet Singh <155800005+KeeratSingh78@users.noreply.github.com>
+Date:   Tue Nov 11 19:19:25 2025 +0530
+
+    kuch nhi kiya ignore
+
+[33mcommit eecfae68968d0979ac89d8bb619b2adf6b46c41d[m
+Author: andycs <snapshare90@proton.me>
+Date:   Tue Nov 11 17:40:54 2025 +0530
+
+    prefinal4
+
+[33mcommit 2f5e8ba9713eec703f93bbe9e2e85c1806fc01b2[m
+Author: Keerat Jeet Singh <155800005+KeeratSingh78@users.noreply.github.com>
+Date:   Tue Nov 11 17:25:31 2025 +0530
+
+    about and schedule
+
+[33mcommit bf9c80a52245c478cbce7390d13c047b74a3f28d[m
+Author: andycs <snapshare90@proton.me>
+Date:   Tue Nov 11 16:36:53 2025 +0530
+
+    prefinal3
+
+[33mcommit 441f65357ac76949dfcf60867b1e4ccc0cb9a560[m
+Author: andycs <snapshare90@proton.me>
+Date:   Tue Nov 11 16:28:32 2025 +0530
+
+    prefinal2\
+
+[33mcommit a8d9fea0f74cf7ad382b531893fe6fa16112d895[m
+Author: andycs <snapshare90@proton.me>
+Date:   Mon Nov 10 01:17:48 2025 +0530
+
+    prefinal
+
+[33mcommit 38f533132a117856d3090e3f9f63fec5ba519c26[m
+Author: Keerat Jeet Singh <155800005+KeeratSingh78@users.noreply.github.com>
+Date:   Sun Nov 9 18:28:32 2025 +0530
+
+    home page
+
+[33mcommit fce3513b3bcddf63d3fc914d9f567ae8cb7ae6ef[m
+Author: andycs <snapshare90@proton.me>
+Date:   Sun Nov 9 13:16:06 2025 +0530
+
+    eventupdate-4 mxal-9
+
+[33mcommit 15f9748aefc5c4f0a21b6ee96c0f4c91c202a4ad[m
+Author: andycs <snapshare90@proton.me>
+Date:   Sun Nov 9 00:08:58 2025 +0530
+
+    eventupdate-3 mxal-9
+
+[33mcommit 8973f1ba46b264ec00901d5022100852002fcb59[m
+Author: andycs <snapshare90@proton.me>
+Date:   Sat Nov 8 20:12:04 2025 +0530
+
+    eventupdate-2 mxal-9
+
+[33mcommit bf4c656f57860febbe0249ef908f7928d7899a50[m
+Author: andycs <snapshare90@proton.me>
+Date:   Sat Nov 8 13:04:06 2025 +0530
+
+    eventupdate-1 mxal-9
+
+[33mcommit 24c38784db97a6c63884ec4a230975a6f6c0db1b[m
+Author: andycs <snapshare90@proton.me>
+Date:   Sat Nov 8 13:04:03 2025 +0530
+
+    eventupdate-1 mxal-9
+
+[33mcommit cbacb1c59d6d33e5efdb6dadb08e80ceed1928ae[m
+Author: andycs <snapshare90@proton.me>
+Date:   Sat Nov 8 11:36:19 2025 +0530
+
+    images
+
+[33mcommit 6860f6ae78ca36f10188449c9dd847dea38fbaa0[m
+Author: andycs <snapshare90@proton.me>
+Date:   Sat Nov 8 11:27:38 2025 +0530
+
+    use diff branch

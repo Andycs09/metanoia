@@ -102,10 +102,52 @@ const REGISTER_STYLE = `
     background: rgba(0, 0, 0, 0.2);
   }
   
+  .row {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .row .input {
+    flex: 1;
+  }
+  
+  .stacked-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .stacked-fields .input {
+    width: 100%;
+  }
+  
   .participant-fieldset legend {
     color: #00d4ff;
     font-weight: 600;
     padding: 0 0.5rem;
+  }
+  
+  .team-fieldset {
+    border-color: rgba(255, 152, 0, 0.3) !important;
+    background: rgba(255, 152, 0, 0.05) !important;
+    animation: teamFieldsetEnter 0.3s ease-out;
+  }
+  
+  .team-fieldset legend {
+    color: #ff9800 !important;
+  }
+  
+  @keyframes teamFieldsetEnter {
+    0% { 
+      opacity: 0; 
+      transform: translateY(-10px); 
+    }
+    100% { 
+      opacity: 1; 
+      transform: translateY(0); 
+    }
   }
   
   /* Form content area */
@@ -131,6 +173,68 @@ const REGISTER_STYLE = `
     gap: 1rem;
     justify-content: center;
     flex-wrap: wrap;
+  }
+  
+  .btn {
+    padding: 0.75rem 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.3);
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+  
+  .btn.primary {
+    background: linear-gradient(135deg, #0080ff, #0066cc);
+    border-color: #0080ff;
+  }
+  
+  .btn.primary:hover {
+    background: linear-gradient(135deg, #0066cc, #0052a3);
+  }
+  
+  .btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  .btn.link {
+    background: transparent;
+    border: none;
+    color: #ff6b6b;
+    padding: 0.5rem;
+    font-size: 0.9rem;
+  }
+  
+  .btn.link:hover {
+    color: #ff5252;
+    background: rgba(255, 107, 107, 0.1);
+  }
+  
+  .msg {
+    padding: 1rem;
+    border-radius: 8px;
+    margin: 1rem 0;
+    text-align: center;
+  }
+  
+  .msg.error {
+    background: rgba(255, 107, 107, 0.1);
+    border: 1px solid rgba(255, 107, 107, 0.3);
+    color: #ff6b6b;
+  }
+  
+  .msg.success {
+    background: rgba(76, 175, 80, 0.1);
+    border: 1px solid rgba(76, 175, 80, 0.3);
+    color: #4caf50;
   }
   
   .register-footer {
@@ -206,6 +310,16 @@ const REGISTER_STYLE = `
   .input.email { color:#ffd92b; } .input.email::placeholder { color:rgba(255,217,43,0.8); }
   .input.phone { color:#3fb0ff; } .input.phone::placeholder { color:rgba(63,176,255,0.75); }
   .input.regno { color:#ffffff; } .input.regno::placeholder { color:rgba(255,255,255,0.65); }
+  .input.team { 
+    color:#ff9800; 
+    border-color: rgba(255, 152, 0, 0.4);
+    background: rgba(255, 152, 0, 0.05);
+  } 
+  .input.team::placeholder { color:rgba(255,152,0,0.7); }
+  .input.team:focus {
+    border-color: #ff9800;
+    box-shadow: 0 0 10px rgba(255, 152, 0, 0.3);
+  }
   .input::placeholder, .input.small::placeholder { font-size:16px; opacity:1; }
   .input:focus {
     outline: none;
@@ -582,15 +696,11 @@ const ParticipantFieldset = React.memo(function ParticipantFieldset({ idx, data,
   return (
     <fieldset className="participant-fieldset">
       <legend>Participant {idx + 1}</legend>
-      <div className="row">
+      <div className="stacked-fields">
         <input placeholder="Name" value={data.name} onChange={e => updateField(idx, 'name', e.target.value)} required className="input name" />
         <input placeholder="Class" value={data.cls} onChange={e => updateField(idx, 'cls', e.target.value)} className="input cls" />
-      </div>
-      <div className="row">
         <input placeholder="Email" value={data.email} onChange={e => updateField(idx, 'email', e.target.value)} required className="input email" />
         <input placeholder="Phone" value={data.phone} onChange={e => updateField(idx, 'phone', e.target.value)} className="input phone" />
-      </div>
-      <div className="row">
         <input placeholder="Registration No" value={data.registrationNo} onChange={e => updateField(idx, 'registrationNo', e.target.value)} className="input regno" />
       </div>
       {removable && <button type="button" className="btn link" onClick={() => removeParticipant(idx)}>Remove</button>}
@@ -616,6 +726,7 @@ export default function RegisterPage() {
   })), []);
 
   const [participants, setParticipants] = useState(() => [{ name: '', cls: '', email: '', phone: '', registrationNo: '' }]);
+  const [teamName, setTeamName] = useState('');
   const [sending, setSending] = useState(false);
   const [message, setMessage] = useState(null);
   const [headerVisible, setHeaderVisible] = useState(true);
@@ -742,12 +853,22 @@ export default function RegisterPage() {
       }
     }
 
+    // Validate team name for all participants
+    if (!teamName.trim()) {
+      setMessage({ type: 'error', text: 'Team name is required.' });
+      setSending(false);
+      return;
+    }
+
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 15000);
+    // Add team name to all participants
+    const participantsWithTeam = participants.map(p => ({ ...p, teamName: teamName.trim() }));
+
     const payload = {
       eventId,
       eventTitle: selectedEvent.title,
-      participants,
+      participants: participantsWithTeam,
       timestamp: new Date().toISOString(),
     };
 
@@ -861,6 +982,25 @@ export default function RegisterPage() {
               />
             ))}
           </div>
+
+          <fieldset className="participant-fieldset team-fieldset">
+            <legend>Team Information</legend>
+            <div style={{ marginBottom: '0.75rem', color: '#ff9800', fontSize: '0.9rem', opacity: 0.8 }}>
+              {participants.length === 1 
+                ? 'Team name for this participant' 
+                : `This team name will be assigned to all ${participants.length} participants`
+              }
+            </div>
+            <div className="row">
+              <input 
+                placeholder="Enter team name" 
+                value={teamName} 
+                onChange={e => setTeamName(e.target.value)} 
+                required 
+                className="input team" 
+              />
+            </div>
+          </fieldset>
 
           {message && <div className={`msg ${message.type === 'error' ? 'error' : 'success'}`}>{message.text}</div>}
         </form>
