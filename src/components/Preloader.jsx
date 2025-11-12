@@ -2,18 +2,9 @@ import { useEffect, useState } from 'react';
 import './Preloader.css';
 import unoLogoImg from '../assets/logo.png';
 
-// Import UNO cards
-const unoCards = [
-  '/images/card_1_c185b98b.png',
-  '/images/card_3_4dab2dee.png',
-  '/images/card_4_fc0ce148.png',
-  '/images/card_6_1ad3c40f.png',
-  'src/assets/uno7.png',
-  'src/assets/unoflip.png',
-];
-
 export default function Preloader() {
   const [isLoading, setIsLoading] = useState(true);
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     // Create floating particles
@@ -21,30 +12,46 @@ export default function Preloader() {
       const container = document.querySelector('.preloader');
       if (!container) return;
 
-      for (let i = 0; i < 20; i++) {
+      for (let i = 0; i < 30; i++) {
         const particle = document.createElement('div');
         particle.className = 'preloader-particle';
-        
+
         // Random position
         particle.style.left = `${Math.random() * 100}%`;
         particle.style.bottom = '0';
-        
+
         // Random delay and duration
         particle.style.animationDelay = `${Math.random() * 4}s`;
         particle.style.animationDuration = `${3 + Math.random() * 3}s`;
-        
+
         // Random color
         const colors = ['#00d4ff', '#ff006e', '#ffbe0b', '#ffffff'];
         particle.style.background = colors[Math.floor(Math.random() * colors.length)];
-        
+
         container.appendChild(particle);
       }
     };
 
     createParticles();
 
-    // Simulate loading time (minimum 2 seconds)
-    const minLoadTime = 2000;
+    // Animate progress counter
+    const duration = 1800; // 1.8 seconds
+    const steps = 100;
+    const stepDuration = duration / steps;
+    let currentStep = 0;
+
+    const progressInterval = setInterval(() => {
+      currentStep++;
+      const newProgress = Math.min(currentStep, 100);
+      setProgress(newProgress);
+
+      if (currentStep >= 100) {
+        clearInterval(progressInterval);
+      }
+    }, stepDuration);
+
+    // Simulate loading time (minimum 1.8 seconds)
+    const minLoadTime = 1800;
     const startTime = Date.now();
 
     // Wait for page to load
@@ -53,7 +60,10 @@ export default function Preloader() {
       const remainingTime = Math.max(0, minLoadTime - elapsedTime);
 
       setTimeout(() => {
-        setIsLoading(false);
+        setProgress(100);
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 300);
       }, remainingTime);
     };
 
@@ -65,6 +75,7 @@ export default function Preloader() {
 
     return () => {
       window.removeEventListener('load', handleLoad);
+      clearInterval(progressInterval);
     };
   }, []);
 
@@ -74,18 +85,6 @@ export default function Preloader() {
 
   return (
     <div className={`preloader ${!isLoading ? 'fade-out' : ''}`}>
-      {/* UNO Cards Splash Animation */}
-      <div className="preloader-cards">
-        {unoCards.map((card, index) => (
-          <img
-            key={index}
-            src={card}
-            alt={`UNO Card ${index + 1}`}
-            className="preloader-card"
-          />
-        ))}
-      </div>
-
       <div className="preloader-content">
         {/* Logo */}
         <div className="preloader-logo">
@@ -104,7 +103,8 @@ export default function Preloader() {
 
         {/* Loading Bar */}
         <div className="loading-bar-container">
-          <div className="loading-bar"></div>
+          <span className="loading-percentage">{progress}%</span>
+          <div className="loading-bar" style={{ width: `${progress}%` }}></div>
         </div>
       </div>
     </div>

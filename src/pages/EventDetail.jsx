@@ -45,7 +45,6 @@ export default function EventDetail() {
         'Teams must stay together at all times',
         'First team to complete all challenges wins'
       ],
-      prizes: { first: '₹5,000', second: '₹3,000', third: '₹2,000' },
       duration: '2 hours',
       venue: 'Campus Wide'
     },
@@ -58,7 +57,6 @@ export default function EventDetail() {
         'Time limit of 15 minutes per match',
         'Winner determined by points or first to finish'
       ],
-      prizes: { first: '₹8,000', second: '₹5,000', third: '₹3,000' },
       duration: '3 hours',
       venue: 'Main Auditorium'
     },
@@ -71,7 +69,6 @@ export default function EventDetail() {
         'Must follow UNO card dimensions',
         'Presentation and explanation required'
       ],
-      prizes: { first: '₹6,000', second: '₹4,000', third: '₹2,500' },
       duration: '1.5 hours',
       venue: 'Art Studio'
     },
@@ -84,7 +81,6 @@ export default function EventDetail() {
         'No skipping stations',
         'Fastest team with all challenges completed wins'
       ],
-      prizes: { first: '₹7,000', second: '₹4,500', third: '₹2,500' },
       duration: '2.5 hours',
       venue: 'Sports Complex'
     },
@@ -97,7 +93,6 @@ export default function EventDetail() {
         '30 seconds per question',
         'Highest score wins'
       ],
-      prizes: { first: '₹5,000', second: '₹3,000', third: '₹1,500' },
       duration: '1 hour',
       venue: 'Quiz Hall'
     },
@@ -110,7 +105,6 @@ export default function EventDetail() {
         'No external help allowed',
         'First team to solve all puzzles wins'
       ],
-      prizes: { first: '₹6,500', second: '₹4,000', third: '₹2,000' },
       duration: '2 hours',
       venue: 'Conference Room'
     },
@@ -123,7 +117,6 @@ export default function EventDetail() {
         'Own equipment preferred',
         'Judged on creativity, skill, and presentation'
       ],
-      prizes: { first: '₹10,000', second: '₹6,000', third: '₹3,500' },
       duration: '3 hours',
       venue: 'Open Air Theatre'
     },
@@ -136,7 +129,6 @@ export default function EventDetail() {
         'Judged on costume quality, creativity, and performance',
         'Props and accessories allowed'
       ],
-      prizes: { first: '₹8,000', second: '₹5,000', third: '₹3,000' },
       duration: '2 hours',
       venue: 'Main Stage'
     }
@@ -145,7 +137,6 @@ export default function EventDetail() {
   const currentEventData = eventData[id] || {
     fullDescription: event.details,
     rules: ['Standard event rules apply', 'Participants must register in advance', 'Follow all event guidelines'],
-    prizes: { first: '₹5,000', second: '₹3,000', third: '₹1,500' },
     duration: '2 hours',
     venue: 'TBA'
   };
@@ -223,28 +214,6 @@ export default function EventDetail() {
               <li key={index}>{rule}</li>
             ))}
           </ul>
-        </div>
-
-        {/* Prizes Section */}
-        <div className="event-prizes">
-          <h2 className="section-heading">Prizes & Rewards</h2>
-          <div className="prizes-grid">
-            <div className="prize-card">
-              <div className="prize-trophy">🥇</div>
-              <div className="prize-position">First Place</div>
-              <div className="prize-amount">{currentEventData.prizes.first}</div>
-            </div>
-            <div className="prize-card">
-              <div className="prize-trophy">🥈</div>
-              <div className="prize-position">Second Place</div>
-              <div className="prize-amount">{currentEventData.prizes.second}</div>
-            </div>
-            <div className="prize-card">
-              <div className="prize-trophy">🥉</div>
-              <div className="prize-position">Third Place</div>
-              <div className="prize-amount">{currentEventData.prizes.third}</div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
