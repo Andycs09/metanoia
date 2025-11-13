@@ -34,7 +34,7 @@ export default function About() {
     {
       id: 1,
       name: 'Dr. Vinay M',
-      designation: 'Professor & Head of Department',
+      designation: 'Associate Professor',
       linkedin: 'https://www.linkedin.com/in/quickvinay/',
       photo: vinayPhoto,
     },

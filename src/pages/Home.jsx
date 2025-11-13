@@ -30,6 +30,7 @@ export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [audioPlaying, setAudioPlaying] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [showHeaderElements, setShowHeaderElements] = useState(true);
   const audioRef = useRef(null);
   const carouselRef = useRef(null);
   const [isDragging, setIsDragging] = useState(false);
@@ -39,6 +40,8 @@ export default function Home() {
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
+      // Hide header elements when scrolled down more than 200px
+      setShowHeaderElements(window.scrollY < 200);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -190,22 +193,37 @@ export default function Home() {
         </div>
 
         <div className="hero-content">
-          {/* Top: Department Text */}
-          <h2 className="department-title">DEPARTMENT OF COMPUTER SCIENCE</h2>
+          {/* Top: Department Text - Hidden when scrolled */}
+          {showHeaderElements && (
+            <h2 className="department-title">DEPARTMENT OF COMPUTER SCIENCE</h2>
+          )}
 
-          {/* Samagra and Google Collaboration */}
-          <div className="collab-section">
-            <div className="collab-logos-horizontal">
-              <img src={samagraLogoImg} alt="Samagra" className="samagra-logo" />
-              <span className="collab-x">✕</span>
-              <img src={googleLogoImg} alt="Google India" className="google-logo" />
+          {/* Samagra and Google Collaboration - Below department title */}
+          {/* {showHeaderElements && (
+            <div className="collab-section-below-title">
+              <div className="collab-logos-horizontal">
+                <img src={samagraLogoImg} alt="Samagra" className="samagra-logo" />
+                <span className="collab-x">✕</span>
+                <img src={googleLogoImg} alt="Google India" className="google-logo" />
+              </div>
             </div>
-          </div>
+          )} */}
 
           {/* UNO Logo */}
           <div className="uno-logo-container">
             <img src={unoLogoImg} alt="UNO Logo" className="uno-logo" />
           </div>
+
+          {/* Samagra and Google Collaboration - Positioned in middle - Hidden when scrolled */}
+          {showHeaderElements && (
+            <div className="collab-section">
+              <div className="collab-logos-horizontal">
+                <img src={samagraLogoImg} alt="Samagra" className="samagra-logo" />
+                <span className="collab-x">✕</span>
+                <img src={googleLogoImg} alt="Google India" className="google-logo" />
+              </div>
+            </div>
+          )}
 
           {/* Event Date */}
           <p className="event-date">24th-25th November,2025</p>
@@ -217,6 +235,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+
 
       {/* Featured Events Section */}
       <section className="featured-events-section">
