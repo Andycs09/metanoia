@@ -1,0 +1,109 @@
+{
+  "events": [
+    {
+      "id": "uno-reverse-alibi",
+      "title": "UNO Reverse Alibi",
+      "image": "card_1_c185b98b.png",
+      "short": "Solve the case… but only after flipping the clues.",
+      "details": "Use UNO reverse cards to create the perfect alibi in this mystery game.",
+      "maxParticipants": 4,
+      "category": "Mystery",
+      "difficulty": "Medium",
+      "featured": true
+    },
+    {
+      "id": "wild-card-auction",
+      "title": "Wild Card Auction",
+      "image": "card_2.png",
+      "short": "Pick your players, flip your luck",
+      "details": "Strategic auction game where players bid on wild cards to build winning hands.",
+      "maxParticipants": 3,
+      "category": "Strategy",
+      "difficulty": "Hard",
+      "featured": true
+    },
+    {
+      "id": "uno-frame",
+      "title": "UNO Frame: Capture the Colors",
+      "image": "card_3_4dab2dee.png",
+      "short": "See the world in four colors — Red, Blue, Green, Yellow.",
+      "details": "A creative photography challenge where participants must capture the world through UNO's four primary colors.",
+      "maxParticipants": 2,
+      "category": "Creative",
+      "difficulty": "Easy",
+      "featured": true
+    },
+    {
+      "id": "draw-4-arena",
+      "title": "Draw 4 Arena (Online Gaming)",
+      "image": "card_4_fc0ce148.png",
+      "short": "Play hard. Flip harder",
+      "details": "Intense online gaming tournament featuring UNO-themed digital challenges.",
+      "maxParticipants": 4,
+      "category": "Gaming",
+      "difficulty": "Hard",
+      "featured": true
+    },
+    {
+      "id": "skip-the-obvious",
+      "title": "Skip the Obvious",
+      "image": "card_5_dd7a31d0.png",
+      "short": "Follow the clues… unless the card tells you to skip.",
+      "details": "Puzzle challenge where you must skip obvious answers to find hidden solutions.",
+      "maxParticipants": 4,
+      "category": "Puzzle",
+      "difficulty": "Medium",
+      "featured": false
+    },
+    {
+      "id": "uno-reverse-alibi-2",
+      "title": "Murder Mystery",
+      "image": "card_6_1ad3c40f.png",
+      "short": "Solve the case… but only after flipping the clues",
+      "details": "Advanced murder mystery event with more complex cases and intricate clues.",
+      "maxParticipants": 3,
+      "category": "Mystery",
+      "difficulty": "Hard",
+      "featured": false
+    },
+    {
+      "id": "logic-reverse",
+      "title": "Logic Reverse: The Brain Battle",
+      "image": "cca40262-9963-4706-bb07-2a25653cd855.jpg",
+      "short": "Outsmart. Outthink. UNO-reverse your opponent.",
+      "details": "Work backwards from solutions to understand complex logic problems.",
+      "maxParticipants": 2,
+      "category": "Logic",
+      "difficulty": "Hard",
+      "featured": false
+    },
+    {
+      "id": "color-chaos-quiz",
+      "title": "🎨 WILD PROMPT LAB 🎨",
+      "short": "Unleash creativity. Master prompts. Expect the unexpected.",
+      "details": "Fast-paced creative challenge exploring prompt engineering + AI image generation using Google Gemini with UNO-style cards and Wild Flip twists.",
+      "maxParticipants": 3,
+      "category": "Creative",
+      "difficulty": "Medium",
+      "featured": true
+    }
+  ],
+  "categories": [
+    "Mystery",
+    "Strategy", 
+    "Creative",
+    "Gaming",
+    "Puzzle",
+    "Logic"
+  ],
+  "difficulties": [
+    "Easy",
+    "Medium", 
+    "Hard"
+  ],
+  "metadata": {
+    "totalEvents": 8,
+    "lastUpdated": "2025-01-23",
+    "version": "1.0"
+  }
+}

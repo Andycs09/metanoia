@@ -30,7 +30,7 @@ export default function EventCard({ event, index = 0, disableZigZag = false }) {
   // CSS injected locally (safe if App.css isn't available)
   const CARD_CSS = `
     /* Top spacing from navbar + grid-friendly sizing */
-    :root { --card-top-gap: clamp(40px, 6vh, 80px); }
+    :root { --card-top-gap: clamp(72px, 12vh, 160px); }
     .flip-card {
       margin-block-start: var(--card-top-gap);
       display: inline-block;
@@ -46,17 +46,17 @@ export default function EventCard({ event, index = 0, disableZigZag = false }) {
 
     /* Zig-zag positioning - more pronounced */
     .flip-card.zig-left {
-      transform: translateY(-15px) !important;
+      transform: translateY(-30px) !important;
     }
     .flip-card.zig-right {
-      transform: translateY(15px) !important;
+      transform: translateY(30px) !important;
     }
     
     .flip-card.is-flipped.zig-left {
-      transform: translateY(-15px) !important;
+      transform: translateY(-30px) !important;
     }
     .flip-card.is-flipped.zig-right {
-      transform: translateY(15px) !important;
+      transform: translateY(30px) !important;
     }
 
     /* Flip mechanics */
@@ -349,32 +349,37 @@ export default function EventCard({ event, index = 0, disableZigZag = false }) {
       font-weight: 600;
     }
     
-    /* Button layout - positioned vertically at bottom right */
+    /* Button layout - positioned at very bottom where purple is marked */
     .flip-back .card-buttons {
       position: absolute;
-      bottom: 8px;
-      right: 8px;
+      bottom: 5px;
+      left: 50%;
+      transform: translateX(-50%);
       display: flex;
-      flex-direction: column;
-      gap: 6px;
+      gap: 8px;
       z-index: 15;
+      width: 95%;
+      justify-content: center;
     }
     
     .flip-back .card-btn {
       padding: 8px 16px;
-      font-size: 0.75rem;
+      font-size: 0.8rem;
       font-weight: 700;
       border-radius: 6px;
       border: none;
       cursor: pointer;
       transition: all 0.3s ease;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.3px;
       pointer-events: auto;
       position: relative;
       overflow: hidden;
-      min-width: 85px;
+      flex: 1;
+      min-width: 90px;
+      max-width: 110px;
       text-align: center;
+      white-space: nowrap;
     }
     
     .flip-back .card-btn.details {
@@ -520,14 +525,16 @@ export default function EventCard({ event, index = 0, disableZigZag = false }) {
       
       .flip-back .card-btn {
         padding: 6px 12px;
-        font-size: 0.7rem;
+        font-size: 0.75rem;
         min-width: 75px;
+        max-width: 95px;
+        letter-spacing: 0.2px;
       }
       
       .flip-back .card-buttons {
-        bottom: 6px;
-        right: 6px;
-        gap: 5px;
+        bottom: 4px;
+        gap: 6px;
+        width: 95%;
       }
     }
     
@@ -543,14 +550,16 @@ export default function EventCard({ event, index = 0, disableZigZag = false }) {
       
       .flip-back .card-btn {
         padding: 5px 10px;
-        font-size: 0.65rem;
+        font-size: 0.7rem;
         min-width: 65px;
+        max-width: 80px;
+        letter-spacing: 0.1px;
       }
       
       .flip-back .card-buttons {
-        bottom: 5px;
-        right: 5px;
-        gap: 4px;
+        bottom: 3px;
+        gap: 5px;
+        width: 95%;
       }
     }
 
@@ -565,7 +574,7 @@ export default function EventCard({ event, index = 0, disableZigZag = false }) {
     .full-image-wrapper img {
       width: 100%; 
       height: 100%; 
-      object-fit: contain; 
+      object-fit: cover; 
       display: block;
       border: none;
       border-radius: 14px;
@@ -573,43 +582,11 @@ export default function EventCard({ event, index = 0, disableZigZag = false }) {
     }
   `;
 
-  // Event data with titles and descriptions
-  const eventData = [
-    {
-      title: "UNO Reverse Alibi",
-      description: "Solve the case… but only after flipping the clues."
-    },
-    {
-      title: "Wild Card Auction", 
-      description: "Pick your players, flip your luck"
-    },
-    {
-      title: "UNO Frame: Capture the Colors",
-      description: "See the world in four colors — Red, Blue, Green, Yellow."
-    },
-    {
-      title: "Draw 4 Arena (Online Gaming)",
-      description: "Play hard. Flip harder"
-    },
-    {
-      title: "Skip the Obvious",
-      description: "Follow the clues… unless the card tells you to skip."
-    },
-    {
-      title: "UNO Reverse Alibi (Murder Mystery)",
-      description: "Solve the case… but only after flipping the clues"
-    },
-    {
-      title: "Logic Reverse: The Brain Battle",
-      description: "Outsmart. Outthink. UNO-reverse your opponent."
-    },
-    {
-      title: "Color Chaos Quiz",
-      description: "Guess. Climb. But beware… one snake can reverse it all"
-    }
-  ];
-
-  const currentEventData = eventData[index % eventData.length];
+  // Use the event data passed as props instead of hardcoded array
+  const currentEventData = {
+    title: event.title,
+    description: event.short
+  };
 
   // Array of imported UNO card images for front side
   const unoImages = [uno1, uno2, uno3, uno4, uno5, uno6, uno7];
@@ -725,32 +702,6 @@ export default function EventCard({ event, index = 0, disableZigZag = false }) {
   ];
   
   const cardColor = cardColors[index % cardColors.length];
-  
-  // Special card designs for certain events
-  const getCardDesign = () => {
-    if (event.id === 'music') {
-      return {
-        background: `linear-gradient(45deg, #FF6B6B, #4ECDC4, #45B7D1, #96CEB4)`,
-        backgroundSize: '400% 400%',
-        animation: 'gradientShift 3s ease infinite'
-      };
-    }
-    
-    if (event.id === 'cosplay') {
-      return {
-        background: `linear-gradient(135deg, ${cardColor}dd, ${cardColor}aa, ${cardColor}dd)`,
-        backgroundImage: `
-          radial-gradient(circle at 20% 80%, rgba(255,255,255,0.1) 0%, transparent 50%),
-          radial-gradient(circle at 80% 20%, rgba(255,255,255,0.1) 0%, transparent 50%),
-          radial-gradient(circle at 40% 40%, rgba(255,255,255,0.05) 0%, transparent 50%)
-        `
-      };
-    }
-    
-    return {
-      background: `linear-gradient(135deg, ${cardColor}, ${cardColor}dd)`
-    };
-  };
 
   return (
     <div
@@ -790,7 +741,7 @@ export default function EventCard({ event, index = 0, disableZigZag = false }) {
             </button>
             <button 
               className="card-btn register" 
-              onClick={(e) => navigateTo(`/register?event=${encodeURIComponent(event.id)}`, e)}
+              onClick={(e) => navigateTo(`/register?event=${event.id}`, e)}
             >
               Register
             </button>

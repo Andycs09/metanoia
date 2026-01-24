@@ -1,0 +1,382 @@
+{
+  "uno-reverse-alibi": {
+    "id": "uno-reverse-alibi",
+    "title": "UNO Reverse Alibi",
+    "subtitle": "Murder Mystery Challenge",
+    "description": "Solve the case… but only after flipping the clues.",
+    "longDescription": "Puzzle challenge where you must skip obvious answers to find hidden solutions. Players work as detectives to uncover the truth behind a mysterious crime, but there's a twist - all evidence must be examined in reverse order using UNO reverse cards.",
+    "category": "Mystery & Puzzle",
+    "difficulty": "Medium",
+    "duration": "2 hours",
+    "teamSize": {
+      "min": 2,
+      "max": 4,
+      "recommended": 3
+    },
+    "venue": "TBA",
+    "date": "24-25 Nov",
+    "time": "TBA",
+    "prizes": {
+      "first": "₹5,000",
+      "second": "₹3,000",
+      "third": "₹1,500"
+    },
+    "rules": [
+      "Standard event rules apply",
+      "Participants must register in advance",
+      "Follow all event guidelines",
+      "Teams must work together to solve mysteries",
+      "Use of external resources is prohibited"
+    ],
+    "requirements": [
+      "Basic problem-solving skills",
+      "Team coordination",
+      "Logical thinking ability"
+    ],
+    "aboutEvent": "A thrilling murder mystery where participants must use UNO reverse cards to uncover clues and solve the case. The twist? Everything must be analyzed backwards!",
+    "contactInfo": {
+      "coordinator": "Event Coordinator",
+      "email": "events@christuniversity.in",
+      "phone": "+91-XXXXXXXXXX"
+    }
+  },
+  "wild-card-auction": {
+    "id": "wild-card-auction",
+    "title": "Wild Card Auction",
+    "subtitle": "Strategic Bidding Game",
+    "description": "Pick your players, flip your luck",
+    "longDescription": "Strategic auction game where players bid on wild cards to build winning hands. Use your resources wisely to outbid opponents and collect the most powerful card combinations.",
+    "category": "Strategy & Auction",
+    "difficulty": "Hard",
+    "duration": "2 hours",
+    "teamSize": {
+      "min": 1,
+      "max": 3,
+      "recommended": 2
+    },
+    "venue": "TBA",
+    "date": "24-25 Nov",
+    "time": "TBA",
+    "prizes": {
+      "first": "₹4,000",
+      "second": "₹2,500",
+      "third": "₹1,000"
+    },
+    "rules": [
+      "Standard event rules apply",
+      "Participants must register in advance",
+      "Follow all event guidelines",
+      "Fair bidding practices only",
+      "No collusion between teams"
+    ],
+    "requirements": [
+      "Strategic thinking",
+      "Quick decision making",
+      "Resource management skills"
+    ],
+    "aboutEvent": "An intense auction-based strategy game where players compete to acquire the most valuable wild cards through smart bidding and tactical gameplay.",
+    "contactInfo": {
+      "coordinator": "Event Coordinator",
+      "email": "events@christuniversity.in",
+      "phone": "+91-XXXXXXXXXX"
+    }
+  },
+  "uno-frame": {
+    "id": "uno-frame",
+    "title": "UNO Frame: Capture the Colors",
+    "subtitle": "Photography Challenge",
+    "description": "See the world in four colors — Red, Blue, Green, Yellow.",
+    "longDescription": "A creative photography challenge where participants must capture the world through the lens of UNO's four primary colors. Create stunning visual narratives using only red, blue, green, and yellow elements.",
+    "category": "Creative & Photography",
+    "difficulty": "Easy",
+    "duration": "2 hours",
+    "teamSize": {
+      "min": 1,
+      "max": 2,
+      "recommended": 1
+    },
+    "venue": "TBA",
+    "date": "24-25 Nov",
+    "time": "TBA",
+    "prizes": {
+      "first": "₹3,500",
+      "second": "₹2,000",
+      "third": "₹1,000"
+    },
+    "rules": [
+      "Standard event rules apply",
+      "Participants must register in advance",
+      "Follow all event guidelines",
+      "Original photographs only",
+      "Must use only the four UNO colors"
+    ],
+    "requirements": [
+      "Camera or smartphone",
+      "Creative vision",
+      "Basic photography knowledge"
+    ],
+    "aboutEvent": "Express your creativity through photography by capturing the world in UNO's signature colors. Show us how red, blue, green, and yellow can tell compelling visual stories.",
+    "contactInfo": {
+      "coordinator": "Event Coordinator",
+      "email": "events@christuniversity.in",
+      "phone": "+91-XXXXXXXXXX"
+    }
+  },
+  "draw-4-arena": {
+    "id": "draw-4-arena",
+    "title": "Draw 4 Arena (Online Gaming)",
+    "subtitle": "Digital Gaming Tournament",
+    "description": "Play hard. Flip harder",
+    "longDescription": "Intense online gaming tournament featuring UNO-themed digital challenges. Compete against players from around the world in fast-paced, skill-based gaming competitions.",
+    "category": "Online Gaming",
+    "difficulty": "Hard",
+    "duration": "2 hours",
+    "teamSize": {
+      "min": 1,
+      "max": 4,
+      "recommended": 2
+    },
+    "venue": "TBA",
+    "date": "24-25 Nov",
+    "time": "TBA",
+    "prizes": {
+      "first": "₹6,000",
+      "second": "₹4,000",
+      "third": "₹2,000"
+    },
+    "rules": [
+      "Standard event rules apply",
+      "Participants must register in advance",
+      "Follow all event guidelines",
+      "Stable internet connection required",
+      "No cheating or external assistance"
+    ],
+    "requirements": [
+      "Gaming device (PC/Mobile)",
+      "Stable internet connection",
+      "Gaming skills and reflexes"
+    ],
+    "aboutEvent": "The ultimate online gaming arena where UNO meets competitive esports. Battle it out in digital challenges that test your gaming prowess and strategic thinking.",
+    "contactInfo": {
+      "coordinator": "Event Coordinator",
+      "email": "events@christuniversity.in",
+      "phone": "+91-XXXXXXXXXX"
+    }
+  },
+  "skip-the-obvious": {
+    "id": "skip-the-obvious",
+    "title": "Skip the Obvious",
+    "subtitle": "Lateral Thinking Challenge",
+    "description": "Follow the clues… unless the card tells you to skip.",
+    "longDescription": "A mind-bending puzzle challenge where obvious solutions are wrong. Participants must think laterally and skip conventional answers to find hidden solutions using UNO skip cards as guides.",
+    "category": "Puzzle & Logic",
+    "difficulty": "Medium",
+    "duration": "2 hours",
+    "teamSize": {
+      "min": 2,
+      "max": 4,
+      "recommended": 3
+    },
+    "venue": "TBA",
+    "date": "24-25 Nov",
+    "time": "TBA",
+    "prizes": {
+      "first": "₹4,500",
+      "second": "₹2,500",
+      "third": "₹1,200"
+    },
+    "rules": [
+      "Standard event rules apply",
+      "Participants must register in advance",
+      "Follow all event guidelines",
+      "Think outside the box",
+      "No obvious solutions allowed"
+    ],
+    "requirements": [
+      "Lateral thinking ability",
+      "Creative problem solving",
+      "Team collaboration"
+    ],
+    "aboutEvent": "Challenge your mind with puzzles where the obvious answer is always wrong. Use UNO skip cards to guide you past conventional thinking to discover hidden solutions.",
+    "contactInfo": {
+      "coordinator": "Event Coordinator",
+      "email": "events@christuniversity.in",
+      "phone": "+91-XXXXXXXXXX"
+    }
+  },
+  "uno-reverse-alibi-2": {
+    "id": "uno-reverse-alibi-2",
+    "title": "Murder Mystery",
+    "subtitle": "Advanced Detective Challenge",
+    "description": "Solve the case… but only after flipping the clues",
+    "longDescription": "The sequel to our popular murder mystery event with more complex cases and intricate clues. Advanced detective work required as participants unravel mysteries using reverse logic and UNO card mechanics.",
+    "category": "Mystery & Detective",
+    "difficulty": "Hard",
+    "duration": "2 hours",
+    "teamSize": {
+      "min": 2,
+      "max": 3,
+      "recommended": 3
+    },
+    "venue": "TBA",
+    "date": "24-25 Nov",
+    "time": "TBA",
+    "prizes": {
+      "first": "₹5,500",
+      "second": "₹3,500",
+      "third": "₹1,800"
+    },
+    "rules": [
+      "Standard event rules apply",
+      "Participants must register in advance",
+      "Follow all event guidelines",
+      "Advanced mystery solving required",
+      "Work as a detective team"
+    ],
+    "requirements": [
+      "Advanced problem-solving skills",
+      "Detective reasoning ability",
+      "Team coordination"
+    ],
+    "aboutEvent": "Take on more challenging murder mysteries in this advanced detective challenge. Use your investigative skills and UNO reverse logic to crack the toughest cases.",
+    "contactInfo": {
+      "coordinator": "Event Coordinator",
+      "email": "events@christuniversity.in",
+      "phone": "+91-XXXXXXXXXX"
+    }
+  },
+  "logic-reverse": {
+    "id": "logic-reverse",
+    "title": "Logic Reverse: The Brain Battle",
+    "subtitle": "Reverse Engineering Challenge",
+    "description": "Outsmart. Outthink. UNO-reverse your opponent.",
+    "longDescription": "Work backwards from solutions to understand complex logic problems. This brain battle challenges participants to reverse-engineer solutions and think in completely new ways using UNO logic mechanics.",
+    "category": "Logic & Brain Games",
+    "difficulty": "Hard",
+    "duration": "2 hours",
+    "teamSize": {
+      "min": 1,
+      "max": 2,
+      "recommended": 2
+    },
+    "venue": "TBA",
+    "date": "24-25 Nov",
+    "time": "TBA",
+    "prizes": {
+      "first": "₹4,000",
+      "second": "₹2,800",
+      "third": "₹1,500"
+    },
+    "rules": [
+      "Standard event rules apply",
+      "Participants must register in advance",
+      "Follow all event guidelines",
+      "Pure logic and reasoning only",
+      "No external aids allowed"
+    ],
+    "requirements": [
+      "Strong logical reasoning",
+      "Reverse thinking ability",
+      "Mathematical aptitude"
+    ],
+    "aboutEvent": "The ultimate brain battle where logic meets reverse engineering. Challenge your mind to work backwards from solutions and discover new ways of thinking.",
+    "contactInfo": {
+      "coordinator": "Event Coordinator",
+      "email": "events@christuniversity.in",
+      "phone": "+91-XXXXXXXXXX"
+    }
+  },
+  "color-chaos-quiz": {
+    "id": "color-chaos-quiz",
+    "title": "🎨 WILD PROMPT LAB 🎨",
+    "subtitle": "Creative AI Challenge",
+    "description": "Unleash creativity. Master prompts. Expect the unexpected.",
+    "longDescription": "Wild Prompt Lab is a fast-paced creative challenge where teams explore prompt engineering + AI image generation using Google Gemini. With UNO-style cards and surprise Wild Flip twists, imagination is pushed to the limit!",
+    "category": "Creative & AI",
+    "difficulty": "Medium",
+    "duration": "2 hours",
+    "teamSize": {
+      "min": 3,
+      "max": 3,
+      "recommended": 3
+    },
+    "venue": "TBA",
+    "date": "24-25 Nov",
+    "time": "TBA",
+    "rounds": {
+      "total": 2,
+      "round1": {
+        "name": "Prompt Crafter + Wild Flip",
+        "duration": "45 mins",
+        "description": "Draw Color 🎨 | Object 🧩 | Style 🎭 cards, create a prompt & generate 1 AI image, Wild Flip Card changes the rules, modify prompt & generate 1 more image"
+      },
+      "round2": {
+        "name": "Speed Prompt Showdown",
+        "duration": "TBA",
+        "description": "Mystery Theme + Secret Element, create 1 final AI image, 1-minute idea presentation"
+      }
+    },
+    "prizes": {
+      "first": "₹4,000",
+      "second": "₹2,500",
+      "third": "₹1,500"
+    },
+    "rules": [
+      "Teams of exactly 3 members required",
+      "Group name is mandatory",
+      "Participants must register in advance",
+      "Follow all event guidelines",
+      "Use only Google Gemini for AI image generation",
+      "Cards will be provided by organizers",
+      "Wild Flip cards can change rules mid-round",
+      "Top teams from Round 1 qualify for Round 2",
+      "1-minute presentation limit in final round"
+    ],
+    "requirements": [
+      "💻 1 laptop per team",
+      "🤖 Google Gemini access",
+      "🃏 Cards provided by organizers",
+      "Creative thinking and adaptability",
+      "Basic understanding of AI prompt engineering",
+      "Team coordination skills"
+    ],
+    "judging": {
+      "criteria": [
+        "Creativity and originality",
+        "Adaptability to Wild Flip changes",
+        "Prompt quality and effectiveness",
+        "Visual impact of generated images",
+        "Presentation skills (Round 2)"
+      ]
+    },
+    "aboutEvent": "🎨 About the Event: Wild Prompt Lab is a fast-paced creative challenge where teams explore prompt engineering + AI image generation using Google Gemini. With UNO-style cards and surprise Wild Flip twists, imagination is pushed to the limit! Teams will navigate through two exciting rounds, testing their creativity, adaptability, and prompt crafting skills while generating stunning AI images.",
+    "eventFlow": {
+      "round1": {
+        "steps": [
+          "Draw Color 🎨, Object 🧩, and Style 🎭 cards",
+          "Create initial prompt based on drawn cards",
+          "Generate first AI image using Google Gemini",
+          "Draw Wild Flip Card (changes the rules!)",
+          "Modify prompt according to Wild Flip requirements",
+          "Generate second AI image",
+          "Top teams qualify for Round 2"
+        ]
+      },
+      "round2": {
+        "steps": [
+          "Receive Mystery Theme + Secret Element",
+          "Create final prompt incorporating both elements",
+          "Generate final AI image",
+          "Prepare 1-minute presentation",
+          "Present to judges",
+          "Winners announced"
+        ]
+      }
+    },
+    "contactInfo": {
+      "coordinator": "Event Coordinator",
+      "email": "events@christuniversity.in",
+      "phone": "+91-XXXXXXXXXX"
+    }
+  }
+}

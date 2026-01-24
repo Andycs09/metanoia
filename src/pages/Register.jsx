@@ -5,7 +5,7 @@ import events from '../data/events';
 // Import home page background theme
 import bgImage from '../assets/home page theme.png';
 
-const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxy_m675sauTDwM3v4V7eoXZBVP4B0DLC7H7IJW099nSpt1scDKdoW6EXiQceZItdMu/exec';
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec'; // <-- replace with your URL
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -515,36 +515,19 @@ const REGISTER_STYLE = `
   /* Mobile and responsive design */
   @media (max-width: 768px) {
     .register-header {
-      top: 90px;
-      opacity: 1 !important;
-      transform: translateX(-50%) translateY(0) !important;
-      pointer-events: auto !important;
-    }
-    
-    .register-header.hidden {
-      opacity: 1 !important;
-      transform: translateX(-50%) translateY(0) !important;
-      pointer-events: auto !important;
+      top: 70px;
     }
     
     .register-header h2 {
-      font-size: 1.5rem;
+      font-size: 1.2rem;
       letter-spacing: 1px;
-      padding: 0.5rem 1rem;
-      background: linear-gradient(45deg, #1a237e, #ffffff, #9c27b0, #e91e63, #1a237e);
-      background-size: 400% 400%;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      animation: gradientShift 3s ease-in-out infinite;
-      display: block;
-      width: 100%;
+      padding: 0 1rem;
     }
     
     .register-card {
       width: 95%;
       padding: 1rem;
-      margin-top: 7rem;
+      margin-top: 5rem;
       max-height: calc(100vh - 200px);
       border-radius: 15px;
     }
@@ -609,30 +592,18 @@ const REGISTER_STYLE = `
     }
     
     .register-header {
-      top: 80px;
-      opacity: 1 !important;
-      transform: translateX(-50%) translateY(0) !important;
-      pointer-events: auto !important;
-    }
-    
-    .register-header.hidden {
-      opacity: 1 !important;
-      transform: translateX(-50%) translateY(0) !important;
-      pointer-events: auto !important;
+      top: 60px;
     }
     
     .register-header h2 {
-      font-size: 1.3rem;
+      font-size: 1rem;
       letter-spacing: 0.5px;
-      padding: 0.5rem 0.75rem;
-      display: block;
-      width: 100%;
     }
     
     .register-card {
       width: 98%;
       padding: 0.75rem;
-      margin-top: 6rem;
+      margin-top: 4rem;
       max-height: calc(100vh - 180px);
     }
     
@@ -673,30 +644,14 @@ const REGISTER_STYLE = `
   }
   
   @media (max-width: 360px) {
-    .register-header {
-      top: 75px;
-      opacity: 1 !important;
-      transform: translateX(-50%) translateY(0) !important;
-      pointer-events: auto !important;
-    }
-    
-    .register-header.hidden {
-      opacity: 1 !important;
-      transform: translateX(-50%) translateY(0) !important;
-      pointer-events: auto !important;
-    }
-    
     .register-header h2 {
-      font-size: 1.1rem;
-      padding: 0.5rem;
-      display: block;
-      width: 100%;
+      font-size: 0.9rem;
     }
     
     .register-card {
       padding: 0.5rem;
       border-radius: 10px;
-      margin-top: 5.5rem;
+      margin-top: 3.5rem;
     }
     
     .participant-fieldset {
@@ -918,17 +873,14 @@ export default function RegisterPage() {
     };
 
     try {
-      // Google Apps Script doesn't support CORS preflight, so we use a workaround
       const resp = await fetch(GOOGLE_SCRIPT_URL, {
         method: 'POST',
-        mode: 'no-cors', // This bypasses CORS but we won't get response details
-        headers: { 'Content-Type': 'text/plain' }, // Changed to avoid preflight
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
         signal: controller.signal
       });
       clearTimeout(timeoutId);
-      
-      // With no-cors mode, we can't check response status, so we assume success
+      if (!resp.ok) throw new Error('Network response not OK');
       setMessage({ type: 'success', text: 'Registration submitted — thank you!' });
 
       // success animation using GSAP if available

@@ -1,0 +1,74 @@
+{
+  "eventTemplate": {
+    "id": "event-unique-id",
+    "title": "Event Title",
+    "subtitle": "Event Subtitle/Category",
+    "description": "Short description for card display",
+    "longDescription": "Detailed description of the event, what participants will do, and what makes it special",
+    "category": "Event Category (e.g., Mystery & Puzzle, Strategy, Creative, Gaming, etc.)",
+    "difficulty": "Easy/Medium/Hard",
+    "duration": "Duration in hours (e.g., 2 hours, 3 hours)",
+    "teamSize": {
+      "min": 1,
+      "max": 4,
+      "recommended": 2,
+      "note": "Minimum and maximum team size, with recommended size"
+    },
+    "venue": "Venue name or TBA",
+    "date": "Event date (e.g., 24-25 Nov)",
+    "time": "Event time or TBA",
+    "prizes": {
+      "first": "₹X,XXX",
+      "second": "₹X,XXX",
+      "third": "₹X,XXX",
+      "note": "Prize money for winners"
+    },
+    "rules": [
+      "Standard event rules apply",
+      "Participants must register in advance",
+      "Follow all event guidelines",
+      "Add specific rules for this event",
+      "Add more rules as needed"
+    ],
+    "requirements": [
+      "List any skills needed",
+      "Equipment requirements",
+      "Prerequisites for participation"
+    ],
+    "aboutEvent": "Comprehensive description about what the event is, what participants will experience, and why they should join",
+    "contactInfo": {
+      "coordinator": "Event Coordinator Name",
+      "email": "coordinator@christuniversity.in",
+      "phone": "+91-XXXXXXXXXX"
+    }
+  },
+  "instructions": {
+    "howToUse": "Copy the eventTemplate object above and fill in all the details for your new event",
+    "steps": [
+      "1. Copy the eventTemplate object",
+      "2. Change the key from 'eventTemplate' to your event's unique ID",
+      "3. Fill in all the fields with your event's information",
+      "4. Add the completed event object to eventDetails.json",
+      "5. Update the main events.js file with basic event info"
+    ],
+    "fieldDescriptions": {
+      "id": "Unique identifier for the event (lowercase, hyphen-separated)",
+      "title": "Display name of the event",
+      "subtitle": "Category or theme of the event",
+      "description": "Short description shown on event cards",
+      "longDescription": "Detailed description for event details page",
+      "category": "Event category for filtering/grouping",
+      "difficulty": "Difficulty level (Easy/Medium/Hard)",
+      "duration": "How long the event will run",
+      "teamSize": "Team size constraints and recommendations",
+      "venue": "Where the event will be held",
+      "date": "When the event will occur",
+      "time": "Specific time or TBA",
+      "prizes": "Prize structure for winners",
+      "rules": "Array of rules participants must follow",
+      "requirements": "What participants need to bring/know",
+      "aboutEvent": "Detailed description for the about section",
+      "contactInfo": "Contact details for the event coordinator"
+    }
+  }
+}

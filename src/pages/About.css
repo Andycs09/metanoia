@@ -224,28 +224,9 @@
 /* Faculty Grid */
 .faculty-grid {
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 3rem;
     margin-top: 3rem;
-    max-width: 1400px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-/* First 3 cards take 2 columns each (spanning full width) */
-.faculty-grid .faculty-card:nth-child(1),
-.faculty-grid .faculty-card:nth-child(2),
-.faculty-grid .faculty-card:nth-child(3) {
-    grid-column: span 2;
-}
-
-/* Last 2 cards centered - each takes 2 columns with 1 column gap on sides */
-.faculty-grid .faculty-card:nth-child(4) {
-    grid-column: 2 / span 2;
-}
-
-.faculty-grid .faculty-card:nth-child(5) {
-    grid-column: 4 / span 2;
 }
 
 .faculty-card {
@@ -285,8 +266,6 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center top;
-    transform: scale(1.1);
 }
 
 .faculty-placeholder {
@@ -492,29 +471,6 @@
 }
 
 /* Responsive Design */
-@media (max-width: 1200px) {
-    .faculty-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    /* Reset grid positioning for responsive */
-    .faculty-grid .faculty-card:nth-child(1),
-    .faculty-grid .faculty-card:nth-child(2),
-    .faculty-grid .faculty-card:nth-child(3),
-    .faculty-grid .faculty-card:nth-child(4),
-    .faculty-grid .faculty-card:nth-child(5) {
-        grid-column: span 1;
-    }
-
-    /* Center the 5th card when in 2-column layout */
-    .faculty-grid .faculty-card:nth-child(5) {
-        grid-column: 1 / -1;
-        max-width: 400px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-}
-
 @media (max-width: 768px) {
     .about-page {
         padding-top: 60px;
@@ -548,14 +504,6 @@
     .faculty-grid {
         grid-template-columns: 1fr;
         gap: 2rem;
-    }
-
-    /* Reset all grid positioning on mobile */
-    .faculty-grid .faculty-card:nth-child(5) {
-        grid-column: span 1;
-        max-width: none;
-        margin-left: 0;
-        margin-right: 0;
     }
 
     .vision-points {

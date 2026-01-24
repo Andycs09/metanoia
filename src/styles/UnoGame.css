@@ -218,13 +218,16 @@
   display: flex;
   flex-direction: column;
   gap: 30px;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 .other-players {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   flex-wrap: wrap;
   gap: 20px;
+  min-height: 180px;
 }
 
 .player-info {
@@ -265,18 +268,23 @@
   justify-content: center;
   align-items: center;
   padding: 40px 0;
+  min-height: 200px;
 }
 
 .deck-area {
   display: flex;
-  gap: 40px;
+  gap: 60px;
   align-items: center;
+  justify-content: center;
 }
 
 .deck {
   cursor: pointer;
   position: relative;
   transition: transform 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .deck:hover {
@@ -301,6 +309,9 @@
 
 .discard-pile {
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* UNO Card Styling */
@@ -620,6 +631,7 @@
 
 .player-hand {
   text-align: center;
+  margin-top: 20px;
 }
 
 .player-hand h3 {
@@ -636,6 +648,8 @@
   padding: 20px;
   background: rgba(15, 52, 96, 0.3);
   border-radius: 15px;
+  min-height: 160px;
+  align-items: center;
 }
 
 .color-chooser-overlay {
@@ -765,6 +779,7 @@
   
   .hand-cards {
     gap: 5px;
+    min-height: 120px;
   }
   
   .player-cards {
@@ -784,6 +799,19 @@
   
   .game-info {
     font-size: 0.9rem;
+  }
+  
+  .deck-area {
+    gap: 30px;
+  }
+  
+  .center-area {
+    padding: 20px 0;
+    min-height: 150px;
+  }
+  
+  .other-players {
+    min-height: 150px;
   }
 }
 

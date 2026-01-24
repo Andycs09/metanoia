@@ -17,12 +17,23 @@ export default function Events() {
 	// store shuffled events so order is different each load
 	const [eventsList] = useState(() => shuffleArray(events));
 
-	// Scroll to top when component mounts
+	// Scroll to middle of page when component mounts
 	useEffect(() => {
-		window.scrollTo({
-			top: 0,
-			behavior: 'smooth'
-		});
+		const scrollToMiddle = () => {
+			const viewportHeight = window.innerHeight;
+			const documentHeight = document.documentElement.scrollHeight;
+			const middlePosition = (documentHeight - viewportHeight) / 2;
+			
+			// Small delay to ensure page is fully rendered
+			setTimeout(() => {
+				window.scrollTo({
+					top: middlePosition,
+					behavior: 'smooth'
+				});
+			}, 100);
+		};
+
+		scrollToMiddle();
 	}, []);
 
 	useEffect(() => {
@@ -164,29 +175,6 @@ export default function Events() {
 					z-index: 0;
 					pointer-events: none;
 				}
-				.events-heading {
-					position: relative;
-					z-index: 1;
-					text-align: center;
-					font-size: clamp(3rem, 8vw, 6rem);
-					font-weight: 900;
-					margin: 0 0 40px 0;
-					padding: 20px;
-					background: linear-gradient(90deg, #9C27B0, #2196F3, #9C27B0, #2196F3);
-					background-size: 300% 100%;
-					-webkit-background-clip: text;
-					-webkit-text-fill-color: transparent;
-					background-clip: text;
-					animation: gradientFlow 4s ease-in-out infinite;
-					text-transform: uppercase;
-					letter-spacing: 0.1em;
-					text-shadow: 0 0 30px rgba(156, 39, 176, 0.5);
-				}
-				@keyframes gradientFlow {
-					0% { background-position: 0% 50%; }
-					50% { background-position: 100% 50%; }
-					100% { background-position: 0% 50%; }
-				}
 				.events-grid {
 					position: relative;
 					z-index: 1;
@@ -206,7 +194,6 @@ export default function Events() {
 				.events-grid--animating .flip-card { pointer-events: none; }
 			`}</style>
 
-			<h1 className="events-heading">Events</h1>
 			<div className="events-grid">
 				{eventsList.map((ev, i) => (
 					<EventCard key={ev.id} event={ev} index={i} />

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import events from '../data/events';
+import eventDetailsData from '../data/eventDetails.json';
 import './EventDetail.css';
 import bgImage from '../assets/home page theme.png';
 
@@ -8,12 +9,13 @@ export default function EventDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
   const event = events.find(e => e.id === id);
+  const eventDetails = eventDetailsData[id];
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [id]);
 
-  if (!event) {
+  if (!event || !eventDetails) {
     return (
       <div className="event-detail-page" style={{ backgroundImage: `url(${bgImage})` }}>
         <div className="event-detail-container">
@@ -26,119 +28,13 @@ export default function EventDetail() {
 
   // Get image URL
   const getImageUrl = (imagePath) => {
+    if (!imagePath) return bgImage; // fallback to background image
     if (imagePath.startsWith('/')) return imagePath;
     try {
       return new URL(`../../images/${imagePath}`, import.meta.url).href;
     } catch {
       return imagePath;
     }
-  };
-
-  // Event-specific data
-  const eventData = {
-    'treasure-hunt': {
-      fullDescription: 'Embark on an exciting adventure through campus as you search for hidden UNO treasures! This team-based treasure hunt combines physical challenges with UNO-themed clues and puzzles. Work together with your team to decode riddles, solve challenges, and be the first to find all the treasures.',
-      rules: [
-        'Teams of 2 participants required',
-        'All clues must be solved in sequence',
-        'No use of external help or internet during the hunt',
-        'Teams must stay together at all times',
-        'First team to complete all challenges wins'
-      ],
-      duration: '2 hours',
-      venue: 'Campus Wide'
-    },
-    'uno-tournament': {
-      fullDescription: 'Battle it out in the ultimate UNO Tournament! Compete against the best players in knockout-style matches. Master your strategy, use your special cards wisely, and prove you\'re the UNO champion. Fast-paced, exciting, and full of surprises!',
-      rules: [
-        'Maximum 4 players per team',
-        'Standard UNO rules apply',
-        'Knockout format - single elimination',
-        'Time limit of 15 minutes per match',
-        'Winner determined by points or first to finish'
-      ],
-      duration: '3 hours',
-      venue: 'Main Auditorium'
-    },
-    'card-art': {
-      fullDescription: 'Unleash your creativity and design custom UNO cards! This solo competition challenges you to create original, artistic UNO card designs. Whether digital or hand-drawn, show us your unique vision and artistic skills. The most creative and well-executed designs win!',
-      rules: [
-        'Individual participation only',
-        'Submit original artwork - no plagiarism',
-        'Can be digital or hand-drawn',
-        'Must follow UNO card dimensions',
-        'Presentation and explanation required'
-      ],
-      duration: '1.5 hours',
-      venue: 'Art Studio'
-    },
-    'relay-race': {
-      fullDescription: 'Get ready for an action-packed relay race combining physical challenges with UNO-themed puzzles! Teams of 3 will race through various stations, completing both athletic and mental challenges. Speed, teamwork, and strategy are key to victory!',
-      rules: [
-        'Teams of 3 participants required',
-        'All team members must complete their leg',
-        'Challenges must be completed before moving forward',
-        'No skipping stations',
-        'Fastest team with all challenges completed wins'
-      ],
-      duration: '2.5 hours',
-      venue: 'Sports Complex'
-    },
-    'trivia': {
-      fullDescription: 'Test your UNO knowledge in this fast-paced trivia competition! Answer rapid-fire questions about UNO history, rules, strategies, and fun facts. Perfect for UNO enthusiasts who know the game inside and out. Quick thinking and deep knowledge will lead you to victory!',
-      rules: [
-        'Teams of 2 participants',
-        'Multiple choice and rapid-fire rounds',
-        'No use of phones or external resources',
-        '30 seconds per question',
-        'Highest score wins'
-      ],
-      duration: '1 hour',
-      venue: 'Quiz Hall'
-    },
-    'puzzle': {
-      fullDescription: 'Challenge your mind with sequential UNO-themed puzzles! Teams will solve a series of increasingly difficult puzzles, riddles, and brain teasers. From logic puzzles to pattern recognition, this event tests your problem-solving skills to the limit!',
-      rules: [
-        'Teams of up to 4 participants',
-        'Puzzles must be solved in order',
-        'Limited hints available',
-        'No external help allowed',
-        'First team to solve all puzzles wins'
-      ],
-      duration: '2 hours',
-      venue: 'Conference Room'
-    },
-    'music': {
-      fullDescription: 'Showcase your musical talent in UNO Beats! Whether you\'re a DJ, singer, or instrumentalist, this is your stage. Perform UNO-themed music, remixes, or original compositions. Judges will evaluate creativity, technical skill, and audience engagement!',
-      rules: [
-        'Teams of up to 2 participants',
-        'Performance time: 5-8 minutes',
-        'Must include UNO theme elements',
-        'Own equipment preferred',
-        'Judged on creativity, skill, and presentation'
-      ],
-      duration: '3 hours',
-      venue: 'Open Air Theatre'
-    },
-    'cosplay': {
-      fullDescription: 'Dress up as your favorite UNO card or character! This cosplay contest celebrates creativity, craftsmanship, and performance. Create stunning costumes, embody your character, and wow the judges with your presentation. The best UNO-inspired look takes home the prize!',
-      rules: [
-        'Teams of up to 3 participants',
-        'Costumes must be UNO-themed',
-        'Stage performance required (2-3 minutes)',
-        'Judged on costume quality, creativity, and performance',
-        'Props and accessories allowed'
-      ],
-      duration: '2 hours',
-      venue: 'Main Stage'
-    }
-  };
-
-  const currentEventData = eventData[id] || {
-    fullDescription: event.details,
-    rules: ['Standard event rules apply', 'Participants must register in advance', 'Follow all event guidelines'],
-    duration: '2 hours',
-    venue: 'TBA'
   };
 
   return (
@@ -156,32 +52,38 @@ export default function EventDetail() {
         <div className="event-hero">
           {/* Image Section */}
           <div className="event-image-section">
-            <img src={getImageUrl(event.image)} alt={event.title} />
+            {event.image && <img src={getImageUrl(event.image)} alt={eventDetails.title} />}
             <div className="event-badge">Featured Event</div>
           </div>
 
           {/* Info Section */}
           <div className="event-info-section">
-            <h1 className="event-title">{event.title}</h1>
-            <p className="event-short-desc">{event.short}</p>
+            <h1 className="event-title">{eventDetails.title}</h1>
+            <h2 className="event-subtitle">{eventDetails.subtitle}</h2>
+            <p className="event-short-desc">{eventDetails.description}</p>
 
             {/* Quick Info */}
             <div className="event-quick-info">
               <div className="info-card">
                 <div className="info-card-label">Team Size</div>
-                <div className="info-card-value">{event.maxParticipants} {event.maxParticipants === 1 ? 'Person' : 'People'}</div>
+                <div className="info-card-value">
+                  {eventDetails.teamSize.min === eventDetails.teamSize.max 
+                    ? `${eventDetails.teamSize.min} ${eventDetails.teamSize.min === 1 ? 'Person' : 'People'}`
+                    : `${eventDetails.teamSize.min}-${eventDetails.teamSize.max} People`
+                  }
+                </div>
               </div>
               <div className="info-card">
                 <div className="info-card-label">Duration</div>
-                <div className="info-card-value">{currentEventData.duration}</div>
+                <div className="info-card-value">{eventDetails.duration}</div>
               </div>
               <div className="info-card">
                 <div className="info-card-label">Venue</div>
-                <div className="info-card-value">{currentEventData.venue}</div>
+                <div className="info-card-value">{eventDetails.venue}</div>
               </div>
               <div className="info-card">
                 <div className="info-card-label">Date</div>
-                <div className="info-card-value">24-25 Nov</div>
+                <div className="info-card-value">{eventDetails.date}</div>
               </div>
             </div>
 
@@ -203,18 +105,120 @@ export default function EventDetail() {
         {/* Details Section */}
         <div className="event-details-section">
           <h2 className="section-heading">About This Event</h2>
-          <p className="event-description">{currentEventData.fullDescription}</p>
+          <p className="event-description">{eventDetails.aboutEvent}</p>
+          
+          {/* Long Description */}
+          <div className="event-long-description">
+            <p>{eventDetails.longDescription}</p>
+          </div>
+
+          {/* Special sections for Wild Prompt Lab */}
+          {eventDetails.rounds && (
+            <div className="event-rounds-section">
+              <h3 className="subsection-heading">🔁 Event Rounds ({eventDetails.rounds.total} Rounds)</h3>
+              
+              <div className="round-card">
+                <h4>🧠 {eventDetails.rounds.round1.name} ({eventDetails.rounds.round1.duration})</h4>
+                <p>{eventDetails.rounds.round1.description}</p>
+              </div>
+              
+              <div className="round-card">
+                <h4>⚡ {eventDetails.rounds.round2.name}</h4>
+                <p>{eventDetails.rounds.round2.description}</p>
+              </div>
+            </div>
+          )}
+
+          {/* Event Flow */}
+          {eventDetails.eventFlow && (
+            <div className="event-flow-section">
+              <h3 className="subsection-heading">📋 Event Flow</h3>
+              
+              <div className="flow-round">
+                <h4>Round 1: {eventDetails.rounds.round1.name}</h4>
+                <ol className="flow-steps">
+                  {eventDetails.eventFlow.round1.steps.map((step, index) => (
+                    <li key={index}>{step}</li>
+                  ))}
+                </ol>
+              </div>
+              
+              <div className="flow-round">
+                <h4>Round 2: {eventDetails.rounds.round2.name}</h4>
+                <ol className="flow-steps">
+                  {eventDetails.eventFlow.round2.steps.map((step, index) => (
+                    <li key={index}>{step}</li>
+                  ))}
+                </ol>
+              </div>
+            </div>
+          )}
+
+          {/* Judging Criteria */}
+          {eventDetails.judging && (
+            <div className="judging-section">
+              <h3 className="subsection-heading">🏆 Judging Criteria</h3>
+              <ul className="judging-list">
+                {eventDetails.judging.criteria.map((criterion, index) => (
+                  <li key={index}>{criterion}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+
+        {/* Requirements Section */}
+        <div className="event-requirements">
+          <h2 className="section-heading">🛠 Requirements</h2>
+          <ul className="requirements-list">
+            {eventDetails.requirements.map((requirement, index) => (
+              <li key={index}>{requirement}</li>
+            ))}
+          </ul>
         </div>
 
         {/* Rules Section */}
         <div className="event-rules">
-          <h2 className="section-heading">Rules & Guidelines</h2>
+          <h2 className="section-heading">📜 Rules & Guidelines</h2>
           <ul className="rules-list">
-            {currentEventData.rules.map((rule, index) => (
+            {eventDetails.rules.map((rule, index) => (
               <li key={index}>{rule}</li>
             ))}
           </ul>
         </div>
+
+        {/* Prizes Section */}
+        {eventDetails.prizes && (
+          <div className="event-prizes">
+            <h2 className="section-heading">🏆 Prizes</h2>
+            <div className="prizes-grid">
+              <div className="prize-card first">
+                <div className="prize-position">🥇 1st Place</div>
+                <div className="prize-amount">{eventDetails.prizes.first}</div>
+              </div>
+              <div className="prize-card second">
+                <div className="prize-position">🥈 2nd Place</div>
+                <div className="prize-amount">{eventDetails.prizes.second}</div>
+              </div>
+              <div className="prize-card third">
+                <div className="prize-position">🥉 3rd Place</div>
+                <div className="prize-amount">{eventDetails.prizes.third}</div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Contact Section */}
+        {eventDetails.contactInfo && (
+          <div className="event-contact">
+            <h2 className="section-heading">📞 Contact Information</h2>
+            <div className="contact-info">
+              <p><strong>Coordinator:</strong> {eventDetails.contactInfo.coordinator}</p>
+              <p><strong>Email:</strong> <a href={`mailto:${eventDetails.contactInfo.email}`}>{eventDetails.contactInfo.email}</a></p>
+              <p><strong>Phone:</strong> <a href={`tel:${eventDetails.contactInfo.phone}`}>{eventDetails.contactInfo.phone}</a></p>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
