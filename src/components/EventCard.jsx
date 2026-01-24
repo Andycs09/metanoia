@@ -582,6 +582,25 @@ export default function EventCard({ event, index = 0, disableZigZag = false }) {
     }
   `;
 
+  // Create a stable index based on event ID to ensure consistent mapping
+  // regardless of array shuffling
+  const getStableIndex = (eventId) => {
+    const eventIds = [
+      'uno-reverse-alibi',      // 0
+      'wild-card-auction',      // 1
+      'uno-frame',              // 2
+      'draw-4-arena',           // 3
+      'skip-the-obvious',       // 4
+      'uno-reverse-alibi-2',    // 5
+      'logic-reverse',          // 6
+      'color-chaos-quiz'        // 7
+    ];
+    return eventIds.indexOf(eventId);
+  };
+
+  const stableIndex = getStableIndex(event.id);
+  const displayIndex = stableIndex >= 0 ? stableIndex : index; // fallback to passed index
+
   // Use the event data passed as props instead of hardcoded array
   const currentEventData = {
     title: event.title,
@@ -597,15 +616,15 @@ export default function EventCard({ event, index = 0, disableZigZag = false }) {
   // Get image based on card index (cycles through available images)
   // Replace images for cards 4 and 7 with a.jpg and b.jpg
   let frontImageSrc;
-  if (index === 4) {
+  if (displayIndex === 4) {
     frontImageSrc = aImage;
-  } else if (index === 7) {
+  } else if (displayIndex === 7) {
     frontImageSrc = bImage;
   } else {
-    frontImageSrc = unoImages[index % unoImages.length];
+    frontImageSrc = unoImages[displayIndex % unoImages.length];
   }
   
-  const backImageSrc = img2Images[index % img2Images.length];
+  const backImageSrc = img2Images[displayIndex % img2Images.length];
 
 
 
@@ -631,7 +650,7 @@ export default function EventCard({ event, index = 0, disableZigZag = false }) {
 
       // Musical notes based on card index
       const notes = [261.63, 293.66, 329.63, 349.23, 392.00, 440.00, 493.88, 523.25]; // C major scale
-      const baseNote = notes[index % notes.length];
+      const baseNote = notes[displayIndex % notes.length];
       
       osc1.type = 'sine';
       osc2.type = 'triangle';
@@ -687,7 +706,7 @@ export default function EventCard({ event, index = 0, disableZigZag = false }) {
     navigate(path);
   };
 
-  const zigClass = disableZigZag ? '' : (index % 2 === 0 ? 'zig-left' : 'zig-right');
+  const zigClass = disableZigZag ? '' : (displayIndex % 2 === 0 ? 'zig-left' : 'zig-right');
 
   // UNO card colors based on index
   const cardColors = [
@@ -701,7 +720,7 @@ export default function EventCard({ event, index = 0, disableZigZag = false }) {
     '#9C27B0'  // Purple
   ];
   
-  const cardColor = cardColors[index % cardColors.length];
+  const cardColor = cardColors[displayIndex % cardColors.length];
 
   return (
     <div

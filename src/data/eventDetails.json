@@ -16,11 +16,6 @@
     "venue": "TBA",
     "date": "24-25 Nov",
     "time": "TBA",
-    "prizes": {
-      "first": "₹5,000",
-      "second": "₹3,000",
-      "third": "₹1,500"
-    },
     "rules": [
       "Standard event rules apply",
       "Participants must register in advance",
@@ -42,39 +37,54 @@
   },
   "wild-card-auction": {
     "id": "wild-card-auction",
-    "title": "Wild Card Auction",
-    "subtitle": "Strategic Bidding Game",
-    "description": "Pick your players, flip your luck",
-    "longDescription": "Strategic auction game where players bid on wild cards to build winning hands. Use your resources wisely to outbid opponents and collect the most powerful card combinations.",
-    "category": "Strategy & Auction",
+    "title": "🔥 WILD CARD AUCTION – IPL Edition 🔥",
+    "subtitle": "Cricket-Based Strategic Bidding Challenge",
+    "description": "Get ready for the most thrilling cricket-based event where knowledge + strategy + bidding skills decide the champion! ",
+    "longDescription": "🔥 WILD CARD AUCTION – IPL Edition , Get ready for the most thrilling cricket-based event where knowledge + strategy + bidding skills decide the champion!  Total Teams: 10 ⚡ Entry Rule: Everyone must clear Round 1 to qualify!  ROUND 1: SHOOT QUIZ (IPL Special) All participants will face an IPL-based Shoot Quiz  Only the smartest and fastest will survive!  The Top 10 Teams will qualify for the next stage.  ROUND 2: THE AUCTION WAR Welcome to the real game… THE AUCTION!  Each team will receive a fixed budget amount  Now it's time to bid for players and build your dream squad  Smart bidding = Strong team  Overbidding = Risky strategy WINNING CRITERIA After the auction, teams will be judged based on total points  The team with the highest points becomes the EVEN WILD CARD AUCTION CHAMPION  If you love IPL, auctions, and intense competition… This event is made for you! Bring your squad, test your IPL knowledge, and dominate the auction table!  Are you ready to bid like a pro and win like a champion? 🔥",
+    "category": "Cricket Strategy & Auction",
     "difficulty": "Hard",
-    "duration": "2 hours",
+    "duration": "2 Days",
     "teamSize": {
       "min": 1,
-      "max": 3,
-      "recommended": 2
+      "max": 4,
+      "recommended": 3
     },
     "venue": "TBA",
-    "date": "24-25 Nov",
+    "date": "30-31 JAN",
     "time": "TBA",
-    "prizes": {
-      "first": "₹4,000",
-      "second": "₹2,500",
-      "third": "₹1,000"
+    "rounds": {
+      "total": 2,
+      "round1": {
+        "name": "🥇 SHOOT QUIZ (IPL Special)",
+        "description": "All participants will face an IPL-based Shoot Quiz 🧠🔥 Only the smartest and fastest will survive! ✅ The Top 10 Teams will qualify for the next stage."
+      },
+      "round2": {
+        "name": "💥 THE AUCTION WAR",
+        "description": "Welcome to the real game… THE AUCTION! 🔥 Each team will receive a fixed budget amount 💵 Now it's time to bid for players and build your dream squad 💪✨"
+      }
     },
     "rules": [
+      "⚡ Entry Rule: Everyone must clear Round 1 to qualify!",
+      "🔥 Total Teams: 10 teams maximum",
+      "✅ Only Top 10 Teams from Round 1 qualify for Round 2",
+      "💵 Each team receives a fixed budget amount for auction",
+      "📌 Smart bidding = Strong team",
+      "📌 Overbidding = Risky strategy",
+      "🏆 Teams judged based on total points after auction",
       "Standard event rules apply",
       "Participants must register in advance",
-      "Follow all event guidelines",
-      "Fair bidding practices only",
-      "No collusion between teams"
+      "Follow all event guidelines"
     ],
     "requirements": [
-      "Strategic thinking",
-      "Quick decision making",
-      "Resource management skills"
+      "🏏 Strong IPL knowledge",
+      "🧠 Quick thinking for shoot quiz",
+      "💰 Strategic bidding skills",
+      "📊 Player evaluation abilities",
+      "⚡ Fast reflexes for quiz round",
+      "💪 Team coordination"
     ],
-    "aboutEvent": "An intense auction-based strategy game where players compete to acquire the most valuable wild cards through smart bidding and tactical gameplay.",
+    "aboutEvent": "🔥 WILD CARD AUCTION – IPL Edition 🔥 The most thrilling cricket-based event where knowledge + strategy + bidding skills decide the champion! Start with an intense IPL Shoot Quiz to qualify, then dominate the auction table to build your dream squad. 📢 Bring your squad, test your IPL knowledge, and dominate the auction table! 💥🏏🔥 Are you ready to bid like a pro and win like a champion?",
+    "winningCriteria": "🏆 After the auction, teams will be judged based on total points 📊 The team with the highest points becomes the EVEN WILD CARD AUCTION CHAMPION 👑🔥🎉",
     "contactInfo": {
       "coordinator": "Event Coordinator",
       "email": "events@christuniversity.in",
@@ -98,11 +108,6 @@
     "venue": "TBA",
     "date": "24-25 Nov",
     "time": "TBA",
-    "prizes": {
-      "first": "₹3,500",
-      "second": "₹2,000",
-      "third": "₹1,000"
-    },
     "rules": [
       "Standard event rules apply",
       "Participants must register in advance",
@@ -139,11 +144,6 @@
     "venue": "TBA",
     "date": "24-25 Nov",
     "time": "TBA",
-    "prizes": {
-      "first": "₹6,000",
-      "second": "₹4,000",
-      "third": "₹2,000"
-    },
     "rules": [
       "Standard event rules apply",
       "Participants must register in advance",
@@ -165,11 +165,11 @@
   },
   "skip-the-obvious": {
     "id": "skip-the-obvious",
-    "title": "Skip the Obvious",
-    "subtitle": "Lateral Thinking Challenge",
-    "description": "Follow the clues… unless the card tells you to skip.",
-    "longDescription": "A mind-bending puzzle challenge where obvious solutions are wrong. Participants must think laterally and skip conventional answers to find hidden solutions using UNO skip cards as guides.",
-    "category": "Puzzle & Logic",
+    "title": "🎬 Skip the Obvious",
+    "subtitle": "High-Energy Treasure Hunt",
+    "description": "Some clues lead you forward... others pull you right back.",
+    "longDescription": "🎬 Some clues lead you forward... others pull you right back. Welcome to Skip the Obvious — a high-energy treasure hunt that turns the UNOVerse 🌌 into your ultimate mind maze. Every clue hides a secret, every path a trick, and every choice could change everything. 🏃‍♀️ Dash across the campus chasing riddles, decoding patterns, and piecing together the puzzle that bends both space and sense. It's a wild blend of observation, analysis, brainstorming, and full-on physical adventure — where your instincts are your only compass. 💥 Expect big twists, sudden turns, and that one reveal no one sees coming. So run fast, think smart, and above all — don't skip the obvious.",
+    "category": "Adventure & Treasure Hunt",
     "difficulty": "Medium",
     "duration": "2 hours",
     "teamSize": {
@@ -177,27 +177,49 @@
       "max": 4,
       "recommended": 3
     },
-    "venue": "TBA",
+    "venue": "Campus-wide",
     "date": "24-25 Nov",
     "time": "TBA",
-    "prizes": {
-      "first": "₹4,500",
-      "second": "₹2,500",
-      "third": "₹1,200"
-    },
+    "huntElements": [
+      "🏃‍♀️ Campus-wide treasure hunt",
+      "🧩 Riddle solving and pattern decoding",
+      "🌌 UNOVerse-themed mind maze",
+      "🔍 Observation and analysis challenges",
+      "💭 Brainstorming sessions",
+      "⚡ Physical adventure components",
+      "🎯 Instinct-based navigation"
+    ],
     "rules": [
+      "🌌 Navigate the UNOVerse mind maze across campus",
+      "🏃‍♀️ Physical movement and running required",
+      "🧩 Decode riddles and patterns to progress",
+      "💥 Expect big twists and sudden turns",
+      "🎯 Trust your instincts as your compass",
+      "🔍 Every clue hides a secret, every path a trick",
       "Standard event rules apply",
       "Participants must register in advance",
       "Follow all event guidelines",
-      "Think outside the box",
-      "No obvious solutions allowed"
+      "Teams must stay together throughout the hunt"
     ],
     "requirements": [
-      "Lateral thinking ability",
-      "Creative problem solving",
-      "Team collaboration"
+      "🏃‍♀️ Physical fitness for campus-wide running",
+      "🧩 Strong problem-solving and riddle-solving skills",
+      "🔍 Sharp observation and analysis abilities",
+      "💭 Creative brainstorming and lateral thinking",
+      "⚡ Quick decision-making under pressure",
+      "🎯 Strong intuition and instinct",
+      "Team coordination and communication",
+      "Comfortable footwear for running"
     ],
-    "aboutEvent": "Challenge your mind with puzzles where the obvious answer is always wrong. Use UNO skip cards to guide you past conventional thinking to discover hidden solutions.",
+    "aboutEvent": "🎬 Skip the Obvious — Welcome to a high-energy treasure hunt that turns the UNOVerse 🌌 into your ultimate mind maze! Dash across campus chasing riddles, decoding patterns, and piecing together puzzles that bend both space and sense. This wild adventure blends observation, analysis, brainstorming, and full-on physical action where your instincts are your only compass. 💥 Get ready for big twists, sudden turns, and that one reveal no one sees coming!",
+    "huntFeatures": {
+      "physicalAdventure": "High-energy campus-wide treasure hunt with running",
+      "mentalChallenges": "Riddles, patterns, and mind-bending puzzles",
+      "unoVerse": "UNOVerse-themed mind maze experience",
+      "instinctBased": "Trust your instincts as your primary compass",
+      "unpredictable": "Big twists, sudden turns, and unexpected reveals"
+    },
+    "motto": "So run fast, think smart, and above all — don't skip the obvious.",
     "contactInfo": {
       "coordinator": "Event Coordinator",
       "email": "events@christuniversity.in",
@@ -221,11 +243,6 @@
     "venue": "TBA",
     "date": "24-25 Nov",
     "time": "TBA",
-    "prizes": {
-      "first": "₹5,500",
-      "second": "₹3,500",
-      "third": "₹1,800"
-    },
     "rules": [
       "Standard event rules apply",
       "Participants must register in advance",
@@ -262,11 +279,6 @@
     "venue": "TBA",
     "date": "24-25 Nov",
     "time": "TBA",
-    "prizes": {
-      "first": "₹4,000",
-      "second": "₹2,800",
-      "third": "₹1,500"
-    },
     "rules": [
       "Standard event rules apply",
       "Participants must register in advance",
@@ -288,90 +300,56 @@
   },
   "color-chaos-quiz": {
     "id": "color-chaos-quiz",
-    "title": "🎨 WILD PROMPT LAB 🎨",
-    "subtitle": "Creative AI Challenge",
-    "description": "Unleash creativity. Master prompts. Expect the unexpected.",
-    "longDescription": "Wild Prompt Lab is a fast-paced creative challenge where teams explore prompt engineering + AI image generation using Google Gemini. With UNO-style cards and surprise Wild Flip twists, imagination is pushed to the limit!",
-    "category": "Creative & AI",
+    "title": "🎨 COLOUR CHAOS",
+    "subtitle": "Multi-Stage Mind Arena",
+    "description": "Welcome to Colour Chaos — a thrilling series of games where logic meets chaos and every round rewires the way you think 🌈⚡",
+    "longDescription": "🎨 COLOUR CHAOS Welcome to Colour Chaos — a thrilling series of games where logic meets chaos and every round rewires the way you think 🌈⚡ This is not a single challenge, but a multi-stage mind arena packed with puzzles, patterns, predictions, and twists inspired by the UNOverse. Each game pushes your memory, reasoning, and decision-making skills just a little further. 🧠 From decoding hidden rules and recalling tricky patterns to predicting power moves and cracking visual clues, every round blends smart thinking with unpredictable turns. 💥 Expect rapid switches, surprise rules, and moments where the obvious answer is the wrong one.",
+    "category": "Logic & Mind Games",
     "difficulty": "Medium",
     "duration": "2 hours",
     "teamSize": {
-      "min": 3,
-      "max": 3,
+      "min": 2,
+      "max": 4,
       "recommended": 3
     },
     "venue": "TBA",
     "date": "24-25 Nov",
     "time": "TBA",
-    "rounds": {
-      "total": 2,
-      "round1": {
-        "name": "Prompt Crafter + Wild Flip",
-        "duration": "45 mins",
-        "description": "Draw Color 🎨 | Object 🧩 | Style 🎭 cards, create a prompt & generate 1 AI image, Wild Flip Card changes the rules, modify prompt & generate 1 more image"
-      },
-      "round2": {
-        "name": "Speed Prompt Showdown",
-        "duration": "TBA",
-        "description": "Mystery Theme + Secret Element, create 1 final AI image, 1-minute idea presentation"
-      }
-    },
-    "prizes": {
-      "first": "₹4,000",
-      "second": "₹2,500",
-      "third": "₹1,500"
-    },
+    "gameTypes": [
+      "🧩 Puzzle Challenges",
+      "🔍 Pattern Recognition",
+      "🎯 Prediction Games",
+      "🌈 Visual Clue Decoding",
+      "⚡ Rapid Switch Challenges",
+      "🎭 Surprise Rule Games"
+    ],
     "rules": [
-      "Teams of exactly 3 members required",
-      "Group name is mandatory",
+      "🌈 Multi-stage mind arena with various game types",
+      "⚡ Expect rapid switches and surprise rules",
+      "💥 Obvious answers are often wrong",
+      "🧠 Each round tests different cognitive skills",
+      "🎯 Memory, reasoning, and decision-making required",
+      "Standard event rules apply",
       "Participants must register in advance",
       "Follow all event guidelines",
-      "Use only Google Gemini for AI image generation",
-      "Cards will be provided by organizers",
-      "Wild Flip cards can change rules mid-round",
-      "Top teams from Round 1 qualify for Round 2",
-      "1-minute presentation limit in final round"
+      "Teams must work together through all stages"
     ],
     "requirements": [
-      "💻 1 laptop per team",
-      "🤖 Google Gemini access",
-      "🃏 Cards provided by organizers",
-      "Creative thinking and adaptability",
-      "Basic understanding of AI prompt engineering",
-      "Team coordination skills"
+      "🧠 Strong memory skills",
+      "🔍 Pattern recognition abilities",
+      "⚡ Quick thinking and adaptability",
+      "🎯 Strategic decision-making",
+      "🌈 Visual processing skills",
+      "�  Ability to think beyond obvious solutions",
+      "Team coordination and communication"
     ],
-    "judging": {
-      "criteria": [
-        "Creativity and originality",
-        "Adaptability to Wild Flip changes",
-        "Prompt quality and effectiveness",
-        "Visual impact of generated images",
-        "Presentation skills (Round 2)"
-      ]
-    },
-    "aboutEvent": "🎨 About the Event: Wild Prompt Lab is a fast-paced creative challenge where teams explore prompt engineering + AI image generation using Google Gemini. With UNO-style cards and surprise Wild Flip twists, imagination is pushed to the limit! Teams will navigate through two exciting rounds, testing their creativity, adaptability, and prompt crafting skills while generating stunning AI images.",
-    "eventFlow": {
-      "round1": {
-        "steps": [
-          "Draw Color 🎨, Object 🧩, and Style 🎭 cards",
-          "Create initial prompt based on drawn cards",
-          "Generate first AI image using Google Gemini",
-          "Draw Wild Flip Card (changes the rules!)",
-          "Modify prompt according to Wild Flip requirements",
-          "Generate second AI image",
-          "Top teams qualify for Round 2"
-        ]
-      },
-      "round2": {
-        "steps": [
-          "Receive Mystery Theme + Secret Element",
-          "Create final prompt incorporating both elements",
-          "Generate final AI image",
-          "Prepare 1-minute presentation",
-          "Present to judges",
-          "Winners announced"
-        ]
-      }
+    "aboutEvent": "🎨 COLOUR CHAOS — Welcome to a thrilling series of games where logic meets chaos and every round rewires the way you think! 🌈⚡ This multi-stage mind arena is packed with puzzles, patterns, predictions, and twists inspired by the UNOverse. From decoding hidden rules to cracking visual clues, every challenge blends smart thinking with unpredictable turns. 💥 Get ready for rapid switches, surprise rules, and moments where the obvious answer is the wrong one!",
+    "gameFeatures": {
+      "multiStage": "Not a single challenge, but a multi-stage mind arena",
+      "cognitiveSkills": "Tests memory, reasoning, and decision-making skills",
+      "unpredictability": "Rapid switches, surprise rules, and unexpected twists",
+      "unoInspired": "Challenges inspired by the UNOverse",
+      "smartThinking": "Blends logical thinking with chaotic elements"
     },
     "contactInfo": {
       "coordinator": "Event Coordinator",

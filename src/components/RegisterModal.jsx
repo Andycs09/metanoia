@@ -4,7 +4,7 @@ import axios from 'axios';
 
 Modal.setAppElement('#root');
 
-const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxy_m675sauTDwM3v4V7eoXZBVP4B0DLC7H7IJW099nSpt1scDKdoW6EXiQceZItdMu/exechttps://script.google.com/macros/s/AKfycbxy_m675sauTDwM3v4V7eoXZBVP4B0DLC7H7IJW099nSpt1scDKdoW6EXiQceZItdMu/exec '; // <--- replace
+const GOOGLE_SCRIPT_URL = 'REPLACE_WITH_YOUR_DEPLOYED_WEB_APP_URL'; // Replace this with your actual deployed Google Apps Script Web App URL
 
 export default function RegisterModal({ isOpen, onRequestClose, eventId, eventTitle }) {
   const [participants, setParticipants] = useState([
@@ -12,6 +12,9 @@ export default function RegisterModal({ isOpen, onRequestClose, eventId, eventTi
   ]);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(null);
+
+  // Import QR code image dynamically
+  const qrCodeImage = new URL('../assets/qr/a.jpeg', import.meta.url).href;
 
   function updateField(idx, field, value){
     const copy = [...participants];
@@ -57,7 +60,7 @@ export default function RegisterModal({ isOpen, onRequestClose, eventId, eventTi
       inset: 'auto',
       maxWidth: '600px',
       width: '100%',
-      maxHeight: '90vh',
+      maxHeight: '95vh',
       overflow: 'auto',
       background: 'linear-gradient(135deg, rgba(30, 60, 114, 0.95), rgba(42, 82, 152, 0.95))',
       border: '2px solid rgba(33, 150, 243, 0.5)',
@@ -237,6 +240,95 @@ export default function RegisterModal({ isOpen, onRequestClose, eventId, eventTi
           border: 1px solid rgba(244, 67, 54, 0.5);
         }
         
+        /* QR Code Section - Positioned exactly where marked */
+        .qr-code-section {
+          background: rgba(255, 255, 255, 0.15);
+          border: 2px solid rgba(33, 150, 243, 0.4);
+          border-radius: 12px;
+          padding: 16px;
+          margin: 16px 0;
+          text-align: center;
+          backdrop-filter: blur(10px);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        
+        .qr-code-header {
+          color: #64B5F6;
+          font-size: 1rem;
+          font-weight: 700;
+          margin-bottom: 12px;
+          text-align: center;
+        }
+        
+        .qr-code-container {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 8px;
+        }
+        
+        .qr-code-image {
+          width: 150px;
+          height: 150px;
+          border-radius: 8px;
+          border: 2px solid rgba(255, 255, 255, 0.3);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+          transition: all 0.3s ease;
+        }
+        
+        .qr-code-image:hover {
+          transform: scale(1.05);
+          border-color: #2196F3;
+          box-shadow: 0 6px 20px rgba(33, 150, 243, 0.4);
+        }
+        
+        .qr-code-description {
+          color: rgba(255, 255, 255, 0.8);
+          font-size: 0.8rem;
+          margin: 0;
+          max-width: 250px;
+          line-height: 1.3;
+        }
+        
+        .qr-image-wrapper {
+          position: relative;
+          width: 150px;
+          height: 150px;
+        }
+        
+        .qr-placeholder {
+          width: 150px;
+          height: 150px;
+          border-radius: 8px;
+          border: 2px solid rgba(255, 255, 255, 0.3);
+          background: rgba(255, 255, 255, 0.1);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+        }
+        
+        .qr-placeholder-content {
+          text-align: center;
+          color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .qr-placeholder-icon {
+          font-size: 3rem;
+          margin-bottom: 8px;
+        }
+        
+        .qr-placeholder-text {
+          font-size: 1.2rem;
+          font-weight: 600;
+          margin-bottom: 4px;
+        }
+        
+        .qr-placeholder-subtext {
+          font-size: 0.8rem;
+          opacity: 0.7;
+        }
+        
         /* Mobile responsive styles */
         @media (max-width: 768px) {
           .register-modal-content {
@@ -268,6 +360,31 @@ export default function RegisterModal({ isOpen, onRequestClose, eventId, eventTi
             min-width: auto;
             padding: 12px 16px;
             font-size: 0.95rem;
+          }
+          
+          .qr-code-section {
+            padding: 12px;
+            margin: 12px 0;
+          }
+          
+          .qr-code-header {
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+          }
+          
+          .qr-code-image {
+            width: 120px;
+            height: 120px;
+          }
+          
+          .qr-image-wrapper {
+            width: 120px;
+            height: 120px;
+          }
+          
+          .qr-placeholder {
+            width: 120px;
+            height: 120px;
           }
         }
         
@@ -302,6 +419,35 @@ export default function RegisterModal({ isOpen, onRequestClose, eventId, eventTi
           .modal-btn {
             padding: 10px 14px;
             font-size: 0.9rem;
+          }
+          
+          .qr-code-section {
+            padding: 10px;
+            margin: 10px 0;
+          }
+          
+          .qr-code-header {
+            font-size: 0.85rem;
+            margin-bottom: 6px;
+          }
+          
+          .qr-code-image {
+            width: 100px;
+            height: 100px;
+          }
+          
+          .qr-image-wrapper {
+            width: 100px;
+            height: 100px;
+          }
+          
+          .qr-placeholder {
+            width: 100px;
+            height: 100px;
+          }
+          
+          .qr-code-description {
+            font-size: 0.8rem;
           }
         }
       `}</style>
@@ -344,6 +490,36 @@ export default function RegisterModal({ isOpen, onRequestClose, eventId, eventTi
               )}
             </div>
           ))}
+          
+          {/* QR Code Section - Positioned exactly where marked in purple circle */}
+          <div className="qr-code-section">
+            <div className="qr-code-container">
+              <div className="qr-image-wrapper">
+                <img 
+                  src={qrCodeImage} 
+                  alt="Registration QR Code" 
+                  className="qr-code-image"
+                  onError={(e) => {
+                    console.log('QR Image failed to load, src:', qrCodeImage);
+                    e.target.style.display = 'none';
+                    e.target.nextElementSibling.style.display = 'flex';
+                  }}
+                  onLoad={() => console.log('QR Image loaded successfully, src:', qrCodeImage)}
+                  style={{ display: 'block' }}
+                />
+                <div className="qr-placeholder" style={{ display: 'none' }}>
+                  <div className="qr-placeholder-content">
+                    <div className="qr-placeholder-icon">📱</div>
+                    <div className="qr-placeholder-text">QR Code</div>
+                    <div className="qr-placeholder-subtext">Loading...</div>
+                  </div>
+                </div>
+              </div>
+              <p className="qr-code-description">
+                📱 Scan for registration details
+              </p>
+            </div>
+          </div>
           
           <div className="button-group">
             <button 

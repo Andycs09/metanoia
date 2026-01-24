@@ -5,7 +5,7 @@ import events from '../data/events';
 // Import home page background theme
 import bgImage from '../assets/home page theme.png';
 
-const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec'; // <-- replace with your URL
+const GOOGLE_SCRIPT_URL = 'REPLACE_WITH_YOUR_DEPLOYED_WEB_APP_URL'; // Replace this with your actual deployed Google Apps Script Web App URL
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -689,10 +689,150 @@ const REGISTER_STYLE = `
       padding: 1rem;
     }
   }
+  
+  /* QR Code Section Responsive Styles - Inside Register Card */
+  @media (max-width: 768px) {
+    .register-card img[alt="Registration QR Code"] {
+      width: 200px !important;
+      height: 200px !important;
+    }
+    
+    .register-card div[style*="width: 250px"] {
+      width: 200px !important;
+      height: 200px !important;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .register-card img[alt="Registration QR Code"] {
+      width: 160px !important;
+      height: 160px !important;
+    }
+    
+    .register-card div[style*="width: 250px"] {
+      width: 160px !important;
+      height: 160px !important;
+    }
+    
+    .register-card div[style*="fontSize: '4rem'"] {
+      font-size: 3rem !important;
+    }
+    
+    .register-card div[style*="fontSize: '1.5rem'"] {
+      font-size: 1.2rem !important;
+    }
+  }
+  
+  @media (max-width: 360px) {
+    .register-card img[alt="Registration QR Code"] {
+      width: 140px !important;
+      height: 140px !important;
+    }
+    
+    .register-card div[style*="width: 250px"] {
+      width: 140px !important;
+      height: 140px !important;
+    }
+  }
+  
+  /* Image Upload Section Styles */
+  .image-upload-section {
+    transition: all 0.3s ease;
+  }
+  
+  .image-upload-section:hover {
+    border-color: rgba(0, 128, 255, 0.5) !important;
+    background: rgba(0, 128, 255, 0.1) !important;
+  }
+  
+  .image-upload-section label:hover {
+    background: linear-gradient(135deg, #0066cc, #0052a3) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 128, 255, 0.3);
+  }
+  
+  .image-upload-section button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Mobile responsive styles for image upload */
+  @media (max-width: 768px) {
+    .image-upload-section img {
+      width: 80px !important;
+      height: 80px !important;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .image-upload-section {
+      padding: 0.75rem !important;
+    }
+    
+    .image-upload-section img {
+      width: 60px !important;
+      height: 60px !important;
+    }
+    
+    .image-upload-section label,
+    .image-upload-section button {
+      padding: 0.5rem 0.75rem !important;
+      font-size: 0.75rem !important;
+    }
+  }
 `;
 
 // NEW: memoized participant fieldset component to reduce re-renders
-const ParticipantFieldset = React.memo(function ParticipantFieldset({ idx, data, updateField, removeParticipant, removable }) {
+const ParticipantFieldset = React.memo(function ParticipantFieldset({ idx, data, updateField, removeParticipant, removable, uploadImage }) {
+  const [uploading, setUploading] = useState(false);
+  const [imagePreview, setImagePreview] = useState(data.imageUrl || null);
+  const fileInputRef = useRef(null);
+
+  const handleImageUpload = async (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    // Validate file type
+    if (!file.type.startsWith('image/')) {
+      alert('Please select an image file');
+      return;
+    }
+
+    // Validate file size (max 5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      alert('Image size should be less than 5MB');
+      return;
+    }
+
+    setUploading(true);
+    
+    try {
+      // Create preview
+      const reader = new FileReader();
+      reader.onload = (e) => setImagePreview(e.target.result);
+      reader.readAsDataURL(file);
+
+      // Upload to Google Drive
+      const imageUrl = await uploadImage(file, idx);
+      updateField(idx, 'imageUrl', imageUrl);
+      
+    } catch (error) {
+      console.error('Image upload failed:', error);
+      alert('Failed to upload image. Please try again.');
+      setImagePreview(null);
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  const removeImage = () => {
+    setImagePreview(null);
+    updateField(idx, 'imageUrl', '');
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
+  };
+
   return (
     <fieldset className="participant-fieldset">
       <legend>Participant {idx + 1}</legend>
@@ -702,6 +842,101 @@ const ParticipantFieldset = React.memo(function ParticipantFieldset({ idx, data,
         <input placeholder="Email" value={data.email} onChange={e => updateField(idx, 'email', e.target.value)} required className="input email" />
         <input placeholder="Phone" value={data.phone} onChange={e => updateField(idx, 'phone', e.target.value)} className="input phone" />
         <input placeholder="Registration No" value={data.registrationNo} onChange={e => updateField(idx, 'registrationNo', e.target.value)} className="input regno" />
+        
+        {/* Image Upload Section */}
+        <div className="image-upload-section" style={{
+          marginTop: '1rem',
+          padding: '1rem',
+          border: '2px dashed rgba(0, 128, 255, 0.3)',
+          borderRadius: '8px',
+          background: 'rgba(0, 128, 255, 0.05)',
+          textAlign: 'center'
+        }}>
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="image/*"
+            onChange={handleImageUpload}
+            style={{ display: 'none' }}
+            id={`image-upload-${idx}`}
+          />
+          
+          {!imagePreview ? (
+            <div>
+              <label 
+                htmlFor={`image-upload-${idx}`}
+                style={{
+                  display: 'inline-block',
+                  padding: '0.75rem 1.5rem',
+                  background: 'linear-gradient(135deg, #0080ff, #0066cc)',
+                  color: 'white',
+                  borderRadius: '8px',
+                  cursor: uploading ? 'not-allowed' : 'pointer',
+                  transition: 'all 0.3s ease',
+                  border: 'none',
+                  fontSize: '0.9rem',
+                  fontWeight: '600',
+                  opacity: uploading ? 0.6 : 1
+                }}
+              >
+                {uploading ? '📤 Uploading...' : '📷 Upload Image'}
+              </label>
+              <p style={{
+                color: 'rgba(255, 255, 255, 0.7)',
+                fontSize: '0.8rem',
+                margin: '0.5rem 0 0 0'
+              }}>
+                upload payment script with trans ID
+              </p>
+            </div>
+          ) : (
+            <div>
+              <img 
+                src={imagePreview} 
+                alt={`Participant ${idx + 1}`}
+                style={{
+                  width: '100px',
+                  height: '100px',
+                  objectFit: 'cover',
+                  borderRadius: '8px',
+                  border: '2px solid rgba(0, 128, 255, 0.3)',
+                  marginBottom: '0.5rem'
+                }}
+              />
+              <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'center' }}>
+                <label 
+                  htmlFor={`image-upload-${idx}`}
+                  style={{
+                    padding: '0.5rem 1rem',
+                    background: 'rgba(0, 128, 255, 0.2)',
+                    color: '#0080ff',
+                    borderRadius: '6px',
+                    cursor: 'pointer',
+                    fontSize: '0.8rem',
+                    border: '1px solid rgba(0, 128, 255, 0.3)'
+                  }}
+                >
+                  Change
+                </label>
+                <button
+                  type="button"
+                  onClick={removeImage}
+                  style={{
+                    padding: '0.5rem 1rem',
+                    background: 'rgba(255, 107, 107, 0.2)',
+                    color: '#ff6b6b',
+                    borderRadius: '6px',
+                    cursor: 'pointer',
+                    fontSize: '0.8rem',
+                    border: '1px solid rgba(255, 107, 107, 0.3)'
+                  }}
+                >
+                  Remove
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
       {removable && <button type="button" className="btn link" onClick={() => removeParticipant(idx)}>Remove</button>}
     </fieldset>
@@ -725,7 +960,7 @@ export default function RegisterPage() {
     max: Math.min(4, ev.maxParticipants || 1)
   })), []);
 
-  const [participants, setParticipants] = useState(() => [{ name: '', cls: '', email: '', phone: '', registrationNo: '' }]);
+  const [participants, setParticipants] = useState(() => [{ name: '', cls: '', email: '', phone: '', registrationNo: '', imageUrl: '' }]);
   const [teamName, setTeamName] = useState('');
   const [sending, setSending] = useState(false);
   const [message, setMessage] = useState(null);
@@ -740,10 +975,14 @@ export default function RegisterPage() {
     // Normalize participants only if limit changed
     setParticipants(prev => {
       const limit = Math.max(1, maxParticipants);
-      if (prev.length === limit && prev.every(p => 'registrationNo' in p)) return prev;
+      if (prev.length === limit && prev.every(p => 'registrationNo' in p && 'imageUrl' in p)) return prev;
       let arr = prev.slice(0, limit);
-      if (arr.length === 0) arr = [{ name: '', cls: '', email: '', phone: '', registrationNo: '' }];
-      return arr.map(p => ({ registrationNo: p.registrationNo || '', ...p }));
+      if (arr.length === 0) arr = [{ name: '', cls: '', email: '', phone: '', registrationNo: '', imageUrl: '' }];
+      return arr.map(p => ({ 
+        registrationNo: p.registrationNo || '', 
+        imageUrl: p.imageUrl || '', 
+        ...p 
+      }));
     });
   }, [eventId, maxParticipants]);
 
@@ -819,11 +1058,40 @@ export default function RegisterPage() {
   }, []);
 
   const addParticipant = useCallback(() => {
-    setParticipants(prev => (prev.length < maxParticipants ? [...prev, { name: '', cls: '', email: '', phone: '', registrationNo: '' }] : prev));
+    setParticipants(prev => (prev.length < maxParticipants ? [...prev, { name: '', cls: '', email: '', phone: '', registrationNo: '', imageUrl: '' }] : prev));
     loadGsap().then(gsap => {
       if (gsap && formRef.current) gsap.fromTo(formRef.current, { scale: 0.995 }, { scale: 1, duration: 0.26, ease: 'back.out(1.2)' });
     });
   }, [maxParticipants]);
+
+  // Image upload function
+  const uploadImage = useCallback(async (file, participantIndex) => {
+    const formData = new FormData();
+    formData.append('image', file);
+    formData.append('participantIndex', participantIndex);
+    formData.append('eventId', eventId);
+    formData.append('timestamp', new Date().toISOString());
+
+    try {
+      // Replace with your Google Apps Script URL for image upload
+      const GOOGLE_DRIVE_SCRIPT_URL = 'https://script.google.com/macros/s/YOUR_DRIVE_SCRIPT_ID/exec';
+      
+      const response = await fetch(GOOGLE_DRIVE_SCRIPT_URL, {
+        method: 'POST',
+        body: formData
+      });
+
+      if (!response.ok) {
+        throw new Error('Upload failed');
+      }
+
+      const result = await response.json();
+      return result.imageUrl; // Google Drive file URL
+    } catch (error) {
+      console.error('Image upload error:', error);
+      throw error;
+    }
+  }, [eventId]);
 
   const removeParticipant = useCallback((idx) => {
     setParticipants(prev => prev.filter((_, i) => i !== idx));
@@ -979,6 +1247,7 @@ export default function RegisterPage() {
                 updateField={updateField}
                 removeParticipant={removeParticipant}
                 removable={idx > 0}
+                uploadImage={uploadImage}
               />
             ))}
           </div>
@@ -1003,6 +1272,77 @@ export default function RegisterPage() {
           </fieldset>
 
           {message && <div className={`msg ${message.type === 'error' ? 'error' : 'success'}`}>{message.text}</div>}
+          
+          {/* QR Code Section - Inside the register card at the bottom */}
+          <div style={{
+            marginTop: '1.5rem',
+            padding: '1.5rem',
+            background: 'rgba(0, 128, 255, 0.1)',
+            border: '2px solid rgba(0, 128, 255, 0.3)',
+            borderRadius: '12px',
+            textAlign: 'center',
+            backdropFilter: 'blur(5px)'
+          }}>
+            <div style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: '12px'
+            }}>
+              <img 
+                src={new URL('../assets/qr/a.jpeg', import.meta.url).href}
+                alt="Registration QR Code" 
+                style={{
+                  width: '250px',
+                  height: '250px',
+                  borderRadius: '8px',
+                  border: '2px solid rgba(255, 255, 255, 0.3)',
+                  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)',
+                  transition: 'all 0.3s ease'
+                }}
+                onError={(e) => {
+                  console.log('QR Image failed to load in Register page');
+                  e.target.style.display = 'none';
+                  e.target.nextElementSibling.style.display = 'flex';
+                }}
+                onLoad={() => console.log('QR Image loaded successfully in Register page')}
+                onMouseOver={(e) => {
+                  e.target.style.transform = 'scale(1.05)';
+                  e.target.style.borderColor = '#0080ff';
+                  e.target.style.boxShadow = '0 6px 20px rgba(0, 128, 255, 0.4)';
+                }}
+                onMouseOut={(e) => {
+                  e.target.style.transform = 'scale(1)';
+                  e.target.style.borderColor = 'rgba(255, 255, 255, 0.3)';
+                  e.target.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.3)';
+                }}
+              />
+              <div style={{ 
+                display: 'none',
+                width: '250px',
+                height: '250px',
+                borderRadius: '8px',
+                border: '2px solid rgba(255, 255, 255, 0.3)',
+                background: 'rgba(255, 255, 255, 0.1)',
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexDirection: 'column',
+                color: 'rgba(255, 255, 255, 0.7)'
+              }}>
+                <div style={{ fontSize: '4rem', marginBottom: '12px' }}>📱</div>
+                <div style={{ fontSize: '1.5rem', fontWeight: '600' }}>QR Code</div>
+                <div style={{ fontSize: '1rem', opacity: '0.7' }}>Loading...</div>
+              </div>
+              <p style={{
+                color: 'rgba(255, 255, 255, 0.9)',
+                fontSize: '1rem',
+                margin: '0',
+                fontWeight: '600'
+              }}>
+                📱 Scan for quick registration access
+              </p>
+            </div>
+          </div>
         </form>
       </div>
 
