@@ -5,7 +5,7 @@ import events from '../data/events';
 // Import home page background theme
 import bgImage from '../assets/home page theme.png';
 
-const GOOGLE_SCRIPT_URL = 'REPLACE_WITH_YOUR_DEPLOYED_WEB_APP_URL'; // Replace this with your actual deployed Google Apps Script Web App URL
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxhuJj7PF5mczobJ2OcZVYXjHlp0a-u9jBllv-SugjDTc5UG6QUXL0KEvOPD_vy-Nmb/exec'; // Replace this with your actual deployed Google Apps Script Web App URL
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -1064,34 +1064,20 @@ export default function RegisterPage() {
     });
   }, [maxParticipants]);
 
-  // Image upload function
+  // Image upload function - Convert file to base64 and include in participant data
   const uploadImage = useCallback(async (file, participantIndex) => {
-    const formData = new FormData();
-    formData.append('image', file);
-    formData.append('participantIndex', participantIndex);
-    formData.append('eventId', eventId);
-    formData.append('timestamp', new Date().toISOString());
-
-    try {
-      // Replace with your Google Apps Script URL for image upload
-      const GOOGLE_DRIVE_SCRIPT_URL = 'https://script.google.com/macros/s/YOUR_DRIVE_SCRIPT_ID/exec';
-      
-      const response = await fetch(GOOGLE_DRIVE_SCRIPT_URL, {
-        method: 'POST',
-        body: formData
-      });
-
-      if (!response.ok) {
-        throw new Error('Upload failed');
-      }
-
-      const result = await response.json();
-      return result.imageUrl; // Google Drive file URL
-    } catch (error) {
-      console.error('Image upload error:', error);
-      throw error;
-    }
-  }, [eventId]);
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const base64Data = e.target.result;
+        // Update participant with base64 image data
+        updateField(participantIndex, 'imageUrl', base64Data);
+        resolve(base64Data);
+      };
+      reader.onerror = () => reject(new Error('Failed to read file'));
+      reader.readAsDataURL(file);
+    });
+  }, [updateField]);
 
   const removeParticipant = useCallback((idx) => {
     setParticipants(prev => prev.filter((_, i) => i !== idx));
@@ -1128,10 +1114,12 @@ export default function RegisterPage() {
       return;
     }
 
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 15000);
-    // Add team name to all participants
-    const participantsWithTeam = participants.map(p => ({ ...p, teamName: teamName.trim() }));
+    // Add team name to all participants and prepare payload
+    const participantsWithTeam = participants.map((p, index) => ({ 
+      ...p, 
+      teamName: teamName.trim(),
+      participantNumber: index + 1
+    }));
 
     const payload = {
       eventId,
@@ -1140,16 +1128,19 @@ export default function RegisterPage() {
       timestamp: new Date().toISOString(),
     };
 
+    console.log('Sending payload:', payload);
+
     try {
-      const resp = await fetch(GOOGLE_SCRIPT_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-        signal: controller.signal
+      await fetch(GOOGLE_SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        body: JSON.stringify(payload)
       });
-      clearTimeout(timeoutId);
-      if (!resp.ok) throw new Error('Network response not OK');
-      setMessage({ type: 'success', text: 'Registration submitted — thank you!' });
+
+      setMessage({
+        type: "success",
+        text: "Registration submitted — thank you!"
+      });
 
       // success animation using GSAP if available
       try {
@@ -1162,7 +1153,6 @@ export default function RegisterPage() {
 
       setTimeout(() => navigate('/events'), 1400);
     } catch (err) {
-      clearTimeout(timeoutId);
       console.error(err);
       setMessage({ type: 'error', text: 'Failed to send registration. Please try again later.' });
     } finally {
@@ -1339,7 +1329,7 @@ export default function RegisterPage() {
                 margin: '0',
                 fontWeight: '600'
               }}>
-                📱 Scan for quick registration access
+                Scan to pay ₹ 100 (Upload Receipt ScreenShot)
               </p>
             </div>
           </div>
