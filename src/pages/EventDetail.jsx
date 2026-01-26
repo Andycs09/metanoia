@@ -67,7 +67,7 @@ export default function EventDetail() {
               <div className="info-card">
                 <div className="info-card-label">Team Size</div>
                 <div className="info-card-value">
-                  {eventDetails.teamSize.min === eventDetails.teamSize.max 
+                  {eventDetails.teamSize.min === eventDetails.teamSize.max
                     ? `${eventDetails.teamSize.min} ${eventDetails.teamSize.min === 1 ? 'Person' : 'People'}`
                     : `${eventDetails.teamSize.min}-${eventDetails.teamSize.max} People`
                   }
@@ -106,7 +106,7 @@ export default function EventDetail() {
         <div className="event-details-section">
           <h2 className="section-heading">About This Event</h2>
           <p className="event-description">{eventDetails.aboutEvent}</p>
-          
+
           {/* Long Description */}
           <div className="event-long-description">
             <p>{eventDetails.longDescription}</p>
@@ -116,12 +116,12 @@ export default function EventDetail() {
           {eventDetails.rounds && (
             <div className="event-rounds-section">
               <h3 className="subsection-heading">🔁 Event Rounds ({eventDetails.rounds.total} Rounds)</h3>
-              
+
               <div className="round-card">
                 <h4>🧠 {eventDetails.rounds.round1.name} ({eventDetails.rounds.round1.duration})</h4>
                 <p>{eventDetails.rounds.round1.description}</p>
               </div>
-              
+
               <div className="round-card">
                 <h4>⚡ {eventDetails.rounds.round2.name}</h4>
                 <p>{eventDetails.rounds.round2.description}</p>
@@ -133,7 +133,7 @@ export default function EventDetail() {
           {eventDetails.eventFlow && (
             <div className="event-flow-section">
               <h3 className="subsection-heading">📋 Event Flow</h3>
-              
+
               <div className="flow-round">
                 <h4>Round 1: {eventDetails.rounds.round1.name}</h4>
                 <ol className="flow-steps">
@@ -142,7 +142,7 @@ export default function EventDetail() {
                   ))}
                 </ol>
               </div>
-              
+
               <div className="flow-round">
                 <h4>Round 2: {eventDetails.rounds.round2.name}</h4>
                 <ol className="flow-steps">

@@ -35,11 +35,11 @@
     },
     {
       "id": "draw-4-arena",
-      "title": "Draw 4 Arena (Online Gaming)",
+      "title": "🎮 Draw 4 Arena: The Ultimate Esports Showdown",
       "image": "card_4_fc0ce148.png",
-      "short": "Play hard. Flip harder",
-      "details": "Intense online gaming tournament featuring UNO-themed digital challenges.",
-      "maxParticipants": 4,
+      "short": "Lock and load. Spike planted. It's time to dominate.",
+      "details": "Ultimate esports battlefield featuring Call of Duty Mobile and Valorant competitions across 2 days.",
+      "maxParticipants": 6,
       "category": "Gaming",
       "difficulty": "Hard",
       "featured": true
@@ -57,29 +57,29 @@
     },
     {
       "id": "uno-reverse-alibi-2",
-      "title": "Murder Mystery",
-      "image": "card_6_1ad3c40f.png",
-      "short": "Solve the case… but only after flipping the clues",
-      "details": "Advanced murder mystery event with more complex cases and intricate clues.",
+      "title": "🎨 WILD PROMPT 🎨",
+      "image": "uno (6).png",
+      "short": "Unleash creativity. Master prompts. Expect the unexpected.",
+      "details": "Wild Prompt is a fast-paced creative challenge where teams use AI to turn unexpected ideas into powerful visuals using Google Gemini.",
       "maxParticipants": 3,
-      "category": "Mystery",
-      "difficulty": "Hard",
-      "featured": false
+      "category": "Creative",
+      "difficulty": "Medium",
+      "featured": true
     },
     {
       "id": "logic-reverse",
-      "title": "Logic Reverse: The Brain Battle",
-      "image": "cca40262-9963-4706-bb07-2a25653cd855.jpg",
-      "short": "Outsmart. Outthink. UNO-reverse your opponent.",
-      "details": "Work backwards from solutions to understand complex logic problems.",
-      "maxParticipants": 2,
+      "title": "🎯 Logic Reverse: The Brain Battle",
+      "image": "card_6_1ad3c40f.png",
+      "short": "Reverse the Logic. Win the Game.",
+      "details": "High-intensity logic-reverse brain battle where mathematics and analytics collide with Flip, Skip, and Draw-style twists.",
+      "maxParticipants": 1,
       "category": "Logic",
       "difficulty": "Hard",
       "featured": false
     },
     {
       "id": "color-chaos-quiz",
-      "title": "🎨 WILD PROMPT LAB 🎨",
+      "title": "🎨 color-chaos 🎨",
       "short": "Unleash creativity. Master prompts. Expect the unexpected.",
       "details": "Fast-paced creative challenge exploring prompt engineering + AI image generation using Google Gemini with UNO-style cards and Wild Flip twists.",
       "maxParticipants": 3,
@@ -90,7 +90,7 @@
   ],
   "categories": [
     "Mystery",
-    "Strategy", 
+    "Strategy",
     "Creative",
     "Gaming",
     "Puzzle",
@@ -98,7 +98,7 @@
   ],
   "difficulties": [
     "Easy",
-    "Medium", 
+    "Medium",
     "Hard"
   ],
   "metadata": {

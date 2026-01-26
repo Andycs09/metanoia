@@ -110,7 +110,7 @@ export default function Home() {
     e.preventDefault();
     const x = e.pageX || e.touches?.[0]?.pageX;
     const walk = (startX - x) * 2;
-    
+
     if (Math.abs(walk) > 50) {
       if (walk > 0 && currentSlide < events.length - 1) {
         setCurrentSlide(currentSlide + 1);
@@ -226,7 +226,7 @@ export default function Home() {
           )}
 
           {/* Event Date */}
-          <p className="event-date">24th-25th November,2025</p>
+          <p className="event-date">30th-31th January,2026</p>
 
           {/* CTA Buttons */}
           <div className="hero-cta">
@@ -242,7 +242,7 @@ export default function Home() {
       <section className="featured-events-section">
         <div className="section-container">
           <h2 className="section-title">Featured Events</h2>
-          <div 
+          <div
             className="carousel-container"
             onMouseDown={handleMouseDown}
             onMouseMove={handleMouseMove}
