@@ -226,7 +226,7 @@ export default function Home() {
           )}
 
           {/* Event Date */}
-          <p className="event-date">30th-31th January,2026</p>
+          <p className="event-date">30th-31st January,2026</p>
 
           {/* CTA Buttons */}
           <div className="hero-cta">
