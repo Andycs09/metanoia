@@ -1825,74 +1825,42 @@ main:has(.unoverse-home) {
 /* Mobile responsive styles for notifications */
 @media (max-width: 768px) {
   .notification-btn {
-    width: 35px;
-    height: 35px;
+    display: none;
   }
   
   .notification-badge {
-    width: 16px;
-    height: 16px;
-    font-size: 0.6rem;
-    top: -3px;
-    right: -3px;
+    display: none;
   }
   
   .notification-panel {
-    width: 300px;
-    right: 10px;
-    top: 70px;
-  }
-  
-  .notification-header {
-    padding: 0.75rem 1rem;
-  }
-  
-  .notification-item {
-    padding: 0.75rem 1rem;
-  }
-  
-  .notification-details h4 {
-    font-size: 0.85rem;
-  }
-  
-  .notification-details p {
-    font-size: 0.75rem;
+    display: none;
   }
 }
 
 @media (max-width: 480px) {
   .notification-btn {
-    width: 32px;
-    height: 32px;
+    display: none;
   }
   
   .notification-btn svg {
-    width: 18px;
-    height: 18px;
+    display: none;
   }
   
   .notification-badge {
-    width: 14px;
-    height: 14px;
-    font-size: 0.55rem;
+    display: none;
   }
   
   .notification-panel {
-    width: calc(100vw - 20px);
-    right: 10px;
-    left: 10px;
-    top: 60px;
+    display: none;
   }
 }
 
 @media (max-width: 360px) {
   .notification-btn {
-    width: 28px;
-    height: 28px;
+    display: none;
   }
   
   .notification-btn svg {
-    width: 16px;
-    height: 16px;
+    display: none;
   }
 }
