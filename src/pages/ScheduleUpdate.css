@@ -179,7 +179,7 @@
 
 .form-row {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 1rem;
 }
 
@@ -412,5 +412,10 @@ le Responsive */
   
   .header-section h2 {
     font-size: 1.5rem;
+  }
+}@media (m
+ax-width: 1024px) and (min-width: 769px) {
+  .form-row {
+    grid-template-columns: 1fr 1fr;
   }
 }
