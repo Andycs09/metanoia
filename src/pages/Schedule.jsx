@@ -29,6 +29,7 @@ export default function Schedule(){
               <thead>
                 <tr>
                   <th>Event</th>
+                  <th>Date</th>
                   <th>Time</th>
                   <th>Venue</th>
                 </tr>
@@ -37,6 +38,7 @@ export default function Schedule(){
                 {events.map((e,i)=>(
                   <tr key={e.id}>
                     <td>{e.title}</td>
+                    <td>{scheduleData[e.id]?.date || 'TBA'}</td>
                     <td>{scheduleData[e.id]?.time || 'TBA'}</td>
                     <td>{scheduleData[e.id]?.venue || 'TBA'}</td>
                   </tr>

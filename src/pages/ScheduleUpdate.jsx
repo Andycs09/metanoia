@@ -142,6 +142,15 @@ export default function ScheduleUpdate() {
                 <h3>{event.title}</h3>
                 <div className="form-row">
                   <div className="form-field">
+                    <label>Date:</label>
+                    <input
+                      type="text"
+                      value={scheduleInfo[event.id]?.date || 'TBA'}
+                      onChange={(e) => handleScheduleUpdate(event.id, 'date', e.target.value)}
+                      placeholder="Enter event date"
+                    />
+                  </div>
+                  <div className="form-field">
                     <label>Time:</label>
                     <input
                       type="text"
