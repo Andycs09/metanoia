@@ -91,6 +91,33 @@ export default function ScheduleUpdate() {
     localStorage.setItem('scheduleData', JSON.stringify(scheduleInfo));
   };
 
+  const handleInputFocus = (eventId, field, inputRef) => {
+    // Clear TBA when user focuses on the input and select all text
+    if (scheduleInfo[eventId]?.[field] === 'TBA') {
+      handleScheduleUpdate(eventId, field, '');
+      // Use setTimeout to ensure the value is cleared before selecting
+      setTimeout(() => {
+        if (inputRef && inputRef.current) {
+          inputRef.current.select();
+        }
+      }, 0);
+    }
+  };
+
+  const handleInputClick = (eventId, field) => {
+    // Alternative method: clear TBA on click
+    if (scheduleInfo[eventId]?.[field] === 'TBA') {
+      handleScheduleUpdate(eventId, field, '');
+    }
+  };
+
+  const handleInputBlur = (eventId, field, value) => {
+    // Set back to TBA if field is empty when user leaves the input
+    if (!value.trim()) {
+      handleScheduleUpdate(eventId, field, 'TBA');
+    }
+  };
+
   const handleLogout = () => {
     setIsAuthenticated(false);
     setPassword('');
@@ -147,6 +174,9 @@ export default function ScheduleUpdate() {
                       type="text"
                       value={scheduleInfo[event.id]?.date || 'TBA'}
                       onChange={(e) => handleScheduleUpdate(event.id, 'date', e.target.value)}
+                      onFocus={() => handleInputClick(event.id, 'date')}
+                      onClick={() => handleInputClick(event.id, 'date')}
+                      onBlur={(e) => handleInputBlur(event.id, 'date', e.target.value)}
                       placeholder="Enter event date"
                     />
                   </div>
@@ -156,6 +186,9 @@ export default function ScheduleUpdate() {
                       type="text"
                       value={scheduleInfo[event.id]?.time || 'TBA'}
                       onChange={(e) => handleScheduleUpdate(event.id, 'time', e.target.value)}
+                      onFocus={() => handleInputClick(event.id, 'time')}
+                      onClick={() => handleInputClick(event.id, 'time')}
+                      onBlur={(e) => handleInputBlur(event.id, 'time', e.target.value)}
                       placeholder="Enter event time"
                     />
                   </div>
@@ -165,6 +198,9 @@ export default function ScheduleUpdate() {
                       type="text"
                       value={scheduleInfo[event.id]?.venue || 'TBA'}
                       onChange={(e) => handleScheduleUpdate(event.id, 'venue', e.target.value)}
+                      onFocus={() => handleInputClick(event.id, 'venue')}
+                      onClick={() => handleInputClick(event.id, 'venue')}
+                      onBlur={(e) => handleInputBlur(event.id, 'venue', e.target.value)}
                       placeholder="Enter event venue"
                     />
                   </div>
