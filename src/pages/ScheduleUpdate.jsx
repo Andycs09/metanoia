@@ -86,28 +86,32 @@ export default function ScheduleUpdate() {
     // For now, we'll just show a success message
     setMessage('Schedule and images updated successfully!');
     setTimeout(() => setMessage(''), 3000);
-    
+
     // Update localStorage to persist changes during the session
     localStorage.setItem('scheduleData', JSON.stringify(scheduleInfo));
   };
 
-  const handleInputFocus = (eventId, field, inputRef) => {
+  const handleInputFocus = (eventId, field, e) => {
     // Clear TBA when user focuses on the input and select all text
     if (scheduleInfo[eventId]?.[field] === 'TBA') {
       handleScheduleUpdate(eventId, field, '');
-      // Use setTimeout to ensure the value is cleared before selecting
+      // Select all text after clearing
       setTimeout(() => {
-        if (inputRef && inputRef.current) {
-          inputRef.current.select();
-        }
+        e.target.select();
       }, 0);
+    } else {
+      // Select all existing text for easy editing
+      e.target.select();
     }
   };
 
-  const handleInputClick = (eventId, field) => {
-    // Alternative method: clear TBA on click
+  const handleInputClick = (eventId, field, e) => {
+    // Clear TBA on click and select all
     if (scheduleInfo[eventId]?.[field] === 'TBA') {
       handleScheduleUpdate(eventId, field, '');
+      setTimeout(() => {
+        e.target.select();
+      }, 0);
     }
   };
 
@@ -160,9 +164,9 @@ export default function ScheduleUpdate() {
             <h2>Schedule Update Panel</h2>
             <button onClick={handleLogout} className="logout-btn">Logout</button>
           </div>
-          
+
           {message && <div className="message success">{message}</div>}
-          
+
           <div className="schedule-form">
             {events.map((event) => (
               <div key={event.id} className="event-form-group">
@@ -174,8 +178,8 @@ export default function ScheduleUpdate() {
                       type="text"
                       value={scheduleInfo[event.id]?.date || 'TBA'}
                       onChange={(e) => handleScheduleUpdate(event.id, 'date', e.target.value)}
-                      onFocus={() => handleInputClick(event.id, 'date')}
-                      onClick={() => handleInputClick(event.id, 'date')}
+                      onFocus={(e) => handleInputFocus(event.id, 'date', e)}
+                      onClick={(e) => handleInputClick(event.id, 'date', e)}
                       onBlur={(e) => handleInputBlur(event.id, 'date', e.target.value)}
                       placeholder="Enter event date"
                     />
@@ -186,8 +190,8 @@ export default function ScheduleUpdate() {
                       type="text"
                       value={scheduleInfo[event.id]?.time || 'TBA'}
                       onChange={(e) => handleScheduleUpdate(event.id, 'time', e.target.value)}
-                      onFocus={() => handleInputClick(event.id, 'time')}
-                      onClick={() => handleInputClick(event.id, 'time')}
+                      onFocus={(e) => handleInputFocus(event.id, 'time', e)}
+                      onClick={(e) => handleInputClick(event.id, 'time', e)}
                       onBlur={(e) => handleInputBlur(event.id, 'time', e.target.value)}
                       placeholder="Enter event time"
                     />
@@ -198,14 +202,14 @@ export default function ScheduleUpdate() {
                       type="text"
                       value={scheduleInfo[event.id]?.venue || 'TBA'}
                       onChange={(e) => handleScheduleUpdate(event.id, 'venue', e.target.value)}
-                      onFocus={() => handleInputClick(event.id, 'venue')}
-                      onClick={() => handleInputClick(event.id, 'venue')}
+                      onFocus={(e) => handleInputFocus(event.id, 'venue', e)}
+                      onClick={(e) => handleInputClick(event.id, 'venue', e)}
                       onBlur={(e) => handleInputBlur(event.id, 'venue', e.target.value)}
                       placeholder="Enter event venue"
                     />
                   </div>
                 </div>
-                
+
                 {/* Image Upload Section */}
                 <div className="form-field image-upload-field">
                   <label>Event Image:</label>
@@ -217,10 +221,10 @@ export default function ScheduleUpdate() {
                       style={{ display: 'none' }}
                       id={`image-upload-${event.id}`}
                     />
-                    
+
                     {!scheduleInfo[event.id]?.image ? (
                       <div className="upload-placeholder">
-                        <label 
+                        <label
                           htmlFor={`image-upload-${event.id}`}
                           className={`upload-btn ${uploading[event.id] ? 'uploading' : ''}`}
                         >
@@ -230,13 +234,13 @@ export default function ScheduleUpdate() {
                       </div>
                     ) : (
                       <div className="image-preview">
-                        <img 
-                          src={scheduleInfo[event.id].image} 
+                        <img
+                          src={scheduleInfo[event.id].image}
                           alt={`${event.title} preview`}
                           className="preview-image"
                         />
                         <div className="image-actions">
-                          <label 
+                          <label
                             htmlFor={`image-upload-${event.id}`}
                             className="change-btn"
                           >
@@ -256,7 +260,7 @@ export default function ScheduleUpdate() {
                 </div>
               </div>
             ))}
-            
+
             <button onClick={handleSave} className="save-btn">
               Save Changes
             </button>
