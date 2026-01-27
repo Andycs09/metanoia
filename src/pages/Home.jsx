@@ -11,7 +11,6 @@ import christLogoImg from '../assets/christ logo.png';
 import samagraLogoImg from '../assets/samagra logo .png';
 import departmentLogoImg from '../assets/department.png';
 import unoLogoImg from '../assets/logo.png';
-import googleLogoImg from '../assets/google.png';
 import audioFile from '../assets/yes.mp3';
 import card1 from '../assets/card_1_c185b98b.png';
 import card2 from '../assets/uno7.png';
@@ -269,17 +268,6 @@ export default function Home() {
           <div className="uno-logo-container">
             <img src={unoLogoImg} alt="UNO Logo" className="uno-logo" />
           </div>
-
-          {/* Samagra and Google Collaboration - Positioned in middle - Hidden when scrolled */}
-          {showHeaderElements && (
-            <div className="collab-section">
-              <div className="collab-logos-horizontal">
-                <img src={samagraLogoImg} alt="Samagra" className="samagra-logo" />
-                <span className="collab-x">✕</span>
-                <img src={googleLogoImg} alt="Google India" className="google-logo" />
-              </div>
-            </div>
-          )}
 
           {/* Event Date */}
           <p className="event-date">30th-31st January, 2026</p>
