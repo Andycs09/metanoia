@@ -92,26 +92,48 @@ export default function ScheduleUpdate() {
   };
 
   const handleInputFocus = (eventId, field, e) => {
-    // Clear TBA when user focuses on the input and select all text
-    if (scheduleInfo[eventId]?.[field] === 'TBA') {
+    // Clear TBA or any partial TBA when user focuses on the input
+    const currentValue = scheduleInfo[eventId]?.[field] || '';
+    if (currentValue === 'TBA' || currentValue === 'T' || currentValue === 'TB') {
+      e.preventDefault();
       handleScheduleUpdate(eventId, field, '');
-      // Select all text after clearing
+      // Clear the input value directly and select all
       setTimeout(() => {
+        e.target.value = '';
         e.target.select();
-      }, 0);
+      }, 10);
     } else {
       // Select all existing text for easy editing
-      e.target.select();
+      setTimeout(() => {
+        e.target.select();
+      }, 10);
     }
   };
 
   const handleInputClick = (eventId, field, e) => {
-    // Clear TBA on click and select all
-    if (scheduleInfo[eventId]?.[field] === 'TBA') {
+    // Clear TBA or any partial TBA on click
+    const currentValue = scheduleInfo[eventId]?.[field] || '';
+    if (currentValue === 'TBA' || currentValue === 'T' || currentValue === 'TB') {
+      e.preventDefault();
+      handleScheduleUpdate(eventId, field, '');
+      // Clear the input value directly
+      setTimeout(() => {
+        e.target.value = '';
+        e.target.focus();
+      }, 10);
+    }
+  };
+
+  const handleKeyDown = (eventId, field, e) => {
+    // Handle backspace and delete keys for TBA clearing
+    const currentValue = scheduleInfo[eventId]?.[field] || '';
+    if ((currentValue === 'TBA' || currentValue === 'T' || currentValue === 'TB') &&
+      (e.key === 'Backspace' || e.key === 'Delete')) {
+      e.preventDefault();
       handleScheduleUpdate(eventId, field, '');
       setTimeout(() => {
-        e.target.select();
-      }, 0);
+        e.target.value = '';
+      }, 10);
     }
   };
 
@@ -180,6 +202,7 @@ export default function ScheduleUpdate() {
                       onChange={(e) => handleScheduleUpdate(event.id, 'date', e.target.value)}
                       onFocus={(e) => handleInputFocus(event.id, 'date', e)}
                       onClick={(e) => handleInputClick(event.id, 'date', e)}
+                      onKeyDown={(e) => handleKeyDown(event.id, 'date', e)}
                       onBlur={(e) => handleInputBlur(event.id, 'date', e.target.value)}
                       placeholder="Enter event date"
                     />
@@ -192,6 +215,7 @@ export default function ScheduleUpdate() {
                       onChange={(e) => handleScheduleUpdate(event.id, 'time', e.target.value)}
                       onFocus={(e) => handleInputFocus(event.id, 'time', e)}
                       onClick={(e) => handleInputClick(event.id, 'time', e)}
+                      onKeyDown={(e) => handleKeyDown(event.id, 'time', e)}
                       onBlur={(e) => handleInputBlur(event.id, 'time', e.target.value)}
                       placeholder="Enter event time"
                     />
@@ -204,6 +228,7 @@ export default function ScheduleUpdate() {
                       onChange={(e) => handleScheduleUpdate(event.id, 'venue', e.target.value)}
                       onFocus={(e) => handleInputFocus(event.id, 'venue', e)}
                       onClick={(e) => handleInputClick(event.id, 'venue', e)}
+                      onKeyDown={(e) => handleKeyDown(event.id, 'venue', e)}
                       onBlur={(e) => handleInputBlur(event.id, 'venue', e.target.value)}
                       placeholder="Enter event venue"
                     />
