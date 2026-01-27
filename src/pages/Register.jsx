@@ -46,7 +46,7 @@ const REGISTER_STYLE = `
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    min-height: 70vh;
+    min-height: auto;
   }
   
   .register-header {
@@ -100,6 +100,17 @@ const REGISTER_STYLE = `
     border: 1px solid rgba(0, 212, 255, 0.2);
     border-radius: 12px;
     background: rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+  }
+  
+  .participant-fieldset.complete {
+    border-color: rgba(76, 175, 80, 0.4);
+    background: rgba(76, 175, 80, 0.05);
+  }
+  
+  .participant-fieldset.incomplete {
+    border-color: rgba(255, 152, 0, 0.4);
+    background: rgba(255, 152, 0, 0.05);
   }
   
   .row {
@@ -129,14 +140,37 @@ const REGISTER_STYLE = `
     padding: 0 0.5rem;
   }
   
+  .participant-fieldset.complete legend {
+    color: #4caf50;
+  }
+  
+  .participant-fieldset.incomplete legend {
+    color: #ff9800;
+  }
+  
+  .input.required-missing {
+    border-color: rgba(255, 152, 0, 0.6) !important;
+    background: rgba(255, 152, 0, 0.1) !important;
+  }
+  
+  .input.required-missing:focus {
+    border-color: #ff9800 !important;
+    box-shadow: 0 0 10px rgba(255, 152, 0, 0.4) !important;
+  }
+  
   .team-fieldset {
     border-color: rgba(255, 152, 0, 0.3) !important;
     background: rgba(255, 152, 0, 0.05) !important;
     animation: teamFieldsetEnter 0.3s ease-out;
+    margin-top: 1rem;
   }
   
   .team-fieldset legend {
     color: #ff9800 !important;
+  }
+  
+  .team-fieldset .input.team {
+    width: 100%;
   }
   
   @keyframes teamFieldsetEnter {
@@ -223,18 +257,34 @@ const REGISTER_STYLE = `
     border-radius: 8px;
     margin: 1rem 0;
     text-align: center;
+    font-weight: 600;
+    font-size: 1rem;
+    animation: messageSlideIn 0.3s ease-out;
+  }
+  
+  @keyframes messageSlideIn {
+    0% {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
   
   .msg.error {
-    background: rgba(255, 107, 107, 0.1);
-    border: 1px solid rgba(255, 107, 107, 0.3);
+    background: rgba(255, 107, 107, 0.2);
+    border: 2px solid rgba(255, 107, 107, 0.5);
     color: #ff6b6b;
+    box-shadow: 0 4px 12px rgba(255, 107, 107, 0.2);
   }
   
   .msg.success {
-    background: rgba(76, 175, 80, 0.1);
-    border: 1px solid rgba(76, 175, 80, 0.3);
+    background: rgba(76, 175, 80, 0.2);
+    border: 2px solid rgba(76, 175, 80, 0.5);
     color: #4caf50;
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.2);
   }
   
   .register-footer {
@@ -514,57 +564,99 @@ const REGISTER_STYLE = `
   
   /* Mobile and responsive design */
   @media (max-width: 768px) {
+    .register-page {
+      padding: 0.5rem;
+      padding-top: 1rem;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
     .register-header {
-      top: 70px;
+      position: static;
+      transform: none;
+      left: auto;
+      width: 100%;
+      text-align: center;
+      margin-bottom: 1rem;
+      z-index: 10;
     }
     
     .register-header h2 {
-      font-size: 1.2rem;
+      font-size: 1.6rem;
       letter-spacing: 1px;
-      padding: 0 1rem;
+      padding: 1rem;
+      margin: 0;
+      text-align: center;
     }
     
     .register-card {
-      width: 95%;
+      width: 100%;
+      max-width: none;
       padding: 1rem;
-      margin-top: 5rem;
-      max-height: calc(100vh - 200px);
-      border-radius: 15px;
+      margin: 0;
+      max-height: none;
+      min-height: auto;
+      border-radius: 12px;
+      border-width: 2px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .form-content {
+      overflow-y: visible;
+      padding-right: 0;
+      flex: 1;
     }
     
     .participant-fieldset {
       padding: 1rem;
       margin-bottom: 1rem;
+      border-radius: 8px;
+      width: 100%;
+      box-sizing: border-box;
     }
     
     .participant-fieldset legend {
       font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    
+    .stacked-fields {
+      gap: 0.75rem;
+      width: 100%;
     }
     
     .row {
       flex-direction: column;
       gap: 0.75rem;
+      width: 100%;
     }
     
-    .input {
+    .input, .native-select {
       padding: 0.875rem;
       font-size: 16px; /* Prevents zoom on iOS */
-    }
-    
-    .native-select {
-      padding: 0.875rem;
-      font-size: 16px;
+      border-radius: 6px;
+      border-width: 2px;
+      width: 100%;
+      box-sizing: border-box;
     }
     
     .event-display {
       padding: 0.875rem;
       font-size: 0.9rem;
+      border-radius: 6px;
+      width: 100%;
+      box-sizing: border-box;
     }
     
     .controls {
       flex-direction: column;
       gap: 0.75rem;
-      padding: 0 1rem;
+      padding: 0;
+      width: 100%;
     }
     
     .btn {
@@ -572,44 +664,84 @@ const REGISTER_STYLE = `
       padding: 1rem;
       font-size: 1rem;
       min-height: 48px; /* Touch-friendly size */
+      border-radius: 8px;
+      font-weight: 600;
+      box-sizing: border-box;
     }
     
     .card-footer {
       padding: 1rem;
       margin: 1rem -1rem -1rem -1rem;
+      border-radius: 0 0 12px 12px;
+      width: calc(100% + 2rem);
+      box-sizing: border-box;
     }
     
     .msg {
       margin: 1rem 0;
-      font-size: 0.9rem;
+      font-size: 0.95rem;
+      padding: 1rem;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    
+    /* Image upload mobile styles */
+    .image-upload-section {
+      padding: 1rem !important;
+      margin-top: 1rem !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    
+    .image-upload-section img {
+      width: 100px !important;
+      height: 100px !important;
+    }
+    
+    .image-upload-section label,
+    .image-upload-section button {
+      padding: 0.75rem 1rem !important;
+      font-size: 0.85rem !important;
+      min-height: 40px;
+    }
+    
+    /* Team fieldset mobile */
+    .team-fieldset {
+      width: 100%;
+      box-sizing: border-box;
+    }
+    
+    .team-fieldset .input.team {
+      width: 100%;
+      box-sizing: border-box;
     }
   }
   
   @media (max-width: 480px) {
     .register-page {
-      padding: 1rem 0.5rem;
-      padding-top: 4rem;
+      padding: 0.25rem;
+      padding-top: 0.5rem;
     }
     
     .register-header {
-      top: 60px;
+      margin-bottom: 0.75rem;
     }
     
     .register-header h2 {
-      font-size: 1rem;
+      font-size: 1.4rem;
       letter-spacing: 0.5px;
+      padding: 0.75rem;
     }
     
     .register-card {
-      width: 98%;
       padding: 0.75rem;
-      margin-top: 4rem;
-      max-height: calc(100vh - 180px);
+      border-radius: 10px;
     }
     
     .participant-fieldset {
       padding: 0.75rem;
-      border-radius: 8px;
+      margin-bottom: 0.75rem;
+      border-radius: 6px;
     }
     
     .participant-fieldset legend {
@@ -617,55 +749,109 @@ const REGISTER_STYLE = `
       padding: 0 0.25rem;
     }
     
+    .stacked-fields {
+      gap: 0.625rem;
+    }
+    
     .input, .native-select {
       padding: 0.75rem;
-      border-radius: 6px;
+      font-size: 16px;
+      border-radius: 5px;
     }
     
     .event-display {
       padding: 0.75rem;
-      border-radius: 6px;
+      font-size: 0.85rem;
+      border-radius: 5px;
     }
     
     .controls {
-      gap: 0.5rem;
+      gap: 0.625rem;
     }
     
     .btn {
       padding: 0.875rem;
       font-size: 0.9rem;
+      min-height: 44px;
       border-radius: 6px;
     }
     
     .btn.link {
-      padding: 0.5rem;
+      padding: 0.625rem;
       font-size: 0.85rem;
+      min-height: auto;
+    }
+    
+    .card-footer {
+      padding: 0.75rem;
+      margin: 0.75rem -0.75rem -0.75rem -0.75rem;
+      width: calc(100% + 1.5rem);
+    }
+    
+    /* Image upload smaller mobile styles */
+    .image-upload-section {
+      padding: 0.75rem !important;
+    }
+    
+    .image-upload-section img {
+      width: 80px !important;
+      height: 80px !important;
+    }
+    
+    .image-upload-section label,
+    .image-upload-section button {
+      padding: 0.625rem 0.875rem !important;
+      font-size: 0.8rem !important;
     }
   }
   
   @media (max-width: 360px) {
+    .register-page {
+      padding: 0.125rem;
+      padding-top: 0.25rem;
+    }
+    
     .register-header h2 {
-      font-size: 0.9rem;
+      font-size: 1.2rem;
+      padding: 0.5rem;
     }
     
     .register-card {
       padding: 0.5rem;
-      border-radius: 10px;
-      margin-top: 3.5rem;
+      border-radius: 8px;
     }
     
     .participant-fieldset {
       padding: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .participant-fieldset legend {
+      font-size: 0.85rem;
+      padding: 0 0.125rem;
     }
     
     .input, .native-select, .event-display {
       padding: 0.625rem;
-      font-size: 14px;
+      font-size: 15px;
     }
     
     .btn {
       padding: 0.75rem;
       font-size: 0.85rem;
+      min-height: 40px;
+    }
+    
+    .card-footer {
+      padding: 0.5rem;
+      margin: 0.5rem -0.5rem -0.5rem -0.5rem;
+      width: calc(100% + 1rem);
+    }
+    
+    /* Very small mobile image upload */
+    .image-upload-section img {
+      width: 70px !important;
+      height: 70px !important;
     }
   }
   
@@ -833,23 +1019,58 @@ const ParticipantFieldset = React.memo(function ParticipantFieldset({ idx, data,
     }
   };
 
+  // Check if all required fields are filled
+  const isComplete = data.name && data.email && data.phone && data.registrationNo && data.imageUrl;
+
   return (
-    <fieldset className="participant-fieldset">
-      <legend>Participant {idx + 1}</legend>
+    <fieldset className={`participant-fieldset ${isComplete ? 'complete' : 'incomplete'}`}>
+      <legend>
+        Participant {idx + 1} 
+        {isComplete ? ' ✅' : ' ⚠️'}
+      </legend>
       <div className="stacked-fields">
-        <input placeholder="Name" value={data.name} onChange={e => updateField(idx, 'name', e.target.value)} required className="input name" />
-        <input placeholder="Class" value={data.cls} onChange={e => updateField(idx, 'cls', e.target.value)} className="input cls" />
-        <input placeholder="Email" value={data.email} onChange={e => updateField(idx, 'email', e.target.value)} required className="input email" />
-        <input placeholder="Phone" value={data.phone} onChange={e => updateField(idx, 'phone', e.target.value)} className="input phone" />
-        <input placeholder="Registration No" value={data.registrationNo} onChange={e => updateField(idx, 'registrationNo', e.target.value)} className="input regno" />
+        <input 
+          placeholder="Name *" 
+          value={data.name} 
+          onChange={e => updateField(idx, 'name', e.target.value)} 
+          required 
+          className={`input name ${!data.name ? 'required-missing' : ''}`}
+        />
+        <input 
+          placeholder="Class" 
+          value={data.cls} 
+          onChange={e => updateField(idx, 'cls', e.target.value)} 
+          className="input cls" 
+        />
+        <input 
+          placeholder="Email *" 
+          value={data.email} 
+          onChange={e => updateField(idx, 'email', e.target.value)} 
+          required 
+          className={`input email ${!data.email ? 'required-missing' : ''}`}
+        />
+        <input 
+          placeholder="Phone *" 
+          value={data.phone} 
+          onChange={e => updateField(idx, 'phone', e.target.value)} 
+          required 
+          className={`input phone ${!data.phone ? 'required-missing' : ''}`}
+        />
+        <input 
+          placeholder="Registration No *" 
+          value={data.registrationNo} 
+          onChange={e => updateField(idx, 'registrationNo', e.target.value)} 
+          required 
+          className={`input regno ${!data.registrationNo ? 'required-missing' : ''}`}
+        />
         
         {/* Image Upload Section */}
-        <div className="image-upload-section" style={{
+        <div className={`image-upload-section ${!data.imageUrl ? 'required-missing' : ''}`} style={{
           marginTop: '1rem',
           padding: '1rem',
-          border: '2px dashed rgba(0, 128, 255, 0.3)',
+          border: `2px dashed ${!data.imageUrl ? 'rgba(255, 107, 107, 0.5)' : 'rgba(0, 128, 255, 0.3)'}`,
           borderRadius: '8px',
-          background: 'rgba(0, 128, 255, 0.05)',
+          background: !data.imageUrl ? 'rgba(255, 107, 107, 0.1)' : 'rgba(0, 128, 255, 0.05)',
           textAlign: 'center'
         }}>
           <input
@@ -868,7 +1089,7 @@ const ParticipantFieldset = React.memo(function ParticipantFieldset({ idx, data,
                 style={{
                   display: 'inline-block',
                   padding: '0.75rem 1.5rem',
-                  background: 'linear-gradient(135deg, #0080ff, #0066cc)',
+                  background: !data.imageUrl ? 'linear-gradient(135deg, #ff6b6b, #ff5252)' : 'linear-gradient(135deg, #0080ff, #0066cc)',
                   color: 'white',
                   borderRadius: '8px',
                   cursor: uploading ? 'not-allowed' : 'pointer',
@@ -876,18 +1097,31 @@ const ParticipantFieldset = React.memo(function ParticipantFieldset({ idx, data,
                   border: 'none',
                   fontSize: '0.9rem',
                   fontWeight: '600',
-                  opacity: uploading ? 0.6 : 1
+                  opacity: uploading ? 0.6 : 1,
+                  marginBottom: '0.75rem'
                 }}
               >
-                {uploading ? '📤 Uploading...' : '📷 Upload Image'}
+                {uploading ? '📤 Uploading...' : '📷 Upload Payment Receipt *'}
               </label>
+              <br />
               <p style={{
-                color: 'rgba(255, 255, 255, 0.7)',
+                color: 'rgba(255, 255, 255, 0.9)',
                 fontSize: '0.8rem',
-                margin: '0.5rem 0 0 0'
+                margin: '0.75rem 0 0 0',
+                fontWeight: '500'
               }}>
-                (Go to Events{'->'} Stall-Metanoia) for fee payment
+                (Go to Events → Stall-Metanoia) for fee payment
               </p>
+              {!data.imageUrl && (
+                <p style={{
+                  color: 'rgba(255, 107, 107, 0.8)',
+                  fontSize: '0.75rem',
+                  margin: '0.25rem 0 0 0',
+                  fontStyle: 'italic'
+                }}>
+                  Payment receipt is required
+                </p>
+              )}
             </div>
           ) : (
             <div>
@@ -899,10 +1133,19 @@ const ParticipantFieldset = React.memo(function ParticipantFieldset({ idx, data,
                   height: '100px',
                   objectFit: 'cover',
                   borderRadius: '8px',
-                  border: '2px solid rgba(0, 128, 255, 0.3)',
-                  marginBottom: '0.5rem'
+                  border: '2px solid rgba(76, 175, 80, 0.5)',
+                  marginBottom: '0.75rem'
                 }}
               />
+              <br />
+              <p style={{
+                color: 'rgba(255, 255, 255, 0.9)',
+                fontSize: '0.8rem',
+                margin: '0.75rem 0 0.5rem 0',
+                fontWeight: '500'
+              }}>
+                (Go to Events → Stall-Metanoia) for fee payment
+              </p>
               <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'center' }}>
                 <label 
                   htmlFor={`image-upload-${idx}`}
@@ -967,12 +1210,12 @@ export default function RegisterPage() {
         // Split Draw 4 Arena into two separate options
         options.push({
           id: 'draw-4-arena-valorant',
-          title: 'Draw 4 Arena: The Ultimate Esports Showdown (max 4) Valorant',
+          title: 'Draw 4 Arena: The Ultimate Esports Showdown  Valorant',
           max: Math.min(4, ev.maxParticipants || 1)
         });
         options.push({
           id: 'draw-4-arena-cod',
-          title: 'Draw 4 Arena: The Ultimate Esports Showdown (max 4) Call of Duty',
+          title: 'Draw 4 Arena: The Ultimate Esports Showdown  Call of Duty',
           max: Math.min(4, ev.maxParticipants || 1)
         });
       } else {
@@ -1119,15 +1362,38 @@ export default function RegisterPage() {
     } catch {}
   }, []);
 
+  // Form validation function
+  const isFormValid = useCallback(() => {
+    // Check if team name is filled
+    if (!teamName.trim()) return false;
+    
+    // Check if all participants have required fields and image
+    return participants.every(p => 
+      p.name && 
+      p.email && 
+      p.phone && 
+      p.registrationNo && 
+      p.imageUrl
+    );
+  }, [participants, teamName]);
+
   async function handleSubmit(e) {
     e.preventDefault();
     setSending(true);
     setMessage(null);
 
+    // Validate all participants have required fields
     for (let i = 0; i < participants.length; i++) {
       const p = participants[i];
-      if (!p.name || !p.email) {
-        setMessage({ type: 'error', text: `Participant ${i+1}: name and email required.` });
+      if (!p.name || !p.email || !p.phone || !p.registrationNo) {
+        setMessage({ type: 'error', text: `Participant ${i+1}: All fields (Name, Email, Phone, Registration No) are required.` });
+        setSending(false);
+        return;
+      }
+      
+      // Validate image upload
+      if (!p.imageUrl) {
+        setMessage({ type: 'error', text: `Participant ${i+1}: Payment receipt image is required.` });
         setSending(false);
         return;
       }
@@ -1177,12 +1443,13 @@ export default function RegisterPage() {
         body: JSON.stringify(payload)
       });
 
+      // Show success message with green background
       setMessage({
         type: "success",
-        text: "Registration submitted — thank you!"
+        text: "✅ Registration submitted successfully! Redirecting to events page..."
       });
 
-      // success animation using GSAP if available
+      // Success animation using GSAP if available
       try {
         const gsap = await loadGsap();
         if (gsap && cardRef.current) {
@@ -1191,10 +1458,15 @@ export default function RegisterPage() {
         }
       } catch {}
 
-      setTimeout(() => navigate('/events'), 1400);
+      // Redirect to events page after 2 seconds
+      setTimeout(() => navigate('/events'), 2000);
     } catch (err) {
       console.error(err);
-      setMessage({ type: 'error', text: 'Failed to send registration. Please try again later.' });
+      // Show error message with red background
+      setMessage({ 
+        type: 'error', 
+        text: '❌ Failed to submit registration. Please check your internet connection and try again.' 
+      });
     } finally {
       setSending(false);
     }
@@ -1222,8 +1494,9 @@ export default function RegisterPage() {
       paddingTop: '120px',
       paddingBottom: '2rem',
       display: 'flex', 
-      alignItems: 'flex-start', 
-      justifyContent: 'center',
+      flexDirection: 'column',
+      alignItems: 'center', 
+      justifyContent: 'flex-start',
       backgroundImage: `url(${bgImage})`,
       backgroundSize: 'cover',
       backgroundPosition: 'center top',
@@ -1250,7 +1523,11 @@ export default function RegisterPage() {
         <h2 id="register-heading">Register for Event</h2>
       </div>
 
-      <div ref={cardRef} className="register-card" role="region" aria-labelledby="register-heading" style={{ marginTop: '6rem' }}>
+      <div ref={cardRef} className="register-card" role="region" aria-labelledby="register-heading" style={{ 
+        marginTop: '6rem',
+        width: '100%',
+        maxWidth: '700px'
+      }}>
         
         <div className="form-content">
           <form ref={formRef} id="register-form" onSubmit={handleSubmit}>
@@ -1380,7 +1657,14 @@ export default function RegisterPage() {
         <div className="card-footer">
           <div className="controls">
             <button type="button" className="btn" onClick={addParticipant} disabled={participants.length >= maxParticipants}>Add participant</button>
-            <button type="submit" form={formRef.current?.id || 'register-form'} className="btn primary" disabled={sending}>{sending ? 'Sending…' : 'Submit'}</button>
+            <button 
+              type="submit" 
+              form={formRef.current?.id || 'register-form'} 
+              className="btn primary" 
+              disabled={sending || !isFormValid()}
+            >
+              {sending ? 'Submitting…' : 'Submit Registration'}
+            </button>
             <button type="button" className="btn" onClick={handleCancel}>Cancel</button>
           </div>
         </div>
