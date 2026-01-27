@@ -1,38 +1,40 @@
 {
   "uno-reverse-alibi": {
     "id": "uno-reverse-alibi",
-    "title": "UNO Reverse Alibi",
-    "subtitle": "Murder Mystery Challenge",
-    "description": "Solve the case… but only after flipping the clues.",
-    "longDescription": "Puzzle challenge where you must skip obvious answers to find hidden solutions. Players work as detectives to uncover the truth behind a mysterious crime, but there's a twist - all evidence must be examined in reverse order using UNO reverse cards.",
-    "category": "Mystery & Puzzle",
+    "title": "🎯 The Metanoia Murder Dossier: The Reverse Alibi",
+    "subtitle": "Reverse your way out of trouble",
+    "description": "Step into a thrilling murder mystery escape challenge where logic meets reverse thinking.",
+    "longDescription": "🕵️ Step into a thrilling murder mystery escape challenge where logic meets reverse thinking. Teams must solve four reverse-logic puzzles to uncover the real killer and prove Personal Assistant innocent. Each puzzle flips normal reasoning on its head — only sharp minds and strong teamwork can crack the case.",
+    "category": "Mystery • Logic • Team Event",
     "difficulty": "Medium",
-    "duration": "2 hours",
+    "duration": "2 Hours",
     "teamSize": {
       "min": 2,
-      "max": 4,
+      "max": 3,
       "recommended": 3
     },
-    "venue": "TBA",
-    "date": "24-25 Nov",
+    "venue": "Classroom",
+    "date": "30th January 2026",
     "time": "TBA",
     "rules": [
-      "Standard event rules apply",
-      "Participants must register in advance",
-      "Follow all event guidelines",
-      "Teams must work together to solve mysteries",
-      "Use of external resources is prohibited"
+      "✔ Standard event rules apply",
+      "✔ Participants must register in advance",
+      "✔ On-spot registration is NOT available",
+      "✔ Follow all organizer instructions",
+      "✔ Use of mobile phones or external electronic aids is strictly prohibited"
     ],
     "requirements": [
-      "Basic problem-solving skills",
-      "Team coordination",
-      "Logical thinking ability"
+      "Sharp minds and logical thinking",
+      "Strong teamwork and coordination",
+      "Reverse-logic problem solving skills"
     ],
-    "aboutEvent": "A thrilling murder mystery where participants must use UNO reverse cards to uncover clues and solve the case. The twist? Everything must be analyzed backwards!",
+    "aboutEvent": "🕵️ ABOUT THIS EVENT: Step into a thrilling murder mystery escape challenge where logic meets reverse thinking. Teams must solve four reverse-logic puzzles to uncover the real killer and prove Personal Assistant innocent. Each puzzle flips normal reasoning on its head — only sharp minds and strong teamwork can crack the case.",
+    "eventType": "Mystery • Logic • Team Event",
+    "teamSizeText": "2–3 Players",
     "contactInfo": {
-      "coordinator": "Event Coordinator",
-      "email": "events@christuniversity.in",
-      "phone": "+91-XXXXXXXXXX"
+      "coordinator": "Komal Kothari ",
+      "email": "komal.kothari@bcah.christuniversity.in",
+      "phone": "+91-9434337899"
     }
   },
   "wild-card-auction": {
@@ -46,7 +48,7 @@
     "duration": "2 Days",
     "teamSize": {
       "min": 1,
-      "max": 4,
+      "max": 3,
       "recommended": 3
     },
     "venue": "TBA",
@@ -86,9 +88,9 @@
     "aboutEvent": "🔥 WILD CARD AUCTION – IPL Edition 🔥 The most thrilling cricket-based event where knowledge + strategy + bidding skills decide the champion! Start with an intense IPL Shoot Quiz to qualify, then dominate the auction table to build your dream squad. 📢 Bring your squad, test your IPL knowledge, and dominate the auction table! 💥🏏🔥 Are you ready to bid like a pro and win like a champion?",
     "winningCriteria": "🏆 After the auction, teams will be judged based on total points 📊 The team with the highest points becomes the EVEN WILD CARD AUCTION CHAMPION 👑🔥🎉",
     "contactInfo": {
-      "coordinator": "Event Coordinator",
-      "email": "events@christuniversity.in",
-      "phone": "+91-XXXXXXXXXX"
+      "coordinator": "Piyush sinha",
+      "email": "piyush.sinha@bcah.christuniversity.in",
+      "phone": "+91-7759040065"
     }
   },
   "uno-frame": {
@@ -129,38 +131,68 @@
   },
   "draw-4-arena": {
     "id": "draw-4-arena",
-    "title": "Draw 4 Arena (Online Gaming)",
-    "subtitle": "Digital Gaming Tournament",
-    "description": "Play hard. Flip harder",
-    "longDescription": "Intense online gaming tournament featuring UNO-themed digital challenges. Compete against players from around the world in fast-paced, skill-based gaming competitions.",
-    "category": "Online Gaming",
+    "title": "Draw 4 Arena: The Ultimate Esports Showdown",
+    "subtitle": "Lock and load. Spike planted. It's time to dominate.",
+    "description": "Step into the ultimate esports battlefield where tactical precision meets survival instincts.",
+    "longDescription": "Step into the ultimate esports battlefield where tactical precision meets survival instincts. Draw 4 Arena brings you two major titles under one roof. Whether you are a strategic sharpshooter or a survival specialist, this is your chance to prove your dominance.",
+    "category": "Esports • Strategy • FPS • Battle Royale",
     "difficulty": "Hard",
-    "duration": "2 hours",
+    "duration": "2 Days",
     "teamSize": {
-      "min": 1,
-      "max": 4,
-      "recommended": 2
+      "min": 2,
+      "max": 6,
+      "recommended": 5
     },
-    "venue": "TBA",
-    "date": "24-25 Nov",
+    "venue": "Classroom",
+    "date": "30th & 31st January 2026",
     "time": "TBA",
+    "games": {
+      "callOfDuty": {
+        "name": "Call of Duty Mobile (The 2-Day Showdown)",
+        "format": "Duo (2 Players)",
+        "day1": {
+          "date": "Jan 30",
+          "event": "Multiplayer Wars",
+          "description": "Test your skills across Frontline, TDM, S&D, Domination, & Hardpoint"
+        },
+        "day2": {
+          "date": "Jan 31",
+          "event": "Battle Royale",
+          "description": "Drop in, survive, and be the last duo standing"
+        }
+      },
+      "valorant": {
+        "name": "Valorant (Tactical 5v5)",
+        "format": "Standard Competitive Rules • First to 13 wins • Best of 1 (BO1) • Custom Lobby",
+        "teamSize": "5 + 1 Sub",
+        "description": "Calling all sharpshooters to the arena. Team coordination, aim, and strategy will decide the champions."
+      }
+    },
+    "teamSizes": {
+      "callOfDuty": "Duo (2 Players)",
+      "valorant": "5 + 1 Sub"
+    },
     "rules": [
-      "Standard event rules apply",
-      "Participants must register in advance",
-      "Follow all event guidelines",
-      "Stable internet connection required",
-      "No cheating or external assistance"
+      "Registration Fee: ₹100 per team (for either game)",
+      "Participants must register in advance; on-spot registration is NOT available",
+      "Call of Duty: Players must have the game installed and updated on their mobile devices",
+      "Valorant: Map will be decided by Admin/Random",
+      "Maintain decorum; toxic behavior or use of unfair means leads to immediate disqualification",
+      "Follow all organizer instructions strictly"
     ],
     "requirements": [
-      "Gaming device (PC/Mobile)",
+      "Gaming device (Mobile for COD, PC for Valorant)",
       "Stable internet connection",
-      "Gaming skills and reflexes"
+      "Games installed and updated",
+      "Team coordination and communication skills",
+      "Strategic thinking and quick reflexes"
     ],
-    "aboutEvent": "The ultimate online gaming arena where UNO meets competitive esports. Battle it out in digital challenges that test your gaming prowess and strategic thinking.",
+    "aboutEvent": "ABOUT THIS EVENT: Step into the ultimate esports battlefield where tactical precision meets survival instincts. Draw 4 Arena brings you two major titles under one roof. Whether you are a strategic sharpshooter or a survival specialist, this is your chance to prove your dominance.",
+    "registrationFee": "₹100 per team (for either game)",
     "contactInfo": {
-      "coordinator": "Event Coordinator",
-      "email": "events@christuniversity.in",
-      "phone": "+91-XXXXXXXXXX"
+      "coordinator": "Ved Chatterjee & Harsh Behal",
+      "email": "Ved.chatterjee@bcah.christuniversity.in, harsh.behal@bcah.christuniversity.in",
+      "phone": "+91-9839320691, +91-9027613639"
     }
   },
   "skip-the-obvious": {
@@ -221,81 +253,104 @@
     },
     "motto": "So run fast, think smart, and above all — don't skip the obvious.",
     "contactInfo": {
-      "coordinator": "Event Coordinator",
-      "email": "events@christuniversity.in",
-      "phone": "+91-XXXXXXXXXX"
+      "coordinator": "Simran singh,  Mukund keshwani",
+      "email": "Simran.singh@bcah.christuniversity.in, Mukund.haresh@bcah.christuniversity.in",
+      "phone": "+91-9798380631 ,+91-93598 88264"
     }
   },
   "uno-reverse-alibi-2": {
     "id": "uno-reverse-alibi-2",
-    "title": "Murder Mystery",
-    "subtitle": "Advanced Detective Challenge",
-    "description": "Solve the case… but only after flipping the clues",
-    "longDescription": "The sequel to our popular murder mystery event with more complex cases and intricate clues. Advanced detective work required as participants unravel mysteries using reverse logic and UNO card mechanics.",
-    "category": "Mystery & Detective",
-    "difficulty": "Hard",
-    "duration": "2 hours",
+    "title": "WILD PROMPT ",
+    "subtitle": "Unleash creativity. Master prompts. Expect the unexpected.",
+    "description": "Wild Prompt is a fast-paced creative challenge where teams use AI to turn unexpected ideas into powerful visuals.",
+    "longDescription": " WILD PROMPT – Wild Prompt is a fast-paced creative challenge where teams use AI to turn unexpected ideas into powerful visuals. Participants craft prompts, generate images using Google Gemini, and adapt instantly when surprise twists change the game.",
+    "category": "Creative • AI • Innovation",
+    "difficulty": "Medium",
+    "duration": "2 Hours",
     "teamSize": {
-      "min": 2,
+      "min": 3,
       "max": 3,
       "recommended": 3
     },
-    "venue": "TBA",
-    "date": "24-25 Nov",
+    "venue": "Computer Lab",
+    "date": "30th January 2026",
     "time": "TBA",
+    "rounds": {
+      "total": 2,
+      "round1": {
+        "name": "🎯 Prompt Crafter & Wild Flip",
+        "duration": "45 minutes",
+        "description": "Teams create prompts using random elements and generate an AI image. A sudden Wild Flip forces a prompt change and a second image. Top teams advance."
+      },
+      "round2": {
+        "name": "⚡ Speed Prompt Showdown",
+        "description": "Finalists receive a mystery theme and secret element. One final AI image and a one-minute explanation."
+      }
+    },
     "rules": [
-      "Standard event rules apply",
-      "Participants must register in advance",
-      "Follow all event guidelines",
-      "Advanced mystery solving required",
-      "Work as a detective team"
+      "✔ Standard event rules apply",
+      "✔ Participants must register in advance",
+      "✔ On-spot registration is NOT available",
+      "✔ Follow all organizer instructions",
+      "✔ Teams must use provided Google Gemini access",
+      "✔ Group name mandatory for all teams",
+      "✔ One laptop per team required"
     ],
     "requirements": [
-      "Advanced problem-solving skills",
-      "Detective reasoning ability",
-      "Team coordination"
+      "🎨 Creative thinking and imagination",
+      "🤖 Basic understanding of AI prompts",
+      "💻 One laptop per team",
+      "🔧 AI Tool: Google Gemini",
+      "⚡ Quick adaptation to surprise twists",
+      "👥 Team collaboration skills"
     ],
-    "aboutEvent": "Take on more challenging murder mysteries in this advanced detective challenge. Use your investigative skills and UNO reverse logic to crack the toughest cases.",
+    "aboutEvent": "🎨 ABOUT THIS EVENT: Wild Prompt is a fast-paced creative challenge where teams use AI to turn unexpected ideas into powerful visuals. Participants craft prompts, generate images using Google Gemini, and adapt instantly when surprise twists change the game.",
+    "eventType": "Creative • AI • Innovation",
+    "teamSizeText": "Teams of 3",
+    "teamDetails": "Teams of 3 | Group name mandatory",
+    "techRequirements": "One laptop per team | AI Tool: Google Gemini",
     "contactInfo": {
-      "coordinator": "Event Coordinator",
-      "email": "events@christuniversity.in",
-      "phone": "+91-XXXXXXXXXX"
+      "coordinator": "Leema B Jacob",
+      "email": "leema.jacob@bcah.christuniversity.in",
+      "phone": "+91-9110204938"
     }
   },
   "logic-reverse": {
     "id": "logic-reverse",
     "title": "Logic Reverse: The Brain Battle",
-    "subtitle": "Reverse Engineering Challenge",
-    "description": "Outsmart. Outthink. UNO-reverse your opponent.",
-    "longDescription": "Work backwards from solutions to understand complex logic problems. This brain battle challenges participants to reverse-engineer solutions and think in completely new ways using UNO logic mechanics.",
-    "category": "Logic & Brain Games",
+    "subtitle": "Reverse the Logic. Win the Game.",
+    "description": "Step into a high-intensity logic-reverse brain battle where mathematics and analytics collide.",
+    "longDescription": "Step into a high-intensity logic-reverse brain battle where mathematics and analytics collide. Participants must solve 3 ROUNDS with multiple numerical and reasoning challenges, while Flip, Skip, and Draw-style twists can suddenly alter difficulty, order, or conditions. Every round keeps minds on edge — adapt fast, think backward when needed, and outsolve the surprises to stay in the game.",
+    "category": "Analytical-Logic-Riddles",
     "difficulty": "Hard",
-    "duration": "2 hours",
+    "duration": "40 mins",
     "teamSize": {
       "min": 1,
-      "max": 2,
-      "recommended": 2
+      "max": 1,
+      "recommended": 1
     },
-    "venue": "TBA",
-    "date": "24-25 Nov",
+    "venue": "Classroom",
+    "date": "30th January 2026",
     "time": "TBA",
     "rules": [
       "Standard event rules apply",
       "Participants must register in advance",
-      "Follow all event guidelines",
-      "Pure logic and reasoning only",
-      "No external aids allowed"
+      "On-spot registration is NOT available",
+      "Follow all organizer instructions",
+      "Use of mobile phones or external electronic aids is strictly prohibited"
     ],
     "requirements": [
-      "Strong logical reasoning",
-      "Reverse thinking ability",
-      "Mathematical aptitude"
+      "Strong mathematical and analytical skills",
+      "Advanced logical reasoning ability",
+      "Quick adaptation to sudden twists",
+      "Reverse thinking and problem-solving",
+      "High-intensity focus and concentration"
     ],
-    "aboutEvent": "The ultimate brain battle where logic meets reverse engineering. Challenge your mind to work backwards from solutions and discover new ways of thinking.",
+    "aboutEvent": "ABOUT THIS EVENT: Step into a high-intensity logic-reverse brain battle where mathematics and analytics collide. Participants must solve 3 ROUNDS with multiple numerical and reasoning challenges, while Flip, Skip, and Draw-style twists can suddenly alter difficulty, order, or conditions. Every round keeps minds on edge — adapt fast, think backward when needed, and outsolve the surprises to stay in the game.",
     "contactInfo": {
-      "coordinator": "Event Coordinator",
+      "coordinator": "Ansh Somra & Nihit Agarwal",
       "email": "events@christuniversity.in",
-      "phone": "+91-XXXXXXXXXX"
+      "phone": "+91-8824482769, +91-7601913003"
     }
   },
   "color-chaos-quiz": {
@@ -352,9 +407,9 @@
       "smartThinking": "Blends logical thinking with chaotic elements"
     },
     "contactInfo": {
-      "coordinator": "Event Coordinator",
-      "email": "events@christuniversity.in",
-      "phone": "+91-XXXXXXXXXX"
+      "coordinator": "Tamanna Kania ",
+      "email": "tamanna.vimal@bcah.christuniversity.in",
+      "phone": "+91-9023143991"
     }
   }
 }

@@ -572,13 +572,18 @@ export default function EventCard({ event, index = 0, disableZigZag = false }) {
       border-radius: 0;
     }
     .full-image-wrapper img {
-      width: 100%; 
-      height: 100%; 
-      object-fit: cover; 
+      width: 100% !important; 
+      height: 100% !important; 
+      object-fit: cover !important; 
+      object-position: center !important;
       display: block;
       border: none;
       border-radius: 14px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      max-width: 100% !important;
+      max-height: 100% !important;
+      min-width: 100% !important;
+      min-height: 100% !important;
     }
   `;
 
@@ -609,10 +614,10 @@ export default function EventCard({ event, index = 0, disableZigZag = false }) {
 
   // Array of imported UNO card images for front side
   const unoImages = [uno1, uno2, uno3, uno4, uno5, uno6, uno7];
-  
+
   // Array of imported UNO card images for back side (when flipped)
   const img2Images = [img2_1, img2_2, img2_3, img2_4, img2_5, img2_6];
-  
+
   // Get image based on card index (cycles through available images)
   // Replace images for cards 4 and 7 with a.jpg and b.jpg
   let frontImageSrc;
@@ -623,7 +628,7 @@ export default function EventCard({ event, index = 0, disableZigZag = false }) {
   } else {
     frontImageSrc = unoImages[displayIndex % unoImages.length];
   }
-  
+
   const backImageSrc = img2Images[displayIndex % img2Images.length];
 
 
@@ -632,7 +637,7 @@ export default function EventCard({ event, index = 0, disableZigZag = false }) {
   function stopFlipSound() {
     const ctx = audioCtxRef.current;
     audioCtxRef.current = null;
-    if (ctx) { try { ctx.close(); } catch {} }
+    if (ctx) { try { ctx.close(); } catch { } }
   }
   function playFlipSound(duration = 1.8) {
     stopFlipSound();
@@ -651,16 +656,16 @@ export default function EventCard({ event, index = 0, disableZigZag = false }) {
       // Musical notes based on card index
       const notes = [261.63, 293.66, 329.63, 349.23, 392.00, 440.00, 493.88, 523.25]; // C major scale
       const baseNote = notes[displayIndex % notes.length];
-      
+
       osc1.type = 'sine';
       osc2.type = 'triangle';
       osc3.type = 'sine';
-      
+
       // Create chord effect
       osc1.frequency.setValueAtTime(baseNote, ctx.currentTime);
       osc2.frequency.setValueAtTime(baseNote * 1.25, ctx.currentTime); // Major third
       osc3.frequency.setValueAtTime(baseNote * 1.5, ctx.currentTime); // Perfect fifth
-      
+
       // Add slight pitch bend
       osc1.frequency.exponentialRampToValueAtTime(baseNote * 1.02, ctx.currentTime + duration);
       osc2.frequency.exponentialRampToValueAtTime(baseNote * 1.27, ctx.currentTime + duration);
@@ -682,7 +687,7 @@ export default function EventCard({ event, index = 0, disableZigZag = false }) {
       osc3.connect(filter);
       filter.connect(gain);
       gain.connect(ctx.destination);
-      
+
       osc1.start();
       osc2.start();
       osc3.start();
@@ -691,7 +696,7 @@ export default function EventCard({ event, index = 0, disableZigZag = false }) {
       osc3.stop(ctx.currentTime + duration + 0.05);
 
       setTimeout(() => stopFlipSound(), (duration + 0.1) * 1000);
-    } catch {}
+    } catch { }
   }
 
   useEffect(() => () => stopFlipSound(), []);
@@ -719,7 +724,7 @@ export default function EventCard({ event, index = 0, disableZigZag = false }) {
     '#FF9800', // Orange
     '#9C27B0'  // Purple
   ];
-  
+
   const cardColor = cardColors[displayIndex % cardColors.length];
 
   return (
@@ -742,24 +747,24 @@ export default function EventCard({ event, index = 0, disableZigZag = false }) {
         <div className="full-image-wrapper">
           <img src={backImageSrc} alt={`${currentEventData.title} - Details`} />
         </div>
-        
+
         {/* Content inside the circle */}
         <div className="circle-content">
           <div className="circle-title">{currentEventData.title}</div>
           <div className="circle-description">{currentEventData.description}</div>
         </div>
-        
+
         {/* New button layout at bottom - only render when flipped */}
         {flipped && (
           <div className="card-buttons" onClick={(e) => e.stopPropagation()}>
-            <button 
-              className="card-btn details" 
+            <button
+              className="card-btn details"
               onClick={(e) => navigateTo(`/events/${event.id}`, e)}
             >
               Details
             </button>
-            <button 
-              className="card-btn register" 
+            <button
+              className="card-btn register"
               onClick={(e) => navigateTo(`/register?event=${event.id}`, e)}
             >
               Register
