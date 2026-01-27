@@ -85,8 +85,8 @@ export default function About() {
             <p>
               'Metanoia' stands as the pinnacle event within the realm of Samagra, the Computer
               Science Association. It is a celebration of innovation, a gathering of minds eager
-              to push the boundaries of technology and creativity. From November 23rd to November
-              24th, 2025, participants and spectators alike are invited to immerse themselves in
+              to push the boundaries of technology and creativity. From January 30th to January
+              31st, 2026, participants and spectators alike are invited to immerse themselves in
               a spectacular showcase of intellect and ingenuity.
             </p>
             <p>

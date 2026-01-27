@@ -31,7 +31,21 @@
       "maxParticipants": 2,
       "category": "Creative",
       "difficulty": "Easy",
-      "featured": true
+      "featured": true,
+      "date": "30 & 31 Jan",
+      "time": "30th - 11 am to 1 pm, 31st - 10 am to 1 pm",
+      "coordinators": [
+        {
+          "name": "Naveen",
+          "phone": "8547953668",
+          "email": "naveen.thomas@bcah.christuniversity.in"
+        },
+        {
+          "name": "Aditya Agarwal",
+          "phone": "+91 96644 09556",
+          "email": "aditya.agarwal@bcah.christuniversity.in"
+        }
+      ]
     },
     {
       "id": "draw-4-arena",

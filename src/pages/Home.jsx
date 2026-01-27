@@ -32,6 +32,7 @@ export default function Home() {
   const [audioPlaying, setAudioPlaying] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [showHeaderElements, setShowHeaderElements] = useState(true);
+  const [notificationOpen, setNotificationOpen] = useState(false);
   const audioRef = useRef(null);
   const carouselRef = useRef(null);
   const [isDragging, setIsDragging] = useState(false);
@@ -161,6 +162,17 @@ export default function Home() {
           {/* Right side */}
           <div className="navbar-right-section">
             <button
+              className="notification-btn"
+              onClick={() => setNotificationOpen(!notificationOpen)}
+              aria-label="Toggle notifications"
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+              </svg>
+              <span className="notification-badge">+1</span>
+            </button>
+            <button
               className="audio-toggle-btn"
               onClick={toggleAudio}
               aria-label={audioPlaying ? "Pause audio" : "Play audio"}
@@ -183,6 +195,44 @@ export default function Home() {
           </div>
         </div>
       </nav>
+
+      {/* Notification Panel */}
+      {notificationOpen && (
+        <div className="notification-panel">
+          <div className="notification-header">
+            <h3>Event Notifications</h3>
+            <button 
+              className="close-notification"
+              onClick={() => setNotificationOpen(false)}
+              aria-label="Close notifications"
+            >
+              ×
+            </button>
+          </div>
+          <div className="notification-content">
+            {events.slice(0, 3).map((event, index) => (
+              <Link 
+                key={event.id} 
+                to={`/events/${event.id}`}
+                className="notification-item"
+                onClick={() => setNotificationOpen(false)}
+              >
+                <div className="notification-icon">🎮</div>
+                <div className="notification-details">
+                  <h4>{event.title}</h4>
+                  <p>{event.short}</p>
+                  <span className="notification-time">Just now</span>
+                </div>
+              </Link>
+            ))}
+            <div className="notification-footer">
+              <Link to="/events" onClick={() => setNotificationOpen(false)}>
+                View All Events →
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Hero Section */}
       <section className="hero-section">

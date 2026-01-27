@@ -614,8 +614,8 @@
 }
 
 .card.clickable-no-glow:hover {
-  transform: translateY(-10px) scale(1.08);
-  box-shadow: 0 10px 25px rgba(255, 255, 255, 0.4);
+  /* Remove popup effect when hints are off - only subtle shadow change */
+  box-shadow: 0 6px 15px rgba(255, 255, 255, 0.3);
 }
 
 @keyframes glow {

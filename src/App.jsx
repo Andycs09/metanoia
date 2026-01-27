@@ -7,6 +7,7 @@ import About from './pages/About';
 import Events from './pages/Events';
 import EventDetail from './pages/EventDetail';
 import Schedule from './pages/Schedule';
+import ScheduleUpdate from './pages/ScheduleUpdate';
 import Register from './pages/Register';
 import UnoGame from './pages/UnoGame';
 import UnoRegister from './pages/UnoRegister';
@@ -27,6 +28,7 @@ const NotFound = () => (
 export default function App() {
   const location = useLocation();
   const isHomePage = location.pathname === '/';
+  const isScheduleUpdatePage = location.pathname === '/schedule_update';
 
   useEffect(() => {
     const sound = new Howl({
@@ -56,8 +58,8 @@ export default function App() {
       {/* Global shooting stars animation */}
       <ShootingStars />
 
-      {/* Hide default header on home page since it has custom navbar */}
-      {!isHomePage && <Header />}
+      {/* Hide default header on home page and schedule update page */}
+      {!isHomePage && !isScheduleUpdatePage && <Header />}
       
       <main>
         <Routes>
@@ -66,6 +68,7 @@ export default function App() {
           <Route path="/events" element={<Events />} />
           <Route path="/events/:id" element={<EventDetail />} />
           <Route path="/schedule" element={<Schedule />} />
+          <Route path="/schedule_update" element={<ScheduleUpdate />} />
           <Route path="/register" element={<Register />} />
           <Route path="/game/register" element={<UnoRegister />} />
           <Route path="/game" element={<UnoGame />} />
@@ -73,7 +76,8 @@ export default function App() {
         </Routes>
       </main>
       
-      <GlobalFooter />
+      {/* Hide footer on schedule update page */}
+      {!isScheduleUpdatePage && <GlobalFooter />}
     </>
   );
 }

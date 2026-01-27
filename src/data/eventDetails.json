@@ -108,7 +108,7 @@
       "recommended": 1
     },
     "venue": "TBA",
-    "date": " January, 2026",
+    "date": "30 & 31 Jan",
     "time": "TBA",
     "rules": [
       "Standard event rules apply",
@@ -124,9 +124,9 @@
     ],
     "aboutEvent": "Express your creativity through photography by capturing the world in UNO's signature colors. Show us how red, blue, green, and yellow can tell compelling visual stories.",
     "contactInfo": {
-      "coordinator": "Event Coordinator",
-      "email": "events@christuniversity.in",
-      "phone": "+91-XXXXXXXXXX"
+      "coordinator": "Naveen, Aditya Agarwal",
+      "email": "naveen.thomas@bcah.christuniversity.in, aditya.agarwal@bcah.christuniversity.in",
+      "phone": "8547953668, +91 96644 09556"
     }
   },
   "draw-4-arena": {
@@ -203,11 +203,11 @@
     "longDescription": "🎬 Some clues lead you forward... others pull you right back. Welcome to Skip the Obvious — a high-energy treasure hunt that turns the UNOVerse 🌌 into your ultimate mind maze. Every clue hides a secret, every path a trick, and every choice could change everything. 🏃‍♀️ Dash across the campus chasing riddles, decoding patterns, and piecing together the puzzle that bends both space and sense. It's a wild blend of observation, analysis, brainstorming, and full-on physical adventure — where your instincts are your only compass. 💥 Expect big twists, sudden turns, and that one reveal no one sees coming. So run fast, think smart, and above all — don't skip the obvious.",
     "category": "Adventure & Treasure Hunt",
     "difficulty": "Medium",
-    "duration": "2 hours",
+    "duration": "3 hours",
     "teamSize": {
-      "min": 2,
-      "max": 4,
-      "recommended": 3
+      "min": 4,
+      "max": 5,
+      "recommended": 4
     },
     "venue": "Campus-wide",
     "date": "January, 2026",

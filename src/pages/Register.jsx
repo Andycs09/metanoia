@@ -886,7 +886,7 @@ const ParticipantFieldset = React.memo(function ParticipantFieldset({ idx, data,
                 fontSize: '0.8rem',
                 margin: '0.5rem 0 0 0'
               }}>
-                upload payment script with trans ID
+                (Go to Events{'->'} Stall-Metanoia) for fee payment
               </p>
             </div>
           ) : (
@@ -951,14 +951,40 @@ export default function RegisterPage() {
   const videoRef = useRef(null);
 
   // MEMO: compute selectedEvent + maxParticipants once per eventId change
-  const selectedEvent = useMemo(() => events.find(e => e.id === eventId) || events[0], [eventId]);
+  const selectedEvent = useMemo(() => {
+    // Handle the split Draw 4 Arena events
+    if (eventId === 'draw-4-arena-valorant' || eventId === 'draw-4-arena-cod') {
+      return events.find(e => e.id === 'draw-4-arena') || events[0];
+    }
+    return events.find(e => e.id === eventId) || events[0];
+  }, [eventId]);
   const maxParticipants = useMemo(() => Math.min(4, selectedEvent.maxParticipants || 1), [selectedEvent]);
   // MEMO: static event option data
-  const eventOptions = useMemo(() => events.map(ev => ({
-    id: ev.id,
-    title: ev.title,
-    max: Math.min(4, ev.maxParticipants || 1)
-  })), []);
+  const eventOptions = useMemo(() => {
+    const options = [];
+    events.forEach(ev => {
+      if (ev.id === 'draw-4-arena') {
+        // Split Draw 4 Arena into two separate options
+        options.push({
+          id: 'draw-4-arena-valorant',
+          title: 'Draw 4 Arena: The Ultimate Esports Showdown (max 4) Valorant',
+          max: Math.min(4, ev.maxParticipants || 1)
+        });
+        options.push({
+          id: 'draw-4-arena-cod',
+          title: 'Draw 4 Arena: The Ultimate Esports Showdown (max 4) Call of Duty',
+          max: Math.min(4, ev.maxParticipants || 1)
+        });
+      } else {
+        options.push({
+          id: ev.id,
+          title: ev.title,
+          max: Math.min(4, ev.maxParticipants || 1)
+        });
+      }
+    });
+    return options;
+  }, []);
 
   const [participants, setParticipants] = useState(() => [{ name: '', cls: '', email: '', phone: '', registrationNo: '', imageUrl: '' }]);
   const [teamName, setTeamName] = useState('');
@@ -1114,18 +1140,32 @@ export default function RegisterPage() {
       return;
     }
 
-    // Add team name to all participants and prepare payload
+    // Determine the game type for Draw 4 Arena events
+    let gameType = null;
+    let eventTitle = selectedEvent.title;
+    
+    if (eventId === 'draw-4-arena-valorant') {
+      gameType = 'Valorant';
+      eventTitle = 'Draw 4 Arena: The Ultimate Esports Showdown - Valorant';
+    } else if (eventId === 'draw-4-arena-cod') {
+      gameType = 'Call of Duty';
+      eventTitle = 'Draw 4 Arena: The Ultimate Esports Showdown - Call of Duty';
+    }
+
+    // Add team name and game type to all participants and prepare payload
     const participantsWithTeam = participants.map((p, index) => ({ 
       ...p, 
       teamName: teamName.trim(),
-      participantNumber: index + 1
+      participantNumber: index + 1,
+      ...(gameType && { gameType })
     }));
 
     const payload = {
       eventId,
-      eventTitle: selectedEvent.title,
+      eventTitle,
       participants: participantsWithTeam,
       timestamp: new Date().toISOString(),
+      ...(gameType && { gameType })
     };
 
     console.log('Sending payload:', payload);
