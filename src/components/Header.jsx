@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import '../styles/GlobalNav.css';
 import unoverseLogoImg from '../assets/unoverse logo.jpg';
 import christLogoImg from '../assets/christ logo.png';
+import samagraLogoImg from '../assets/samagra logo .png';
+import departmentLogoImg from '../assets/department.png';
 import audioFile from '../assets/yes.mp3';
 
 export default function Header() {
@@ -49,9 +51,21 @@ export default function Header() {
   return (
     <nav className={`global-navbar ${scrolled ? 'scrolled' : ''}`}>
       <div className="navbar-container">
-        <div className="navbar-logo">
-          <img src={unoverseLogoImg} alt="UnoVerse Logo" />
+        {/* Left side logos */}
+        <div className="navbar-left-logos">
+          <img src={departmentLogoImg} alt="Department Logo" className="department-logo" />
+          <img src={samagraLogoImg} alt="Samagra Logo" className="samagra-logo" />
+          <img src={unoverseLogoImg} alt="UnoVerse Logo" className="unoverse-logo" />
         </div>
+
+        {/* Center - Navigation Links */}
+        <ul className={`navbar-links ${mobileMenuOpen ? 'open' : ''}`}>
+          <li><Link to="/">Home</Link></li>
+          <li><Link to="/events">Events</Link></li>
+          <li><Link to="/about">About</Link></li>
+          <li><Link to="/schedule">Schedule</Link></li>
+          <li><Link to="/game">Play UNO</Link></li>
+        </ul>
 
         <button
           className="mobile-menu-toggle"
@@ -63,14 +77,7 @@ export default function Header() {
           <span></span>
         </button>
 
-        <ul className={`navbar-links ${mobileMenuOpen ? 'open' : ''}`}>
-          <li><Link to="/">Home</Link></li>
-          <li><Link to="/events">Events</Link></li>
-          <li><Link to="/about">About</Link></li>
-          <li><Link to="/schedule">Schedule</Link></li>
-          <li><Link to="/game">Play UNO</Link></li>
-        </ul>
-
+        {/* Right side */}
         <div className="navbar-right-section">
           <button
             className="audio-toggle-btn"

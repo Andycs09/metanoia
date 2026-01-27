@@ -9,6 +9,7 @@ import bgImage from '../assets/home page theme.png';
 import unoverseLogoImg from '../assets/unoverse logo.jpg';
 import christLogoImg from '../assets/christ logo.png';
 import samagraLogoImg from '../assets/samagra logo .png';
+import departmentLogoImg from '../assets/department.png';
 import unoLogoImg from '../assets/logo.png';
 import googleLogoImg from '../assets/google.png';
 import audioFile from '../assets/yes.mp3';
@@ -131,9 +132,21 @@ export default function Home() {
       {/* Custom Navbar */}
       <nav className={`unoverse-navbar ${scrolled ? 'scrolled' : ''}`}>
         <div className="navbar-container">
-          <div className="navbar-logo">
-            <img src={unoverseLogoImg} alt="UnoVerse Logo" />
+          {/* Left side logos */}
+          <div className="navbar-left-logos">
+            <img src={departmentLogoImg} alt="Department Logo" className="department-logo" />
+            <img src={samagraLogoImg} alt="Samagra Logo" className="samagra-logo" />
+            <img src={unoverseLogoImg} alt="UnoVerse Logo" className="unoverse-logo" />
           </div>
+
+          {/* Center - Navigation Links */}
+          <ul className={`navbar-links ${mobileMenuOpen ? 'open' : ''}`}>
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="/events">Events</Link></li>
+            <li><Link to="/about">About</Link></li>
+            <li><Link to="/schedule">Schedule</Link></li>
+            <li><Link to="/game">Play UNO</Link></li>
+          </ul>
 
           <button
             className="mobile-menu-toggle"
@@ -145,14 +158,7 @@ export default function Home() {
             <span></span>
           </button>
 
-          <ul className={`navbar-links ${mobileMenuOpen ? 'open' : ''}`}>
-            <li><Link to="/">Home</Link></li>
-            <li><Link to="/events">Events</Link></li>
-            <li><Link to="/about">About</Link></li>
-            <li><Link to="/schedule">Schedule</Link></li>
-            <li><Link to="/game">Play UNO</Link></li>
-          </ul>
-
+          {/* Right side */}
           <div className="navbar-right-section">
             <button
               className="audio-toggle-btn"
@@ -226,7 +232,7 @@ export default function Home() {
           )}
 
           {/* Event Date */}
-          <p className="event-date">24th-25th November,2025</p>
+          <p className="event-date">30th-31st January, 2026</p>
 
           {/* CTA Buttons */}
           <div className="hero-cta">

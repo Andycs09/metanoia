@@ -319,8 +319,8 @@ export default function EventCard({ event, index = 0, disableZigZag = false }) {
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 70%;
-      height: 50%;
+      width: 85%;
+      height: 60%;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -328,6 +328,8 @@ export default function EventCard({ event, index = 0, disableZigZag = false }) {
       text-align: center;
       z-index: 10;
       pointer-events: none;
+      padding: 8px;
+      box-sizing: border-box;
     }
     
     .circle-title {
@@ -339,6 +341,14 @@ export default function EventCard({ event, index = 0, disableZigZag = false }) {
       margin-bottom: 8px;
       line-height: 1.1;
       text-transform: uppercase;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      hyphens: auto;
+      max-width: 100%;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
     
     .circle-description {
@@ -347,6 +357,13 @@ export default function EventCard({ event, index = 0, disableZigZag = false }) {
       text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
       line-height: 1.2;
       font-weight: 600;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      max-width: 100%;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
     
     /* Button layout - positioned at very bottom where purple is marked */
@@ -516,6 +533,7 @@ export default function EventCard({ event, index = 0, disableZigZag = false }) {
       .circle-title {
         font-size: 0.9rem;
         margin-bottom: 6px;
+        line-height: 1.0;
       }
       
       .circle-description {
@@ -542,10 +560,12 @@ export default function EventCard({ event, index = 0, disableZigZag = false }) {
       .circle-title {
         font-size: 0.8rem;
         margin-bottom: 4px;
+        line-height: 0.95;
       }
       
       .circle-description {
         font-size: 0.65rem;
+        line-height: 1.0;
       }
       
       .flip-back .card-btn {
@@ -561,6 +581,14 @@ export default function EventCard({ event, index = 0, disableZigZag = false }) {
         gap: 5px;
         width: 95%;
       }
+    }
+
+    /* Special handling for longer titles */
+    .circle-title:has-text("WILD PROMPT"),
+    .circle-title:has-text("WILD") {
+      font-size: 0.95rem;
+      line-height: 1.0;
+      letter-spacing: -0.5px;
     }
 
     /* Image IS the card - no container */
@@ -613,7 +641,7 @@ export default function EventCard({ event, index = 0, disableZigZag = false }) {
   };
 
   // Array of imported UNO card images for front side
-  const unoImages = [uno1, uno2, uno3, uno4, uno5, uno6, uno7];
+  const unoImages = [uno1, uno2, uno3, uno4, uno5, uno5, uno7];
 
   // Array of imported UNO card images for back side (when flipped)
   const img2Images = [img2_1, img2_2, img2_3, img2_4, img2_5, img2_6];

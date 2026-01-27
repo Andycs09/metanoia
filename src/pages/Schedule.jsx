@@ -26,8 +26,8 @@ export default function Schedule(){
                 {events.map((e,i)=>(
                   <tr key={e.id}>
                     <td>{e.title}</td>
-                    <td>{`${10 + i}:00 AM`}</td>
-                    <td>All</td>
+                    <td>TBA</td>
+                    <td>TBA</td>
                   </tr>
                 ))}
               </tbody>

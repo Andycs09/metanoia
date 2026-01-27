@@ -35,7 +35,7 @@
     },
     {
       "id": "draw-4-arena",
-      "title": "🎮 Draw 4 Arena: The Ultimate Esports Showdown",
+      "title": "Draw 4 Arena: The Ultimate Esports Showdown",
       "image": "card_4_fc0ce148.png",
       "short": "Lock and load. Spike planted. It's time to dominate.",
       "details": "Ultimate esports battlefield featuring Call of Duty Mobile and Valorant competitions across 2 days.",
@@ -57,8 +57,8 @@
     },
     {
       "id": "uno-reverse-alibi-2",
-      "title": "🎨 WILD PROMPT 🎨",
-      "image": "uno (6).png",
+      "title": "WILD PROMPT",
+      "image": "uno (5).png",
       "short": "Unleash creativity. Master prompts. Expect the unexpected.",
       "details": "Wild Prompt is a fast-paced creative challenge where teams use AI to turn unexpected ideas into powerful visuals using Google Gemini.",
       "maxParticipants": 3,
@@ -68,7 +68,7 @@
     },
     {
       "id": "logic-reverse",
-      "title": "🎯 Logic Reverse: The Brain Battle",
+      "title": "Logic Reverse: The Brain Battle",
       "image": "card_6_1ad3c40f.png",
       "short": "Reverse the Logic. Win the Game.",
       "details": "High-intensity logic-reverse brain battle where mathematics and analytics collide with Flip, Skip, and Draw-style twists.",
@@ -79,7 +79,7 @@
     },
     {
       "id": "color-chaos-quiz",
-      "title": "🎨 color-chaos 🎨",
+      "title": "Color Chaos",
       "short": "Unleash creativity. Master prompts. Expect the unexpected.",
       "details": "Fast-paced creative challenge exploring prompt engineering + AI image generation using Google Gemini with UNO-style cards and Wild Flip twists.",
       "maxParticipants": 3,

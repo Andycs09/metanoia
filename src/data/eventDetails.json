@@ -14,7 +14,7 @@
       "recommended": 3
     },
     "venue": "Classroom",
-    "date": "30th January 2026",
+    "date": "30th January, 2026",
     "time": "TBA",
     "rules": [
       "✔ Standard event rules apply",
@@ -52,7 +52,7 @@
       "recommended": 3
     },
     "venue": "TBA",
-    "date": "30-31 JAN",
+    "date": "30th-31st January, 2026",
     "time": "TBA",
     "rounds": {
       "total": 2,
@@ -88,7 +88,7 @@
     "aboutEvent": "🔥 WILD CARD AUCTION – IPL Edition 🔥 The most thrilling cricket-based event where knowledge + strategy + bidding skills decide the champion! Start with an intense IPL Shoot Quiz to qualify, then dominate the auction table to build your dream squad. 📢 Bring your squad, test your IPL knowledge, and dominate the auction table! 💥🏏🔥 Are you ready to bid like a pro and win like a champion?",
     "winningCriteria": "🏆 After the auction, teams will be judged based on total points 📊 The team with the highest points becomes the EVEN WILD CARD AUCTION CHAMPION 👑🔥🎉",
     "contactInfo": {
-      "coordinator": "Piyush sinha",
+      "coordinator": "Piyush Sinha",
       "email": "piyush.sinha@bcah.christuniversity.in",
       "phone": "+91-7759040065"
     }
@@ -108,7 +108,7 @@
       "recommended": 1
     },
     "venue": "TBA",
-    "date": "24-25 Nov",
+    "date": " January, 2026",
     "time": "TBA",
     "rules": [
       "Standard event rules apply",
@@ -144,19 +144,19 @@
       "recommended": 5
     },
     "venue": "Classroom",
-    "date": "30th & 31st January 2026",
+    "date": "30th & 31st January, 2026",
     "time": "TBA",
     "games": {
       "callOfDuty": {
         "name": "Call of Duty Mobile (The 2-Day Showdown)",
         "format": "Duo (2 Players)",
         "day1": {
-          "date": "Jan 30",
+          "date": "30th January, 2026",
           "event": "Multiplayer Wars",
           "description": "Test your skills across Frontline, TDM, S&D, Domination, & Hardpoint"
         },
         "day2": {
-          "date": "Jan 31",
+          "date": "31st January, 2026",
           "event": "Battle Royale",
           "description": "Drop in, survive, and be the last duo standing"
         }
@@ -190,8 +190,8 @@
     "aboutEvent": "ABOUT THIS EVENT: Step into the ultimate esports battlefield where tactical precision meets survival instincts. Draw 4 Arena brings you two major titles under one roof. Whether you are a strategic sharpshooter or a survival specialist, this is your chance to prove your dominance.",
     "registrationFee": "₹100 per team (for either game)",
     "contactInfo": {
-      "coordinator": "Ved Chatterjee & Harsh Behal",
-      "email": "Ved.chatterjee@bcah.christuniversity.in, harsh.behal@bcah.christuniversity.in",
+      "coordinator": "Ved Chatterjee, Harsh Behal",
+      "email": "ved.chatterjee@bcah.christuniversity.in, harsh.behal@bcah.christuniversity.in",
       "phone": "+91-9839320691, +91-9027613639"
     }
   },
@@ -210,7 +210,7 @@
       "recommended": 3
     },
     "venue": "Campus-wide",
-    "date": "24-25 Nov",
+    "date": "January, 2026",
     "time": "TBA",
     "huntElements": [
       "🏃‍♀️ Campus-wide treasure hunt",
@@ -253,8 +253,8 @@
     },
     "motto": "So run fast, think smart, and above all — don't skip the obvious.",
     "contactInfo": {
-      "coordinator": "Simran singh,  Mukund keshwani",
-      "email": "Simran.singh@bcah.christuniversity.in, Mukund.haresh@bcah.christuniversity.in",
+      "coordinator": "Simran Singh,  Mukund Keshwani",
+      "email": "simran.singh@bcah.christuniversity.in, mukund.haresh@bcah.christuniversity.in",
       "phone": "+91-9798380631 ,+91-93598 88264"
     }
   },
@@ -273,7 +273,7 @@
       "recommended": 3
     },
     "venue": "Computer Lab",
-    "date": "30th January 2026",
+    "date": "30th January, 2026",
     "time": "TBA",
     "rounds": {
       "total": 2,
@@ -330,7 +330,7 @@
       "recommended": 1
     },
     "venue": "Classroom",
-    "date": "30th January 2026",
+    "date": "30th January, 2026",
     "time": "TBA",
     "rules": [
       "Standard event rules apply",
@@ -348,8 +348,8 @@
     ],
     "aboutEvent": "ABOUT THIS EVENT: Step into a high-intensity logic-reverse brain battle where mathematics and analytics collide. Participants must solve 3 ROUNDS with multiple numerical and reasoning challenges, while Flip, Skip, and Draw-style twists can suddenly alter difficulty, order, or conditions. Every round keeps minds on edge — adapt fast, think backward when needed, and outsolve the surprises to stay in the game.",
     "contactInfo": {
-      "coordinator": "Ansh Somra & Nihit Agarwal",
-      "email": "events@christuniversity.in",
+      "coordinator": "Ansh Somra, Nihit Agarwal",
+      "email": "ansh.somra@bcah.christuniversity.in, nihit.agarwal@bcah.christuniversity.in",
       "phone": "+91-8824482769, +91-7601913003"
     }
   },
@@ -368,7 +368,7 @@
       "recommended": 3
     },
     "venue": "TBA",
-    "date": "24-25 Nov",
+    "date": " January, 2026",
     "time": "TBA",
     "gameTypes": [
       "🧩 Puzzle Challenges",

@@ -74,30 +74,109 @@ main:has(.unoverse-home) {
   align-items: center;
   justify-content: space-between;
   gap: 2rem;
+  position: relative;
 }
 
-.navbar-logo img {
+/* Left side logos */
+.navbar-left-logos {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex: 0 0 auto;
+}
+
+.department-logo {
+  height: 45px;
+  width: auto;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+  filter: drop-shadow(0 0 10px rgba(0, 212, 255, 0.3));
+}
+
+.navbar-left-logos .samagra-logo {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+  filter: drop-shadow(0 0 10px rgba(0, 212, 255, 0.3));
+}
+
+.navbar-left-logos .unoverse-logo {
+  height: 45px;
+  width: auto;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+  filter: drop-shadow(0 0 10px rgba(0, 212, 255, 0.3));
+}
+
+.department-logo:hover,
+.navbar-left-logos .samagra-logo:hover,
+.navbar-left-logos .unoverse-logo:hover {
+  transform: scale(1.05);
+}
+
+/* Center UnoVerse logo */
+.navbar-center-logo {
+  justify-self: center;
+}
+
+.navbar-center-logo img {
   height: 50px;
   width: auto;
   object-fit: contain;
   transition: transform 0.3s ease;
 }
 
-.navbar-logo-right img {
-  height: 60px;
-  width: auto;
-  object-fit: contain;
-  transition: transform 0.3s ease;
+.navbar-center-logo img:hover {
+  transform: scale(1.05);
 }
 
-.navbar-logo img:hover {
-  transform: scale(1.05);
+/* Top row for mobile layout */
+.navbar-top-row {
+  display: contents;
 }
 
 .navbar-right-section {
   display: flex;
   align-items: center;
   gap: 1.5rem;
+  flex: 0 0 auto;
+}
+
+.navbar-right-section img {
+  height: 60px;
+  width: auto;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.navbar-right-section img:hover {
+  transform: scale(1.05);
+}
+
+.audio-toggle-btn {
+  background: rgba(0, 212, 255, 0.1);
+  border: 2px solid rgba(0, 212, 255, 0.3);
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #00d4ff;
+}
+
+.audio-toggle-btn:hover {
+  background: rgba(0, 212, 255, 0.2);
+  border-color: #00d4ff;
+  transform: scale(1.1);
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
+}
+
+.audio-toggle-btn svg {
+  filter: drop-shadow(0 0 5px rgba(0, 212, 255, 0.5));
 }
 
 .navbar-right-section img {
@@ -139,11 +218,13 @@ main:has(.unoverse-home) {
 .navbar-links {
   display: flex;
   list-style: none;
-  gap: 2.5rem;
+  gap: 2rem;
   margin: 0;
   padding: 0;
   font-family: 'Orbitron', sans-serif;
   font-weight: 500;
+  flex: 1;
+  justify-content: center;
 }
 
 .navbar-links li a {
@@ -801,24 +882,65 @@ main:has(.unoverse-home) {
   }
 
   .navbar-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     gap: 1rem;
   }
 
-  .navbar-logo img {
-    height: 40px;
+  .navbar-top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  .navbar-left-logos {
+    gap: 0.5rem;
+  }
+
+  .department-logo {
+    height: 35px;
+  }
+
+  .navbar-left-logos .samagra-logo {
+    height: 30px;
+  }
+
+  .navbar-left-logos .unoverse-logo {
+    height: 35px;
   }
 
   .mobile-menu-toggle {
-    display: none;
+    display: flex;
+    order: 2;
   }
 
   .navbar-links {
-    display: none;
+    display: flex;
+    position: static;
+    background: transparent;
+    backdrop-filter: none;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    margin-top: 0;
+    box-shadow: none;
+    transform: none;
+    gap: 1.5rem;
+    font-size: 0.9rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 1rem;
+    order: 3;
   }
 
   .navbar-right-section {
     display: flex;
     gap: 0.5rem;
+    order: 1;
+  }
   }
 
   .navbar-right-section img {
@@ -1006,7 +1128,7 @@ main:has(.unoverse-home) {
     width: 10px;
     height: 10px;
   }
-}
+
 
 /* Mobile Small Screens */
 @media (max-width: 480px) {
@@ -1016,8 +1138,26 @@ main:has(.unoverse-home) {
     padding: 0.4rem 0.8rem;
   }
 
-  .navbar-logo img {
-    height: 35px;
+  .navbar-left-logos {
+    gap: 0.3rem;
+  }
+
+  .department-logo {
+    height: 30px;
+  }
+
+  .navbar-left-logos .samagra-logo {
+    height: 25px;
+  }
+
+  .navbar-left-logos .unoverse-logo {
+    height: 30px;
+  }
+
+  .navbar-links {
+    gap: 1rem;
+    font-size: 0.8rem;
+    margin-top: 0.8rem;
   }
 
   .navbar-right-section img {
@@ -1199,8 +1339,20 @@ main:has(.unoverse-home) {
     padding: 0.3rem 0.5rem;
   }
 
-  .navbar-logo img {
-    height: 30px;
+  .navbar-left-logos {
+    gap: 0.2rem;
+  }
+
+  .department-logo {
+    height: 25px;
+  }
+
+  .navbar-left-logos .samagra-logo {
+    height: 20px;
+  }
+
+  .navbar-left-logos .unoverse-logo {
+    height: 25px;
   }
 
   .navbar-right-section img {

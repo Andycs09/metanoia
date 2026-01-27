@@ -4,6 +4,7 @@ import events from '../data/events';
 import eventDetailsData from '../data/eventDetails.json';
 import './EventDetail.css';
 import bgImage from '../assets/home page theme.png';
+import { getEventLogo } from '../utils/eventLogos';
 
 export default function EventDetail() {
   const { id } = useParams();
@@ -52,7 +53,7 @@ export default function EventDetail() {
         <div className="event-hero">
           {/* Image Section */}
           <div className="event-image-section">
-            {event.image && <img src={getImageUrl(event.image)} alt={eventDetails.title} />}
+            <img src={getEventLogo(event.id, bgImage)} alt={eventDetails.title} />
             <div className="event-badge">Featured Event</div>
           </div>
 

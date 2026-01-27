@@ -192,6 +192,37 @@ export default function Events() {
 				}
 				/* Disable interactions during animation */
 				.events-grid--animating .flip-card { pointer-events: none; }
+
+				/* Responsive Design */
+				@media (max-width: 768px) {
+					.events-page {
+						padding: 15px;
+						padding-top: 100px;
+						padding-bottom: 80px;
+					}
+					.events-grid {
+						margin-bottom: 40px;
+					}
+				}
+
+				@media (max-width: 480px) {
+					.events-page {
+						padding: 10px;
+						padding-top: 90px;
+						padding-bottom: 60px;
+					}
+					.events-grid {
+						margin-bottom: 30px;
+					}
+				}
+
+				@media (max-width: 360px) {
+					.events-page {
+						padding: 8px;
+						padding-top: 80px;
+						padding-bottom: 50px;
+					}
+				}
 			`}</style>
 
 			<div className="events-grid">
