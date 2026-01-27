@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import events from '../data/events';
 import scheduleData from '../data/schedule.json';
 import bgImage from '../assets/home page theme.png';
@@ -9,6 +9,7 @@ export default function ScheduleUpdate() {
   const [password, setPassword] = useState('');
   const [scheduleInfo, setScheduleInfo] = useState(scheduleData.scheduleData);
   const [message, setMessage] = useState('');
+  const [uploading, setUploading] = useState({});
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -32,10 +33,58 @@ export default function ScheduleUpdate() {
     }));
   };
 
+  const handleImageUpload = async (eventId, file) => {
+    if (!file) return;
+
+    // Validate file type
+    if (!file.type.startsWith('image/')) {
+      setMessage('Please select an image file');
+      setTimeout(() => setMessage(''), 3000);
+      return;
+    }
+
+    // Validate file size (max 5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      setMessage('Image size should be less than 5MB');
+      setTimeout(() => setMessage(''), 3000);
+      return;
+    }
+
+    setUploading(prev => ({ ...prev, [eventId]: true }));
+
+    try {
+      // Convert to base64 for storage
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const base64Data = e.target.result;
+        handleScheduleUpdate(eventId, 'image', base64Data);
+        setUploading(prev => ({ ...prev, [eventId]: false }));
+        setMessage(`Image uploaded for ${events.find(e => e.id === eventId)?.title}`);
+        setTimeout(() => setMessage(''), 3000);
+      };
+      reader.onerror = () => {
+        setUploading(prev => ({ ...prev, [eventId]: false }));
+        setMessage('Failed to upload image');
+        setTimeout(() => setMessage(''), 3000);
+      };
+      reader.readAsDataURL(file);
+    } catch (error) {
+      setUploading(prev => ({ ...prev, [eventId]: false }));
+      setMessage('Failed to upload image');
+      setTimeout(() => setMessage(''), 3000);
+    }
+  };
+
+  const removeImage = (eventId) => {
+    handleScheduleUpdate(eventId, 'image', '');
+    setMessage(`Image removed for ${events.find(e => e.id === eventId)?.title}`);
+    setTimeout(() => setMessage(''), 3000);
+  };
+
   const handleSave = () => {
     // In a real application, this would save to a backend
     // For now, we'll just show a success message
-    setMessage('Schedule updated successfully!');
+    setMessage('Schedule and images updated successfully!');
     setTimeout(() => setMessage(''), 3000);
     
     // Update localStorage to persist changes during the session
@@ -109,6 +158,55 @@ export default function ScheduleUpdate() {
                       onChange={(e) => handleScheduleUpdate(event.id, 'venue', e.target.value)}
                       placeholder="Enter event venue"
                     />
+                  </div>
+                </div>
+                
+                {/* Image Upload Section */}
+                <div className="form-field image-upload-field">
+                  <label>Event Image:</label>
+                  <div className="image-upload-container">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) => handleImageUpload(event.id, e.target.files[0])}
+                      style={{ display: 'none' }}
+                      id={`image-upload-${event.id}`}
+                    />
+                    
+                    {!scheduleInfo[event.id]?.image ? (
+                      <div className="upload-placeholder">
+                        <label 
+                          htmlFor={`image-upload-${event.id}`}
+                          className={`upload-btn ${uploading[event.id] ? 'uploading' : ''}`}
+                        >
+                          {uploading[event.id] ? '📤 Uploading...' : '📷 Upload Event Image'}
+                        </label>
+                        <p className="upload-hint">Upload an image to display on the event detail page</p>
+                      </div>
+                    ) : (
+                      <div className="image-preview">
+                        <img 
+                          src={scheduleInfo[event.id].image} 
+                          alt={`${event.title} preview`}
+                          className="preview-image"
+                        />
+                        <div className="image-actions">
+                          <label 
+                            htmlFor={`image-upload-${event.id}`}
+                            className="change-btn"
+                          >
+                            Change
+                          </label>
+                          <button
+                            type="button"
+                            onClick={() => removeImage(event.id)}
+                            className="remove-btn"
+                          >
+                            Remove
+                          </button>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>

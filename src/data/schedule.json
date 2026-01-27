@@ -2,35 +2,43 @@
   "scheduleData": {
     "uno-reverse-alibi": {
       "time": "TBA",
-      "venue": "TBA"
+      "venue": "TBA",
+      "image": ""
     },
     "wild-card-auction": {
       "time": "TBA",
-      "venue": "TBA"
+      "venue": "TBA",
+      "image": ""
     },
     "uno-frame": {
-      "time": "TBA",
-      "venue": "TBA"
+      "time": "30th - 11 am to 1 pm, 31st - 10 am to 1 pm",
+      "venue": "TBA",
+      "image": ""
     },
     "draw-4-arena": {
       "time": "TBA",
-      "venue": "TBA"
+      "venue": "TBA",
+      "image": ""
     },
     "skip-the-obvious": {
       "time": "TBA",
-      "venue": "TBA"
+      "venue": "TBA",
+      "image": ""
     },
     "uno-reverse-alibi-2": {
       "time": "TBA",
-      "venue": "TBA"
+      "venue": "TBA",
+      "image": ""
     },
     "logic-reverse": {
       "time": "TBA",
-      "venue": "TBA"
+      "venue": "TBA",
+      "image": ""
     },
     "color-chaos-quiz": {
       "time": "TBA",
-      "venue": "TBA"
+      "venue": "TBA",
+      "image": ""
     }
   }
 }

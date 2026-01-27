@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import events from '../data/events';
 import eventDetailsData from '../data/eventDetails.json';
+import scheduleDataFile from '../data/schedule.json';
 import './EventDetail.css';
 import bgImage from '../assets/home page theme.png';
 import { getEventLogo } from '../utils/eventLogos';
@@ -11,9 +12,16 @@ export default function EventDetail() {
   const navigate = useNavigate();
   const event = events.find(e => e.id === id);
   const eventDetails = eventDetailsData[id];
+  const [scheduleData, setScheduleData] = useState(scheduleDataFile.scheduleData);
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    
+    // Check if there's updated schedule data in localStorage (including images)
+    const savedScheduleData = localStorage.getItem('scheduleData');
+    if (savedScheduleData) {
+      setScheduleData(JSON.parse(savedScheduleData));
+    }
   }, [id]);
 
   if (!event || !eventDetails) {
@@ -27,9 +35,14 @@ export default function EventDetail() {
     );
   }
 
-  // Get image URL
+  // Get image URL - prioritize uploaded image from schedule data
   const getImageUrl = (imagePath) => {
-    if (!imagePath) return bgImage; // fallback to background image
+    // Check if there's an uploaded image for this event
+    const uploadedImage = scheduleData[event.id]?.image;
+    if (uploadedImage) return uploadedImage;
+    
+    // Fallback to original logic
+    if (!imagePath) return bgImage;
     if (imagePath.startsWith('/')) return imagePath;
     try {
       return new URL(`../../images/${imagePath}`, import.meta.url).href;
@@ -53,7 +66,7 @@ export default function EventDetail() {
         <div className="event-hero">
           {/* Image Section */}
           <div className="event-image-section">
-            <img src={getEventLogo(event.id, bgImage)} alt={eventDetails.title} />
+            <img src={scheduleData[event.id]?.image || getEventLogo(event.id, bgImage)} alt={eventDetails.title} />
             <div className="event-badge">Featured Event</div>
           </div>
 
