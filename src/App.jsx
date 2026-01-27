@@ -11,19 +11,13 @@ import ScheduleUpdate from './pages/ScheduleUpdate';
 import Register from './pages/Register';
 import UnoGame from './pages/UnoGame';
 import UnoRegister from './pages/UnoRegister';
+import NotFound from './pages/NotFound';
 import Starfield from './components/Starfield';
 import ShootingStars from './components/ShootingStars';
 import Preloader from './components/Preloader';
 import { Routes, Route, useLocation } from 'react-router-dom';
 
-const NotFound = () => (
-  <main style={{ padding: 24, display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '50vh' }}>
-    <div>
-      <h2>404 — Page not found</h2>
-      <p>The page you're looking for doesn't exist.</p>
-    </div>
-  </main>
-);
+const NotFoundComponent = () => <NotFound />;
 
 export default function App() {
   const location = useLocation();
@@ -72,7 +66,7 @@ export default function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/game/register" element={<UnoRegister />} />
           <Route path="/game" element={<UnoGame />} />
-          <Route path="*" element={<NotFound />} />
+          <Route path="*" element={<NotFoundComponent />} />
         </Routes>
       </main>
       
