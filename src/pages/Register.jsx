@@ -1110,7 +1110,7 @@ const ParticipantFieldset = React.memo(function ParticipantFieldset({ idx, data,
                 margin: '0.75rem 0 0 0',
                 fontWeight: '500'
               }}>
-                (Go to Events → Stall-Metanoia) for fee payment
+                (After Scanning Qr Code Go to Events → Stall-Metanoia) for fee payment
               </p>
               {!data.imageUrl && (
                 <p style={{
