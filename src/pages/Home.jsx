@@ -282,6 +282,8 @@ export default function Home() {
 
 
 
+
+
       {/* Featured Events Section */}
       <section className="featured-events-section">
         <div className="section-container">
