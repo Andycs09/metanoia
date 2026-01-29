@@ -209,21 +209,28 @@ export default function Home() {
             </button>
           </div>
           <div className="notification-content">
-            {events.slice(0, 3).map((event, index) => (
-              <Link 
-                key={event.id} 
-                to={`/events/${event.id}`}
-                className="notification-item"
-                onClick={() => setNotificationOpen(false)}
-              >
-                <div className="notification-icon">🎮</div>
-                <div className="notification-details">
-                  <h4>{event.title}</h4>
-                  <p>{event.short}</p>
-                  <span className="notification-time">Just now</span>
-                </div>
-              </Link>
-            ))}
+            {(() => {
+              // Create a custom order with Logic Reverse first
+              const logicReverseEvent = events.find(e => e.id === 'logic-reverse');
+              const otherEvents = events.filter(e => e.id !== 'logic-reverse').slice(0, 2);
+              const notificationEvents = logicReverseEvent ? [logicReverseEvent, ...otherEvents] : events.slice(0, 3);
+              
+              return notificationEvents.map((event, index) => (
+                <Link 
+                  key={event.id} 
+                  to={`/events/${event.id}`}
+                  className="notification-item"
+                  onClick={() => setNotificationOpen(false)}
+                >
+                  <div className="notification-icon">🎮</div>
+                  <div className="notification-details">
+                    <h4>{event.title}</h4>
+                    <p>{event.short}</p>
+                    <span className="notification-time">Just now</span>
+                  </div>
+                </Link>
+              ));
+            })()}
             <div className="notification-footer">
               <Link to="/events" onClick={() => setNotificationOpen(false)}>
                 View All Events →
