@@ -791,12 +791,18 @@ export default function EventCard({ event, index = 0, disableZigZag = false }) {
             >
               Details
             </button>
-            <button
-              className="card-btn register"
-              onClick={(e) => navigateTo(`/register?event=${event.id}`, e)}
-            >
-              Register
-            </button>
+            {event.registrationClosed ? (
+              <button className="card-btn register disabled" disabled>
+                Registration Closed
+              </button>
+            ) : (
+              <button
+                className="card-btn register"
+                onClick={(e) => navigateTo(`/register?event=${event.id}`, e)}
+              >
+                Register
+              </button>
+            )}
           </div>
         )}
       </div>

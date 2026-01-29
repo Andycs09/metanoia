@@ -1564,8 +1564,24 @@ export default function RegisterPage() {
             </div>
           </label>
 
+          {/* Closed Event Message */}
+          {events.find(e => e.id === eventId)?.closed && (
+            <div className="msg error" style={{ 
+              background: 'rgba(255, 107, 107, 0.2)',
+              border: '2px solid rgba(255, 107, 107, 0.5)',
+              color: '#ff6b6b',
+              padding: '1rem',
+              borderRadius: '8px',
+              margin: '1rem 0',
+              textAlign: 'center',
+              fontWeight: '600'
+            }}>
+              ❌ Registration for this event is currently closed. Please select a different event.
+            </div>
+          )}
+
           <div className="participants">
-            {participants.map((p, idx) => (
+            {!events.find(e => e.id === eventId)?.closed && participants.map((p, idx) => (
               <ParticipantFieldset
                 key={idx}
                 idx={idx}

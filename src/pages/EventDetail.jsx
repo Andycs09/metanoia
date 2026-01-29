@@ -16,7 +16,7 @@ export default function EventDetail() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    
+
     // Check if there's updated schedule data in localStorage (including images)
     const savedScheduleData = localStorage.getItem('scheduleData');
     if (savedScheduleData) {
@@ -40,7 +40,7 @@ export default function EventDetail() {
     // Check if there's an uploaded image for this event
     const uploadedImage = scheduleData[event.id]?.image;
     if (uploadedImage) return uploadedImage;
-    
+
     // Fallback to original logic
     if (!imagePath) return bgImage;
     if (imagePath.startsWith('/')) return imagePath;
@@ -103,12 +103,21 @@ export default function EventDetail() {
 
             {/* CTA Buttons */}
             <div className="event-cta-buttons">
-              <Link to={`/register?event=${encodeURIComponent(event.id)}`} className="cta-btn primary">
-                Register Now
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M5 12h14M12 5l7 7-7 7" />
-                </svg>
-              </Link>
+              {event.registrationClosed ? (
+                <div className="cta-btn disabled">
+                  Registration Closed
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M18 6L6 18M6 6l12 12" />
+                  </svg>
+                </div>
+              ) : (
+                <Link to={`/register?event=${encodeURIComponent(event.id)}`} className="cta-btn primary">
+                  Register Now
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </Link>
+              )}
               <Link to="/schedule" className="cta-btn secondary">
                 View Schedule
               </Link>
