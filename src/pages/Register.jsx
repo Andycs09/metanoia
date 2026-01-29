@@ -1144,7 +1144,7 @@ const ParticipantFieldset = React.memo(function ParticipantFieldset({ idx, data,
                 margin: '0.75rem 0 0.5rem 0',
                 fontWeight: '500'
               }}>
-                (Go to Events → Metanoia) for fee payment
+                (Go to Events -→ Metanoia) for fee payment
               </p>
               <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'center' }}>
                 <label 
