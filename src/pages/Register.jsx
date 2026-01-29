@@ -1372,6 +1372,10 @@ export default function RegisterPage() {
 
   // Form validation function
   const isFormValid = useCallback(() => {
+    // Check if selected event is closed
+    const selectedEventData = events.find(e => e.id === eventId);
+    if (selectedEventData?.closed) return false;
+    
     // Check if team name is filled
     if (!teamName.trim()) return false;
     
@@ -1383,7 +1387,7 @@ export default function RegisterPage() {
       p.registrationNo && 
       p.imageUrl
     );
-  }, [participants, teamName]);
+  }, [participants, teamName, eventId]);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -1544,7 +1548,14 @@ export default function RegisterPage() {
             <div className="event-select">
               <select value={eventId} onChange={e => setEventId(e.target.value)} className="input native-select">
                 {eventOptions.map(opt => (
-                  <option key={opt.id} value={opt.id}>{opt.title} (max {opt.max})</option>
+                  <option 
+                    key={opt.id} 
+                    value={opt.id} 
+                    disabled={opt.closed}
+                    style={opt.closed ? { color: '#999', backgroundColor: '#333' } : {}}
+                  >
+                    {opt.title} (max {opt.max})
+                  </option>
                 ))}
               </select>
               <div className="event-display animated-gradient" aria-hidden>
