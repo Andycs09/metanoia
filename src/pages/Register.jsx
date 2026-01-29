@@ -969,58 +969,9 @@ const REGISTER_STYLE = `
 `;
 
 // NEW: memoized participant fieldset component to reduce re-renders
-const ParticipantFieldset = React.memo(function ParticipantFieldset({ idx, data, updateField, removeParticipant, removable, uploadImage }) {
-  const [uploading, setUploading] = useState(false);
-  const [imagePreview, setImagePreview] = useState(data.imageUrl || null);
-  const fileInputRef = useRef(null);
-
-  const handleImageUpload = async (event) => {
-    const file = event.target.files[0];
-    if (!file) return;
-
-    // Validate file type
-    if (!file.type.startsWith('image/')) {
-      alert('Please select an image file');
-      return;
-    }
-
-    // Validate file size (max 5MB)
-    if (file.size > 5 * 1024 * 1024) {
-      alert('Image size should be less than 5MB');
-      return;
-    }
-
-    setUploading(true);
-
-    try {
-      // Create preview
-      const reader = new FileReader();
-      reader.onload = (e) => setImagePreview(e.target.result);
-      reader.readAsDataURL(file);
-
-      // Upload to Google Drive
-      const imageUrl = await uploadImage(file, idx);
-      updateField(idx, 'imageUrl', imageUrl);
-
-    } catch (error) {
-      console.error('Image upload failed:', error);
-      alert('Failed to upload image. Please try again.');
-      setImagePreview(null);
-    } finally {
-      setUploading(false);
-    }
-  };
-
-  const removeImage = () => {
-    setImagePreview(null);
-    updateField(idx, 'imageUrl', '');
-    if (fileInputRef.current) {
-      fileInputRef.current.value = '';
-    }
-  };
-
-  // Check if all required fields are filled
-  const isComplete = data.name && data.email && data.phone && data.registrationNo && data.imageUrl;
+const ParticipantFieldset = React.memo(function ParticipantFieldset({ idx, data, updateField, removeParticipant, removable }) {
+  // Check if all required fields are filled (no individual image needed)
+  const isComplete = data.name && data.email && data.phone && data.registrationNo;
 
   return (
     <fieldset className={`participant-fieldset ${isComplete ? 'complete' : 'incomplete'}`}>
@@ -1290,13 +1241,13 @@ export default function RegisterPage() {
         setSending(false);
         return;
       }
+    }
 
-      // Validate image upload
-      if (!p.imageUrl) {
-        setMessage({ type: 'error', text: `Participant ${i + 1}: Payment receipt image is required.` });
-        setSending(false);
-        return;
-      }
+    // Validate team receipt is uploaded (applies to all participants)
+    if (!teamReceipt) {
+      setMessage({ type: 'error', text: 'Team payment receipt is required for all participants.' });
+      setSending(false);
+      return;
     }
 
     // Validate team name for all participants
@@ -1318,11 +1269,12 @@ export default function RegisterPage() {
       eventTitle = 'Draw 4 Arena: The Ultimate Esports Showdown - Call of Duty';
     }
 
-    // Add team name and game type to all participants and prepare payload
+    // Add team name, team receipt, and game type to all participants and prepare payload
     const participantsWithTeam = participants.map((p, index) => ({
       ...p,
       teamName: teamName.trim(),
       participantNumber: index + 1,
+      imageUrl: teamReceipt, // Apply team receipt to all participants
       ...(gameType && { gameType })
     }));
 
@@ -1477,7 +1429,6 @@ export default function RegisterPage() {
                   updateField={updateField}
                   removeParticipant={removeParticipant}
                   removable={idx > 0}
-                  uploadImage={uploadImage}
                 />
               ))}
             </div>
