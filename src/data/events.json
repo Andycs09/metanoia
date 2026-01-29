@@ -20,7 +20,8 @@
       "maxParticipants": 3,
       "category": "Strategy",
       "difficulty": "Hard",
-      "featured": true
+      "featured": true,
+      "registrationClosed": true
     },
     {
       "id": "uno-frame",
