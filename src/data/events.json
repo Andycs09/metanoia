@@ -68,11 +68,7 @@
       "category": "Puzzle",
       "difficulty": "Medium",
       "featured": false,
-<<<<<<< HEAD
       "closed": true
-=======
-      "registrationClosed": true
->>>>>>> b1fec97aab7a1d3ae489ca66c6d0ce13a481201d
     },
     {
       "id": "uno-reverse-alibi-2",
