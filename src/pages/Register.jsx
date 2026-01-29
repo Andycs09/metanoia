@@ -1063,123 +1063,6 @@ const ParticipantFieldset = React.memo(function ParticipantFieldset({ idx, data,
           required
           className={`input regno ${!data.registrationNo ? 'required-missing' : ''}`}
         />
-
-        {/* Image Upload Section */}
-        <div className={`image-upload-section ${!data.imageUrl ? 'required-missing' : ''}`} style={{
-          marginTop: '1rem',
-          padding: '1rem',
-          border: `2px dashed ${!data.imageUrl ? 'rgba(255, 107, 107, 0.5)' : 'rgba(0, 128, 255, 0.3)'}`,
-          borderRadius: '8px',
-          background: !data.imageUrl ? 'rgba(255, 107, 107, 0.1)' : 'rgba(0, 128, 255, 0.05)',
-          textAlign: 'center'
-        }}>
-          <input
-            ref={fileInputRef}
-            type="file"
-            accept="image/*"
-            onChange={handleImageUpload}
-            style={{ display: 'none' }}
-            id={`image-upload-${idx}`}
-          />
-
-          {!imagePreview ? (
-            <div>
-              <label
-                htmlFor={`image-upload-${idx}`}
-                style={{
-                  display: 'inline-block',
-                  padding: '0.75rem 1.5rem',
-                  background: !data.imageUrl ? 'linear-gradient(135deg, #ff6b6b, #ff5252)' : 'linear-gradient(135deg, #0080ff, #0066cc)',
-                  color: 'white',
-                  borderRadius: '8px',
-                  cursor: uploading ? 'not-allowed' : 'pointer',
-                  transition: 'all 0.3s ease',
-                  border: 'none',
-                  fontSize: '0.9rem',
-                  fontWeight: '600',
-                  opacity: uploading ? 0.6 : 1,
-                  marginBottom: '0.75rem'
-                }}
-              >
-                {uploading ? '📤 Uploading...' : '📷 Upload Payment Receipt *'}
-              </label>
-              <br />
-              <p style={{
-                color: 'rgba(255, 255, 255, 0.9)',
-                fontSize: '0.8rem',
-                margin: '0.75rem 0 0 0',
-                fontWeight: '500'
-              }}>
-                (After Scanning Qr Code Go to Events → Stall-Metanoia) for fee payment
-              </p>
-              {!data.imageUrl && (
-                <p style={{
-                  color: 'rgba(255, 107, 107, 0.8)',
-                  fontSize: '0.75rem',
-                  margin: '0.25rem 0 0 0',
-                  fontStyle: 'italic'
-                }}>
-                  Payment receipt is required
-                </p>
-              )}
-            </div>
-          ) : (
-            <div>
-              <img
-                src={imagePreview}
-                alt={`Participant ${idx + 1}`}
-                style={{
-                  width: '100px',
-                  height: '100px',
-                  objectFit: 'cover',
-                  borderRadius: '8px',
-                  border: '2px solid rgba(76, 175, 80, 0.5)',
-                  marginBottom: '0.75rem'
-                }}
-              />
-              <br />
-              <p style={{
-                color: 'rgba(255, 255, 255, 0.9)',
-                fontSize: '0.8rem',
-                margin: '0.75rem 0 0.5rem 0',
-                fontWeight: '500'
-              }}>
-                (Go to Events -→ Metanoia) for fee payment
-              </p>
-              <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'center' }}>
-                <label
-                  htmlFor={`image-upload-${idx}`}
-                  style={{
-                    padding: '0.5rem 1rem',
-                    background: 'rgba(0, 128, 255, 0.2)',
-                    color: '#0080ff',
-                    borderRadius: '6px',
-                    cursor: 'pointer',
-                    fontSize: '0.8rem',
-                    border: '1px solid rgba(0, 128, 255, 0.3)'
-                  }}
-                >
-                  Change
-                </label>
-                <button
-                  type="button"
-                  onClick={removeImage}
-                  style={{
-                    padding: '0.5rem 1rem',
-                    background: 'rgba(255, 107, 107, 0.2)',
-                    color: '#ff6b6b',
-                    borderRadius: '6px',
-                    cursor: 'pointer',
-                    fontSize: '0.8rem',
-                    border: '1px solid rgba(255, 107, 107, 0.3)'
-                  }}
-                >
-                  Remove
-                </button>
-              </div>
-            </div>
-          )}
-        </div>
       </div>
       {removable && <button type="button" className="btn link" onClick={() => removeParticipant(idx)}>Remove</button>}
     </fieldset>
@@ -1201,7 +1084,14 @@ export default function RegisterPage() {
     }
     return events.find(e => e.id === eventId) || events[0];
   }, [eventId]);
-  const maxParticipants = useMemo(() => Math.min(4, selectedEvent.maxParticipants || 1), [selectedEvent]);
+  const maxParticipants = useMemo(() => {
+    if (eventId === 'draw-4-arena-valorant') {
+      return 5; // Valorant needs 5 players
+    } else if (eventId === 'draw-4-arena-cod') {
+      return 2; // Call of Duty is duo (2 players)
+    }
+    return Math.min(4, selectedEvent.maxParticipants || 1);
+  }, [selectedEvent, eventId]);
   // MEMO: static event option data
   const eventOptions = useMemo(() => {
     const options = [];
@@ -1210,16 +1100,16 @@ export default function RegisterPage() {
       if (ev.registrationClosed) {
         return; // Skip this event completely
       } else if (ev.id === 'draw-4-arena') {
-        // Split Draw 4 Arena into two separate options (only if not closed)
+        // Split Draw 4 Arena into two separate options
         options.push({
           id: 'draw-4-arena-valorant',
           title: 'Draw 4 Arena: The Ultimate Esports Showdown  Valorant',
-          max: Math.min(4, ev.maxParticipants || 1)
+          max: 5
         });
         options.push({
           id: 'draw-4-arena-cod',
           title: 'Draw 4 Arena: The Ultimate Esports Showdown  Call of Duty',
-          max: Math.min(4, ev.maxParticipants || 1)
+          max: 2
         });
       } else {
         options.push({
@@ -1232,8 +1122,9 @@ export default function RegisterPage() {
     return options;
   }, []);
 
-  const [participants, setParticipants] = useState(() => [{ name: '', cls: '', email: '', phone: '', registrationNo: '', imageUrl: '' }]);
+  const [participants, setParticipants] = useState(() => [{ name: '', cls: '', email: '', phone: '', registrationNo: '' }]);
   const [teamName, setTeamName] = useState('');
+  const [teamReceipt, setTeamReceipt] = useState('');
   const [sending, setSending] = useState(false);
   const [message, setMessage] = useState(null);
   const [headerVisible, setHeaderVisible] = useState(true);
@@ -1330,7 +1221,7 @@ export default function RegisterPage() {
   }, []);
 
   const addParticipant = useCallback(() => {
-    setParticipants(prev => (prev.length < maxParticipants ? [...prev, { name: '', cls: '', email: '', phone: '', registrationNo: '', imageUrl: '' }] : prev));
+    setParticipants(prev => (prev.length < maxParticipants ? [...prev, { name: '', cls: '', email: '', phone: '', registrationNo: '' }] : prev));
     loadGsap().then(gsap => {
       if (gsap && formRef.current) gsap.fromTo(formRef.current, { scale: 0.995 }, { scale: 1, duration: 0.26, ease: 'back.out(1.2)' });
     });
@@ -1374,15 +1265,17 @@ export default function RegisterPage() {
     // Check if team name is filled
     if (!teamName.trim()) return false;
 
-    // Check if all participants have required fields and image
+    // Check if team receipt is uploaded
+    if (!teamReceipt) return false;
+
+    // Check if all participants have required fields (no individual image needed)
     return participants.every(p =>
       p.name &&
       p.email &&
       p.phone &&
-      p.registrationNo &&
-      p.imageUrl
+      p.registrationNo
     );
-  }, [participants, teamName, eventId]);
+  }, [participants, teamName, teamReceipt, eventId]);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -1589,6 +1482,144 @@ export default function RegisterPage() {
               ))}
             </div>
 
+            <fieldset className="participant-fieldset team-fieldset">
+              <legend>Team Information</legend>
+              <div style={{ marginBottom: '0.75rem', color: '#ff9800', fontSize: '0.9rem', opacity: 0.8 }}>
+                {participants.length === 1
+                  ? 'Team name for this participant'
+                  : `This team name will be assigned to all ${participants.length} participants`
+                }
+              </div>
+              <div className="row">
+                <input
+                  placeholder="Enter team name"
+                  value={teamName}
+                  onChange={e => setTeamName(e.target.value)}
+                  required
+                  className="input team"
+                />
+              </div>
+
+              {/* Team Payment Receipt Upload */}
+              <div className="team-receipt-section" style={{
+                marginTop: '1.5rem',
+                padding: '1rem',
+                border: `2px dashed ${!teamReceipt ? 'rgba(255, 107, 107, 0.5)' : 'rgba(0, 128, 255, 0.3)'}`,
+                borderRadius: '8px',
+                background: !teamReceipt ? 'rgba(255, 107, 107, 0.1)' : 'rgba(0, 128, 255, 0.05)',
+                textAlign: 'center'
+              }}>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => {
+                    const file = e.target.files[0];
+                    if (file) {
+                      const reader = new FileReader();
+                      reader.onload = (event) => setTeamReceipt(event.target.result);
+                      reader.readAsDataURL(file);
+                    }
+                  }}
+                  style={{ display: 'none' }}
+                  id="team-receipt-upload"
+                />
+
+                {!teamReceipt ? (
+                  <div>
+                    <label
+                      htmlFor="team-receipt-upload"
+                      style={{
+                        display: 'inline-block',
+                        padding: '0.75rem 1.5rem',
+                        background: 'linear-gradient(135deg, #0080ff, #0066cc)',
+                        color: 'white',
+                        borderRadius: '8px',
+                        cursor: 'pointer',
+                        transition: 'all 0.3s ease',
+                        border: 'none',
+                        fontSize: '0.9rem',
+                        fontWeight: '600',
+                        marginBottom: '0.75rem'
+                      }}
+                    >
+                      📷 Upload Team Payment Receipt *
+                    </label>
+                    <br />
+                    <p style={{
+                      color: 'rgba(255, 255, 255, 0.9)',
+                      fontSize: '0.8rem',
+                      margin: '0.75rem 0 0 0',
+                      fontWeight: '500'
+                    }}>
+                      (Go to Events → Stall-Metanoia) for fee payment
+                    </p>
+                    <p style={{
+                      color: 'rgba(255, 107, 107, 0.8)',
+                      fontSize: '0.75rem',
+                      margin: '0.25rem 0 0 0',
+                      fontStyle: 'italic'
+                    }}>
+                      One payment receipt per team is required
+                    </p>
+                  </div>
+                ) : (
+                  <div>
+                    <img
+                      src={teamReceipt}
+                      alt="Team Payment Receipt"
+                      style={{
+                        width: '120px',
+                        height: '120px',
+                        objectFit: 'cover',
+                        borderRadius: '8px',
+                        border: '2px solid rgba(76, 175, 80, 0.5)',
+                        marginBottom: '0.75rem'
+                      }}
+                    />
+                    <br />
+                    <p style={{
+                      color: 'rgba(255, 255, 255, 0.9)',
+                      fontSize: '0.8rem',
+                      margin: '0.75rem 0 0.5rem 0',
+                      fontWeight: '500'
+                    }}>
+                      (Go to Events → Metanoia) for fee payment
+                    </p>
+                    <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'center' }}>
+                      <label
+                        htmlFor="team-receipt-upload"
+                        style={{
+                          padding: '0.5rem 1rem',
+                          background: 'rgba(0, 128, 255, 0.2)',
+                          color: '#0080ff',
+                          borderRadius: '6px',
+                          cursor: 'pointer',
+                          fontSize: '0.8rem',
+                          border: '1px solid rgba(0, 128, 255, 0.3)'
+                        }}
+                      >
+                        Change
+                      </label>
+                      <button
+                        type="button"
+                        onClick={() => setTeamReceipt('')}
+                        style={{
+                          padding: '0.5rem 1rem',
+                          background: 'rgba(255, 107, 107, 0.2)',
+                          color: '#ff6b6b',
+                          borderRadius: '6px',
+                          cursor: 'pointer',
+                          fontSize: '0.8rem',
+                          border: '1px solid rgba(255, 107, 107, 0.3)'
+                        }}
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </fieldset>
             <fieldset className="participant-fieldset team-fieldset">
               <legend>Team Information</legend>
               <div style={{ marginBottom: '0.75rem', color: '#ff9800', fontSize: '0.9rem', opacity: 0.8 }}>
