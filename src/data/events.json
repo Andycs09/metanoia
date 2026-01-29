@@ -67,7 +67,8 @@
       "maxParticipants": 4,
       "category": "Puzzle",
       "difficulty": "Medium",
-      "featured": false
+      "featured": false,
+      "registrationClosed": true
     },
     {
       "id": "uno-reverse-alibi-2",
