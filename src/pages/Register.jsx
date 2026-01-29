@@ -991,7 +991,7 @@ const ParticipantFieldset = React.memo(function ParticipantFieldset({ idx, data,
     }
 
     setUploading(true);
-    
+
     try {
       // Create preview
       const reader = new FileReader();
@@ -1001,7 +1001,7 @@ const ParticipantFieldset = React.memo(function ParticipantFieldset({ idx, data,
       // Upload to Google Drive
       const imageUrl = await uploadImage(file, idx);
       updateField(idx, 'imageUrl', imageUrl);
-      
+
     } catch (error) {
       console.error('Image upload failed:', error);
       alert('Failed to upload image. Please try again.');
@@ -1025,45 +1025,45 @@ const ParticipantFieldset = React.memo(function ParticipantFieldset({ idx, data,
   return (
     <fieldset className={`participant-fieldset ${isComplete ? 'complete' : 'incomplete'}`}>
       <legend>
-        Participant {idx + 1} 
+        Participant {idx + 1}
         {isComplete ? ' ✅' : ' ⚠️'}
       </legend>
       <div className="stacked-fields">
-        <input 
-          placeholder="Name *" 
-          value={data.name} 
-          onChange={e => updateField(idx, 'name', e.target.value)} 
-          required 
+        <input
+          placeholder="Name *"
+          value={data.name}
+          onChange={e => updateField(idx, 'name', e.target.value)}
+          required
           className={`input name ${!data.name ? 'required-missing' : ''}`}
         />
-        <input 
-          placeholder="Class" 
-          value={data.cls} 
-          onChange={e => updateField(idx, 'cls', e.target.value)} 
-          className="input cls" 
+        <input
+          placeholder="Class"
+          value={data.cls}
+          onChange={e => updateField(idx, 'cls', e.target.value)}
+          className="input cls"
         />
-        <input 
-          placeholder="Email *" 
-          value={data.email} 
-          onChange={e => updateField(idx, 'email', e.target.value)} 
-          required 
+        <input
+          placeholder="Email *"
+          value={data.email}
+          onChange={e => updateField(idx, 'email', e.target.value)}
+          required
           className={`input email ${!data.email ? 'required-missing' : ''}`}
         />
-        <input 
-          placeholder="Phone *" 
-          value={data.phone} 
-          onChange={e => updateField(idx, 'phone', e.target.value)} 
-          required 
+        <input
+          placeholder="Phone *"
+          value={data.phone}
+          onChange={e => updateField(idx, 'phone', e.target.value)}
+          required
           className={`input phone ${!data.phone ? 'required-missing' : ''}`}
         />
-        <input 
-          placeholder="Registration No *" 
-          value={data.registrationNo} 
-          onChange={e => updateField(idx, 'registrationNo', e.target.value)} 
-          required 
+        <input
+          placeholder="Registration No *"
+          value={data.registrationNo}
+          onChange={e => updateField(idx, 'registrationNo', e.target.value)}
+          required
           className={`input regno ${!data.registrationNo ? 'required-missing' : ''}`}
         />
-        
+
         {/* Image Upload Section */}
         <div className={`image-upload-section ${!data.imageUrl ? 'required-missing' : ''}`} style={{
           marginTop: '1rem',
@@ -1081,10 +1081,10 @@ const ParticipantFieldset = React.memo(function ParticipantFieldset({ idx, data,
             style={{ display: 'none' }}
             id={`image-upload-${idx}`}
           />
-          
+
           {!imagePreview ? (
             <div>
-              <label 
+              <label
                 htmlFor={`image-upload-${idx}`}
                 style={{
                   display: 'inline-block',
@@ -1125,8 +1125,8 @@ const ParticipantFieldset = React.memo(function ParticipantFieldset({ idx, data,
             </div>
           ) : (
             <div>
-              <img 
-                src={imagePreview} 
+              <img
+                src={imagePreview}
                 alt={`Participant ${idx + 1}`}
                 style={{
                   width: '100px',
@@ -1147,7 +1147,7 @@ const ParticipantFieldset = React.memo(function ParticipantFieldset({ idx, data,
                 (Go to Events -→ Metanoia) for fee payment
               </p>
               <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'center' }}>
-                <label 
+                <label
                   htmlFor={`image-upload-${idx}`}
                   style={{
                     padding: '0.5rem 1rem',
@@ -1206,16 +1206,11 @@ export default function RegisterPage() {
   const eventOptions = useMemo(() => {
     const options = [];
     events.forEach(ev => {
-      if (ev.closed) {
-        // Add closed events with CLOSED label but make them unselectable
-        options.push({
-          id: ev.id,
-          title: `${ev.title} - CLOSED`,
-          max: Math.min(4, ev.maxParticipants || 1),
-          closed: true
-        });
+      // Skip events with registrationClosed flag - don't show them at all
+      if (ev.registrationClosed) {
+        return; // Skip this event completely
       } else if (ev.id === 'draw-4-arena') {
-        // Split Draw 4 Arena into two separate options
+        // Split Draw 4 Arena into two separate options (only if not closed)
         options.push({
           id: 'draw-4-arena-valorant',
           title: 'Draw 4 Arena: The Ultimate Esports Showdown  Valorant',
@@ -1255,10 +1250,10 @@ export default function RegisterPage() {
       if (prev.length === limit && prev.every(p => 'registrationNo' in p && 'imageUrl' in p)) return prev;
       let arr = prev.slice(0, limit);
       if (arr.length === 0) arr = [{ name: '', cls: '', email: '', phone: '', registrationNo: '', imageUrl: '' }];
-      return arr.map(p => ({ 
-        registrationNo: p.registrationNo || '', 
-        imageUrl: p.imageUrl || '', 
-        ...p 
+      return arr.map(p => ({
+        registrationNo: p.registrationNo || '',
+        imageUrl: p.imageUrl || '',
+        ...p
       }));
     });
   }, [eventId, maxParticipants]);
@@ -1291,7 +1286,7 @@ export default function RegisterPage() {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
       const scrollThreshold = 100;
-      
+
       if (currentScrollY > scrollThreshold) {
         if (currentScrollY > lastScrollY.current && headerVisible) {
           // Scrolling down - hide header
@@ -1304,7 +1299,7 @@ export default function RegisterPage() {
         // At top of page - always show header
         if (!headerVisible) setHeaderVisible(true);
       }
-      
+
       lastScrollY.current = currentScrollY;
     };
 
@@ -1367,24 +1362,24 @@ export default function RegisterPage() {
     performance.mark?.('register-mounted');
     try {
       performance.measure?.('register-render-to-mounted', 'register-render-start', 'register-mounted');
-    } catch {}
+    } catch { }
   }, []);
 
   // Form validation function
   const isFormValid = useCallback(() => {
     // Check if selected event is closed
     const selectedEventData = events.find(e => e.id === eventId);
-    if (selectedEventData?.closed) return false;
-    
+    if (selectedEventData?.registrationClosed) return false;
+
     // Check if team name is filled
     if (!teamName.trim()) return false;
-    
+
     // Check if all participants have required fields and image
-    return participants.every(p => 
-      p.name && 
-      p.email && 
-      p.phone && 
-      p.registrationNo && 
+    return participants.every(p =>
+      p.name &&
+      p.email &&
+      p.phone &&
+      p.registrationNo &&
       p.imageUrl
     );
   }, [participants, teamName, eventId]);
@@ -1398,14 +1393,14 @@ export default function RegisterPage() {
     for (let i = 0; i < participants.length; i++) {
       const p = participants[i];
       if (!p.name || !p.email || !p.phone || !p.registrationNo) {
-        setMessage({ type: 'error', text: `Participant ${i+1}: All fields (Name, Email, Phone, Registration No) are required.` });
+        setMessage({ type: 'error', text: `Participant ${i + 1}: All fields (Name, Email, Phone, Registration No) are required.` });
         setSending(false);
         return;
       }
-      
+
       // Validate image upload
       if (!p.imageUrl) {
-        setMessage({ type: 'error', text: `Participant ${i+1}: Payment receipt image is required.` });
+        setMessage({ type: 'error', text: `Participant ${i + 1}: Payment receipt image is required.` });
         setSending(false);
         return;
       }
@@ -1421,7 +1416,7 @@ export default function RegisterPage() {
     // Determine the game type for Draw 4 Arena events
     let gameType = null;
     let eventTitle = selectedEvent.title;
-    
+
     if (eventId === 'draw-4-arena-valorant') {
       gameType = 'Valorant';
       eventTitle = 'Draw 4 Arena: The Ultimate Esports Showdown - Valorant';
@@ -1431,8 +1426,8 @@ export default function RegisterPage() {
     }
 
     // Add team name and game type to all participants and prepare payload
-    const participantsWithTeam = participants.map((p, index) => ({ 
-      ...p, 
+    const participantsWithTeam = participants.map((p, index) => ({
+      ...p,
       teamName: teamName.trim(),
       participantNumber: index + 1,
       ...(gameType && { gameType })
@@ -1468,16 +1463,16 @@ export default function RegisterPage() {
           gsap.to(cardRef.current, { scale: 1.02, duration: 0.12, yoyo: true, repeat: 1 });
           gsap.to(cardRef.current, { opacity: 0.96, duration: 0.2, delay: 0.4 });
         }
-      } catch {}
+      } catch { }
 
       // Redirect to events page after 2 seconds
       setTimeout(() => navigate('/events'), 2000);
     } catch (err) {
       console.error(err);
       // Show error message with red background
-      setMessage({ 
-        type: 'error', 
-        text: '❌ Failed to submit registration. Please check your internet connection and try again.' 
+      setMessage({
+        type: 'error',
+        text: '❌ Failed to submit registration. Please check your internet connection and try again.'
       });
     } finally {
       setSending(false);
@@ -1492,22 +1487,22 @@ export default function RegisterPage() {
           gsap.to(cardRef.current, { scale: 0.88, opacity: 0, duration: 0.45, ease: 'power2.in', onComplete: resolve });
         });
       }
-    } catch {}
+    } catch { }
     finally {
       navigate('/events');
     }
   }
 
   return (
-    <div className="register-page" style={{ 
-      position: 'relative', 
-      minHeight: '100vh', 
+    <div className="register-page" style={{
+      position: 'relative',
+      minHeight: '100vh',
       padding: '2rem 1rem',
       paddingTop: '120px',
       paddingBottom: '2rem',
-      display: 'flex', 
+      display: 'flex',
       flexDirection: 'column',
-      alignItems: 'center', 
+      alignItems: 'center',
       justifyContent: 'flex-start',
       backgroundImage: `url(${bgImage})`,
       backgroundSize: 'cover',
@@ -1517,7 +1512,7 @@ export default function RegisterPage() {
       overflowY: 'auto'
     }}>
       <style>{REGISTER_STYLE}</style>
-      
+
       {/* Background overlay for better readability - more blue tint */}
       <div className="register-bg-overlay" style={{
         position: 'absolute',
@@ -1535,167 +1530,167 @@ export default function RegisterPage() {
         <h2 id="register-heading">Register for Event</h2>
       </div>
 
-      <div ref={cardRef} className="register-card" role="region" aria-labelledby="register-heading" style={{ 
+      <div ref={cardRef} className="register-card" role="region" aria-labelledby="register-heading" style={{
         marginTop: '6rem',
         width: '100%',
         maxWidth: '700px'
       }}>
-        
+
         <div className="form-content">
           <form ref={formRef} id="register-form" onSubmit={handleSubmit}>
-          <label className="field" style={{ position: 'relative' }}>
-            Event
-            <div className="event-select">
-              <select value={eventId} onChange={e => setEventId(e.target.value)} className="input native-select">
-                {eventOptions.map(opt => (
-                  <option 
-                    key={opt.id} 
-                    value={opt.id} 
-                    disabled={opt.closed}
-                    style={opt.closed ? { color: '#999', backgroundColor: '#333' } : {}}
-                  >
-                    {opt.title} (max {opt.max})
-                  </option>
-                ))}
-              </select>
-              <div className="event-display animated-gradient" aria-hidden>
-                {selectedEvent.title} (max {maxParticipants})
+            <label className="field" style={{ position: 'relative' }}>
+              Event
+              <div className="event-select">
+                <select value={eventId} onChange={e => setEventId(e.target.value)} className="input native-select">
+                  {eventOptions.map(opt => (
+                    <option
+                      key={opt.id}
+                      value={opt.id}
+                      disabled={opt.closed}
+                      style={opt.closed ? { color: '#999', backgroundColor: '#333' } : {}}
+                    >
+                      {opt.title} (max {opt.max})
+                    </option>
+                  ))}
+                </select>
+                <div className="event-display animated-gradient" aria-hidden>
+                  {selectedEvent.title} (max {maxParticipants})
+                </div>
               </div>
-            </div>
-          </label>
+            </label>
 
-          {/* Closed Event Message */}
-          {events.find(e => e.id === eventId)?.closed && (
-            <div className="msg error" style={{ 
-              background: 'rgba(255, 107, 107, 0.2)',
-              border: '2px solid rgba(255, 107, 107, 0.5)',
-              color: '#ff6b6b',
-              padding: '1rem',
-              borderRadius: '8px',
-              margin: '1rem 0',
-              textAlign: 'center',
-              fontWeight: '600'
-            }}>
-              ❌ Registration for this event is currently closed. Please select a different event.
-            </div>
-          )}
+            {/* Closed Event Message */}
+            {events.find(e => e.id === eventId)?.registrationClosed && (
+              <div className="msg error" style={{
+                background: 'rgba(255, 107, 107, 0.2)',
+                border: '2px solid rgba(255, 107, 107, 0.5)',
+                color: '#ff6b6b',
+                padding: '1rem',
+                borderRadius: '8px',
+                margin: '1rem 0',
+                textAlign: 'center',
+                fontWeight: '600'
+              }}>
+                ❌ Registration for this event is currently closed. Please select a different event.
+              </div>
+            )}
 
-          <div className="participants">
-            {!events.find(e => e.id === eventId)?.closed && participants.map((p, idx) => (
-              <ParticipantFieldset
-                key={idx}
-                idx={idx}
-                data={p}
-                updateField={updateField}
-                removeParticipant={removeParticipant}
-                removable={idx > 0}
-                uploadImage={uploadImage}
-              />
-            ))}
-          </div>
-
-          <fieldset className="participant-fieldset team-fieldset">
-            <legend>Team Information</legend>
-            <div style={{ marginBottom: '0.75rem', color: '#ff9800', fontSize: '0.9rem', opacity: 0.8 }}>
-              {participants.length === 1 
-                ? 'Team name for this participant' 
-                : `This team name will be assigned to all ${participants.length} participants`
-              }
+            <div className="participants">
+              {!events.find(e => e.id === eventId)?.registrationClosed && participants.map((p, idx) => (
+                <ParticipantFieldset
+                  key={idx}
+                  idx={idx}
+                  data={p}
+                  updateField={updateField}
+                  removeParticipant={removeParticipant}
+                  removable={idx > 0}
+                  uploadImage={uploadImage}
+                />
+              ))}
             </div>
-            <div className="row">
-              <input 
-                placeholder="Enter team name" 
-                value={teamName} 
-                onChange={e => setTeamName(e.target.value)} 
-                required 
-                className="input team" 
-              />
-            </div>
-          </fieldset>
 
-          {message && <div className={`msg ${message.type === 'error' ? 'error' : 'success'}`}>{message.text}</div>}
-          
-          {/* QR Code Section - Inside the register card at the bottom */}
-          <div style={{
-            marginTop: '1.5rem',
-            padding: '1.5rem',
-            background: 'rgba(0, 128, 255, 0.1)',
-            border: '2px solid rgba(0, 128, 255, 0.3)',
-            borderRadius: '12px',
-            textAlign: 'center',
-            backdropFilter: 'blur(5px)'
-          }}>
+            <fieldset className="participant-fieldset team-fieldset">
+              <legend>Team Information</legend>
+              <div style={{ marginBottom: '0.75rem', color: '#ff9800', fontSize: '0.9rem', opacity: 0.8 }}>
+                {participants.length === 1
+                  ? 'Team name for this participant'
+                  : `This team name will be assigned to all ${participants.length} participants`
+                }
+              </div>
+              <div className="row">
+                <input
+                  placeholder="Enter team name"
+                  value={teamName}
+                  onChange={e => setTeamName(e.target.value)}
+                  required
+                  className="input team"
+                />
+              </div>
+            </fieldset>
+
+            {message && <div className={`msg ${message.type === 'error' ? 'error' : 'success'}`}>{message.text}</div>}
+
+            {/* QR Code Section - Inside the register card at the bottom */}
             <div style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              gap: '12px'
+              marginTop: '1.5rem',
+              padding: '1.5rem',
+              background: 'rgba(0, 128, 255, 0.1)',
+              border: '2px solid rgba(0, 128, 255, 0.3)',
+              borderRadius: '12px',
+              textAlign: 'center',
+              backdropFilter: 'blur(5px)'
             }}>
-              <img 
-                src={new URL('../assets/qr/a.jpeg', import.meta.url).href}
-                alt="Registration QR Code" 
-                style={{
+              <div style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: '12px'
+              }}>
+                <img
+                  src={new URL('../assets/qr/a.jpeg', import.meta.url).href}
+                  alt="Registration QR Code"
+                  style={{
+                    width: '250px',
+                    height: '250px',
+                    borderRadius: '8px',
+                    border: '2px solid rgba(255, 255, 255, 0.3)',
+                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)',
+                    transition: 'all 0.3s ease'
+                  }}
+                  onError={(e) => {
+                    console.log('QR Image failed to load in Register page');
+                    e.target.style.display = 'none';
+                    e.target.nextElementSibling.style.display = 'flex';
+                  }}
+                  onLoad={() => console.log('QR Image loaded successfully in Register page')}
+                  onMouseOver={(e) => {
+                    e.target.style.transform = 'scale(1.05)';
+                    e.target.style.borderColor = '#0080ff';
+                    e.target.style.boxShadow = '0 6px 20px rgba(0, 128, 255, 0.4)';
+                  }}
+                  onMouseOut={(e) => {
+                    e.target.style.transform = 'scale(1)';
+                    e.target.style.borderColor = 'rgba(255, 255, 255, 0.3)';
+                    e.target.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.3)';
+                  }}
+                />
+                <div style={{
+                  display: 'none',
                   width: '250px',
                   height: '250px',
                   borderRadius: '8px',
                   border: '2px solid rgba(255, 255, 255, 0.3)',
-                  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)',
-                  transition: 'all 0.3s ease'
-                }}
-                onError={(e) => {
-                  console.log('QR Image failed to load in Register page');
-                  e.target.style.display = 'none';
-                  e.target.nextElementSibling.style.display = 'flex';
-                }}
-                onLoad={() => console.log('QR Image loaded successfully in Register page')}
-                onMouseOver={(e) => {
-                  e.target.style.transform = 'scale(1.05)';
-                  e.target.style.borderColor = '#0080ff';
-                  e.target.style.boxShadow = '0 6px 20px rgba(0, 128, 255, 0.4)';
-                }}
-                onMouseOut={(e) => {
-                  e.target.style.transform = 'scale(1)';
-                  e.target.style.borderColor = 'rgba(255, 255, 255, 0.3)';
-                  e.target.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.3)';
-                }}
-              />
-              <div style={{ 
-                display: 'none',
-                width: '250px',
-                height: '250px',
-                borderRadius: '8px',
-                border: '2px solid rgba(255, 255, 255, 0.3)',
-                background: 'rgba(255, 255, 255, 0.1)',
-                alignItems: 'center',
-                justifyContent: 'center',
-                flexDirection: 'column',
-                color: 'rgba(255, 255, 255, 0.7)'
-              }}>
-                <div style={{ fontSize: '4rem', marginBottom: '12px' }}>📱</div>
-                <div style={{ fontSize: '1.5rem', fontWeight: '600' }}>QR Code</div>
-                <div style={{ fontSize: '1rem', opacity: '0.7' }}>Loading...</div>
+                  background: 'rgba(255, 255, 255, 0.1)',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexDirection: 'column',
+                  color: 'rgba(255, 255, 255, 0.7)'
+                }}>
+                  <div style={{ fontSize: '4rem', marginBottom: '12px' }}>📱</div>
+                  <div style={{ fontSize: '1.5rem', fontWeight: '600' }}>QR Code</div>
+                  <div style={{ fontSize: '1rem', opacity: '0.7' }}>Loading...</div>
+                </div>
+                <p style={{
+                  color: 'rgba(255, 255, 255, 0.9)',
+                  fontSize: '1rem',
+                  margin: '0',
+                  fontWeight: '600'
+                }}>
+                  Scan to pay ₹ 100 (Upload Receipt ScreenShot)
+                </p>
               </div>
-              <p style={{
-                color: 'rgba(255, 255, 255, 0.9)',
-                fontSize: '1rem',
-                margin: '0',
-                fontWeight: '600'
-              }}>
-                Scan to pay ₹ 100 (Upload Receipt ScreenShot)
-              </p>
             </div>
-          </div>
-        </form>
-      </div>
+          </form>
+        </div>
 
         {/* Card Footer with participant buttons */}
         <div className="card-footer">
           <div className="controls">
             <button type="button" className="btn" onClick={addParticipant} disabled={participants.length >= maxParticipants}>Add participant</button>
-            <button 
-              type="submit" 
-              form={formRef.current?.id || 'register-form'} 
-              className="btn primary" 
+            <button
+              type="submit"
+              form={formRef.current?.id || 'register-form'}
+              className="btn primary"
               disabled={sending || !isFormValid()}
             >
               {sending ? 'Submitting…' : 'Submit Registration'}
