@@ -56,7 +56,8 @@
       "maxParticipants": 6,
       "category": "Gaming",
       "difficulty": "Hard",
-      "featured": true
+      "featured": true,
+      "registrationClosed": true
     },
     {
       "id": "skip-the-obvious",
