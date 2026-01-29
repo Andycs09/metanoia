@@ -1144,7 +1144,7 @@ const ParticipantFieldset = React.memo(function ParticipantFieldset({ idx, data,
                 margin: '0.75rem 0 0.5rem 0',
                 fontWeight: '500'
               }}>
-                (Go to Events → Stall-Metanoia) for fee payment
+                (Go to Events → Metanoia) for fee payment
               </p>
               <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'center' }}>
                 <label 
@@ -1206,7 +1206,15 @@ export default function RegisterPage() {
   const eventOptions = useMemo(() => {
     const options = [];
     events.forEach(ev => {
-      if (ev.id === 'draw-4-arena') {
+      if (ev.closed) {
+        // Add closed events with CLOSED label but make them unselectable
+        options.push({
+          id: ev.id,
+          title: `${ev.title} - CLOSED`,
+          max: Math.min(4, ev.maxParticipants || 1),
+          closed: true
+        });
+      } else if (ev.id === 'draw-4-arena') {
         // Split Draw 4 Arena into two separate options
         options.push({
           id: 'draw-4-arena-valorant',
