@@ -1144,7 +1144,7 @@ const ParticipantFieldset = React.memo(function ParticipantFieldset({ idx, data,
                 margin: '0.75rem 0 0.5rem 0',
                 fontWeight: '500'
               }}>
-                (Go to Events → Stall-Metanoia) for fee payment
+                (Go to Events -→ Metanoia) for fee payment
               </p>
               <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'center' }}>
                 <label 
@@ -1206,7 +1206,15 @@ export default function RegisterPage() {
   const eventOptions = useMemo(() => {
     const options = [];
     events.forEach(ev => {
-      if (ev.id === 'draw-4-arena') {
+      if (ev.closed) {
+        // Add closed events with CLOSED label but make them unselectable
+        options.push({
+          id: ev.id,
+          title: `${ev.title} - CLOSED`,
+          max: Math.min(4, ev.maxParticipants || 1),
+          closed: true
+        });
+      } else if (ev.id === 'draw-4-arena') {
         // Split Draw 4 Arena into two separate options
         options.push({
           id: 'draw-4-arena-valorant',
@@ -1364,6 +1372,10 @@ export default function RegisterPage() {
 
   // Form validation function
   const isFormValid = useCallback(() => {
+    // Check if selected event is closed
+    const selectedEventData = events.find(e => e.id === eventId);
+    if (selectedEventData?.closed) return false;
+    
     // Check if team name is filled
     if (!teamName.trim()) return false;
     
@@ -1375,7 +1387,7 @@ export default function RegisterPage() {
       p.registrationNo && 
       p.imageUrl
     );
-  }, [participants, teamName]);
+  }, [participants, teamName, eventId]);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -1536,7 +1548,14 @@ export default function RegisterPage() {
             <div className="event-select">
               <select value={eventId} onChange={e => setEventId(e.target.value)} className="input native-select">
                 {eventOptions.map(opt => (
-                  <option key={opt.id} value={opt.id}>{opt.title} (max {opt.max})</option>
+                  <option 
+                    key={opt.id} 
+                    value={opt.id} 
+                    disabled={opt.closed}
+                    style={opt.closed ? { color: '#999', backgroundColor: '#333' } : {}}
+                  >
+                    {opt.title} (max {opt.max})
+                  </option>
                 ))}
               </select>
               <div className="event-display animated-gradient" aria-hidden>
@@ -1545,8 +1564,24 @@ export default function RegisterPage() {
             </div>
           </label>
 
+          {/* Closed Event Message */}
+          {events.find(e => e.id === eventId)?.closed && (
+            <div className="msg error" style={{ 
+              background: 'rgba(255, 107, 107, 0.2)',
+              border: '2px solid rgba(255, 107, 107, 0.5)',
+              color: '#ff6b6b',
+              padding: '1rem',
+              borderRadius: '8px',
+              margin: '1rem 0',
+              textAlign: 'center',
+              fontWeight: '600'
+            }}>
+              ❌ Registration for this event is currently closed. Please select a different event.
+            </div>
+          )}
+
           <div className="participants">
-            {participants.map((p, idx) => (
+            {!events.find(e => e.id === eventId)?.closed && participants.map((p, idx) => (
               <ParticipantFieldset
                 key={idx}
                 idx={idx}
