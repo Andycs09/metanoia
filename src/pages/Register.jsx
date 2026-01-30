@@ -876,51 +876,6 @@ const REGISTER_STYLE = `
     }
   }
   
-  /* QR Code Section Responsive Styles - Inside Register Card */
-  @media (max-width: 768px) {
-    .register-card img[alt="Registration QR Code"] {
-      width: 200px !important;
-      height: 200px !important;
-    }
-    
-    .register-card div[style*="width: 250px"] {
-      width: 200px !important;
-      height: 200px !important;
-    }
-  }
-  
-  @media (max-width: 480px) {
-    .register-card img[alt="Registration QR Code"] {
-      width: 160px !important;
-      height: 160px !important;
-    }
-    
-    .register-card div[style*="width: 250px"] {
-      width: 160px !important;
-      height: 160px !important;
-    }
-    
-    .register-card div[style*="fontSize: '4rem'"] {
-      font-size: 3rem !important;
-    }
-    
-    .register-card div[style*="fontSize: '1.5rem'"] {
-      font-size: 1.2rem !important;
-    }
-  }
-  
-  @media (max-width: 360px) {
-    .register-card img[alt="Registration QR Code"] {
-      width: 140px !important;
-      height: 140px !important;
-    }
-    
-    .register-card div[style*="width: 250px"] {
-      width: 140px !important;
-      height: 140px !important;
-    }
-  }
-  
   /* Image Upload Section Styles */
   .image-upload-section {
     transition: all 0.3s ease;
@@ -1075,7 +1030,6 @@ export default function RegisterPage() {
 
   const [participants, setParticipants] = useState(() => [{ name: '', cls: '', email: '', phone: '', registrationNo: '' }]);
   const [teamName, setTeamName] = useState('');
-  const [teamReceipt, setTeamReceipt] = useState('');
   const [sending, setSending] = useState(false);
   const [message, setMessage] = useState(null);
   const [headerVisible, setHeaderVisible] = useState(true);
@@ -1216,17 +1170,17 @@ export default function RegisterPage() {
     // Check if team name is filled
     if (!teamName.trim()) return false;
 
-    // Check if team receipt is uploaded
-    if (!teamReceipt) return false;
+    // Check if team name is filled
+    if (!teamName.trim()) return false;
 
-    // Check if all participants have required fields (no individual image needed)
+    // Check if all participants have required fields
     return participants.every(p =>
       p.name &&
       p.email &&
       p.phone &&
       p.registrationNo
     );
-  }, [participants, teamName, teamReceipt, eventId]);
+  }, [participants, teamName, eventId]);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -1241,13 +1195,6 @@ export default function RegisterPage() {
         setSending(false);
         return;
       }
-    }
-
-    // Validate team receipt is uploaded (applies to all participants)
-    if (!teamReceipt) {
-      setMessage({ type: 'error', text: 'Team payment receipt is required for all participants.' });
-      setSending(false);
-      return;
     }
 
     // Validate team name for all participants
@@ -1269,12 +1216,11 @@ export default function RegisterPage() {
       eventTitle = 'Draw 4 Arena: The Ultimate Esports Showdown - Call of Duty';
     }
 
-    // Add team name, team receipt, and game type to all participants and prepare payload
+    // Add team name and game type to all participants and prepare payload
     const participantsWithTeam = participants.map((p, index) => ({
       ...p,
       teamName: teamName.trim(),
       participantNumber: index + 1,
-      imageUrl: teamReceipt, // Apply team receipt to all participants
       ...(gameType && { gameType })
     }));
 
@@ -1450,126 +1396,6 @@ export default function RegisterPage() {
                   className="input team"
                 />
               </div>
-
-              {/* Team Payment Receipt Upload */}
-              <div className="team-receipt-section" style={{
-                marginTop: '1.5rem',
-                padding: '1rem',
-                border: `2px dashed ${!teamReceipt ? 'rgba(255, 107, 107, 0.5)' : 'rgba(0, 128, 255, 0.3)'}`,
-                borderRadius: '8px',
-                background: !teamReceipt ? 'rgba(255, 107, 107, 0.1)' : 'rgba(0, 128, 255, 0.05)',
-                textAlign: 'center'
-              }}>
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={(e) => {
-                    const file = e.target.files[0];
-                    if (file) {
-                      const reader = new FileReader();
-                      reader.onload = (event) => setTeamReceipt(event.target.result);
-                      reader.readAsDataURL(file);
-                    }
-                  }}
-                  style={{ display: 'none' }}
-                  id="team-receipt-upload"
-                />
-
-                {!teamReceipt ? (
-                  <div>
-                    <label
-                      htmlFor="team-receipt-upload"
-                      style={{
-                        display: 'inline-block',
-                        padding: '0.75rem 1.5rem',
-                        background: 'linear-gradient(135deg, #0080ff, #0066cc)',
-                        color: 'white',
-                        borderRadius: '8px',
-                        cursor: 'pointer',
-                        transition: 'all 0.3s ease',
-                        border: 'none',
-                        fontSize: '0.9rem',
-                        fontWeight: '600',
-                        marginBottom: '0.75rem'
-                      }}
-                    >
-                      📷 Upload Team Payment Receipt *
-                    </label>
-                    <br />
-                    <p style={{
-                      color: 'rgba(255, 255, 255, 0.9)',
-                      fontSize: '0.8rem',
-                      margin: '0.75rem 0 0 0',
-                      fontWeight: '500'
-                    }}>
-                      (Go to Events → Stall-Metanoia) for fee payment
-                    </p>
-                    <p style={{
-                      color: 'rgba(255, 107, 107, 0.8)',
-                      fontSize: '0.75rem',
-                      margin: '0.25rem 0 0 0',
-                      fontStyle: 'italic'
-                    }}>
-                      One payment receipt per team is required
-                    </p>
-                  </div>
-                ) : (
-                  <div>
-                    <img
-                      src={teamReceipt}
-                      alt="Team Payment Receipt"
-                      style={{
-                        width: '120px',
-                        height: '120px',
-                        objectFit: 'cover',
-                        borderRadius: '8px',
-                        border: '2px solid rgba(76, 175, 80, 0.5)',
-                        marginBottom: '0.75rem'
-                      }}
-                    />
-                    <br />
-                    <p style={{
-                      color: 'rgba(255, 255, 255, 0.9)',
-                      fontSize: '0.8rem',
-                      margin: '0.75rem 0 0.5rem 0',
-                      fontWeight: '500'
-                    }}>
-                      (Go to Events → Metanoia) for fee payment
-                    </p>
-                    <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'center' }}>
-                      <label
-                        htmlFor="team-receipt-upload"
-                        style={{
-                          padding: '0.5rem 1rem',
-                          background: 'rgba(0, 128, 255, 0.2)',
-                          color: '#0080ff',
-                          borderRadius: '6px',
-                          cursor: 'pointer',
-                          fontSize: '0.8rem',
-                          border: '1px solid rgba(0, 128, 255, 0.3)'
-                        }}
-                      >
-                        Change
-                      </label>
-                      <button
-                        type="button"
-                        onClick={() => setTeamReceipt('')}
-                        style={{
-                          padding: '0.5rem 1rem',
-                          background: 'rgba(255, 107, 107, 0.2)',
-                          color: '#ff6b6b',
-                          borderRadius: '6px',
-                          cursor: 'pointer',
-                          fontSize: '0.8rem',
-                          border: '1px solid rgba(255, 107, 107, 0.3)'
-                        }}
-                      >
-                        Remove
-                      </button>
-                    </div>
-                  </div>
-                )}
-              </div>
             </fieldset>
             <fieldset className="participant-fieldset team-fieldset">
               <legend>Team Information</legend>
@@ -1591,77 +1417,6 @@ export default function RegisterPage() {
             </fieldset>
 
             {message && <div className={`msg ${message.type === 'error' ? 'error' : 'success'}`}>{message.text}</div>}
-
-            {/* QR Code Section - Inside the register card at the bottom */}
-            <div style={{
-              marginTop: '1.5rem',
-              padding: '1.5rem',
-              background: 'rgba(0, 128, 255, 0.1)',
-              border: '2px solid rgba(0, 128, 255, 0.3)',
-              borderRadius: '12px',
-              textAlign: 'center',
-              backdropFilter: 'blur(5px)'
-            }}>
-              <div style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                gap: '12px'
-              }}>
-                <img
-                  src={new URL('../assets/qr/a.jpeg', import.meta.url).href}
-                  alt="Registration QR Code"
-                  style={{
-                    width: '250px',
-                    height: '250px',
-                    borderRadius: '8px',
-                    border: '2px solid rgba(255, 255, 255, 0.3)',
-                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)',
-                    transition: 'all 0.3s ease'
-                  }}
-                  onError={(e) => {
-                    console.log('QR Image failed to load in Register page');
-                    e.target.style.display = 'none';
-                    e.target.nextElementSibling.style.display = 'flex';
-                  }}
-                  onLoad={() => console.log('QR Image loaded successfully in Register page')}
-                  onMouseOver={(e) => {
-                    e.target.style.transform = 'scale(1.05)';
-                    e.target.style.borderColor = '#0080ff';
-                    e.target.style.boxShadow = '0 6px 20px rgba(0, 128, 255, 0.4)';
-                  }}
-                  onMouseOut={(e) => {
-                    e.target.style.transform = 'scale(1)';
-                    e.target.style.borderColor = 'rgba(255, 255, 255, 0.3)';
-                    e.target.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.3)';
-                  }}
-                />
-                <div style={{
-                  display: 'none',
-                  width: '250px',
-                  height: '250px',
-                  borderRadius: '8px',
-                  border: '2px solid rgba(255, 255, 255, 0.3)',
-                  background: 'rgba(255, 255, 255, 0.1)',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  flexDirection: 'column',
-                  color: 'rgba(255, 255, 255, 0.7)'
-                }}>
-                  <div style={{ fontSize: '4rem', marginBottom: '12px' }}>📱</div>
-                  <div style={{ fontSize: '1.5rem', fontWeight: '600' }}>QR Code</div>
-                  <div style={{ fontSize: '1rem', opacity: '0.7' }}>Loading...</div>
-                </div>
-                <p style={{
-                  color: 'rgba(255, 255, 255, 0.9)',
-                  fontSize: '1rem',
-                  margin: '0',
-                  fontWeight: '600'
-                }}>
-                  Scan to pay ₹ 100 (Upload Receipt ScreenShot)
-                </p>
-              </div>
-            </div>
           </form>
         </div>
 
