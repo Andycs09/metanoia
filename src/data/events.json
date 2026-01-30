@@ -9,7 +9,8 @@
       "maxParticipants": 4,
       "category": "Mystery",
       "difficulty": "Medium",
-      "featured": true
+      "featured": true,
+      "registrationClosed": true
     },
     {
       "id": "wild-card-auction",
