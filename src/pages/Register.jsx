@@ -876,7 +876,7 @@ const REGISTER_STYLE = `
     }
   }
   
-  /* QR Code Section Responsive Styles - Only for logic-reverse and uno-frame */
+  /* QR Code Section Responsive Styles - Only for color-chaos-quiz and uno-frame */
   @media (max-width: 768px) {
     .register-card img[alt="Registration QR Code"] {
       width: 200px !important;
@@ -1219,8 +1219,8 @@ export default function RegisterPage() {
     // Check if team name is filled
     if (!teamName.trim()) return false;
 
-    // Check if team receipt is uploaded (only for logic-reverse and uno-frame)
-    if ((eventId === 'logic-reverse' || eventId === 'uno-frame') && !teamReceipt) return false;
+    // Check if team receipt is uploaded (only for color-chaos-quiz and uno-frame)
+    if ((eventId === 'color-chaos-quiz' || eventId === 'uno-frame') && !teamReceipt) return false;
 
     // Check if all participants have required fields
     return participants.every(p =>
@@ -1246,8 +1246,8 @@ export default function RegisterPage() {
       }
     }
 
-    // Validate team receipt is uploaded (only for logic-reverse and uno-frame)
-    if ((eventId === 'logic-reverse' || eventId === 'uno-frame') && !teamReceipt) {
+    // Validate team receipt is uploaded (only for color-chaos-quiz and uno-frame)
+    if ((eventId === 'color-chaos-quiz' || eventId === 'uno-frame') && !teamReceipt) {
       setMessage({ type: 'error', text: 'Team payment receipt is required for this event.' });
       setSending(false);
       return;
@@ -1277,8 +1277,8 @@ export default function RegisterPage() {
       ...p,
       teamName: teamName.trim(),
       participantNumber: index + 1,
-      // Only add imageUrl for logic-reverse and uno-frame events
-      ...((eventId === 'logic-reverse' || eventId === 'uno-frame') && teamReceipt && { imageUrl: teamReceipt }),
+      // Only add imageUrl for color-chaos-quiz and uno-frame events
+      ...((eventId === 'color-chaos-quiz' || eventId === 'uno-frame') && teamReceipt && { imageUrl: teamReceipt }),
       ...(gameType && { gameType })
     }));
 
@@ -1455,8 +1455,8 @@ export default function RegisterPage() {
                 />
               </div>
 
-              {/* Team Payment Receipt Upload - Only for logic-reverse and uno-frame */}
-              {(eventId === 'logic-reverse' || eventId === 'uno-frame') && (
+              {/* Team Payment Receipt Upload - Only for color-chaos-quiz and uno-frame */}
+              {(eventId === 'color-chaos-quiz' || eventId === 'uno-frame') && (
                 <div className="team-receipt-section" style={{
                   marginTop: '1.5rem',
                   padding: '1rem',
@@ -1580,8 +1580,8 @@ export default function RegisterPage() {
 
             {message && <div className={`msg ${message.type === 'error' ? 'error' : 'success'}`}>{message.text}</div>}
 
-            {/* QR Code Section - Only show for logic-reverse and uno-frame */}
-            {(eventId === 'logic-reverse' || eventId === 'uno-frame') && (
+            {/* QR Code Section - Only show for color-chaos-quiz and uno-frame */}
+            {(eventId === 'color-chaos-quiz' || eventId === 'uno-frame') && (
               <div style={{
                 marginTop: '1.5rem',
                 padding: '1.5rem',

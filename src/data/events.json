@@ -94,7 +94,8 @@
       "maxParticipants": 2,
       "category": "Logic",
       "difficulty": "Hard",
-      "featured": false
+      "featured": false,
+      "registrationClosed": true
     },
     {
       "id": "color-chaos-quiz",
@@ -104,8 +105,7 @@
       "maxParticipants": 3,
       "category": "Creative",
       "difficulty": "Medium",
-      "featured": true,
-      "registrationClosed": true
+      "featured": true
     }
   ],
   "categories": [
