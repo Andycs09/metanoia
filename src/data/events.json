@@ -70,7 +70,7 @@
       "category": "Puzzle",
       "difficulty": "Medium",
       "featured": false,
-      "closed": true
+      "registrationClosed": true
     },
     {
       "id": "uno-reverse-alibi-2",
