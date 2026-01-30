@@ -34,7 +34,6 @@
       "category": "Creative",
       "difficulty": "Easy",
       "featured": true,
-      "registrationClosed": true,
       "date": "30 & 31 Jan",
       "time": "30th - 11 am to 1 pm, 31st - 10 am to 1 pm",
       "coordinators": [
@@ -95,8 +94,7 @@
       "maxParticipants": 2,
       "category": "Logic",
       "difficulty": "Hard",
-      "featured": false,
-      "registrationClosed": true
+      "featured": false
     },
     {
       "id": "color-chaos-quiz",
