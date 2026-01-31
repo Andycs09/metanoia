@@ -106,7 +106,8 @@
       "maxParticipants": 3,
       "category": "Creative",
       "difficulty": "Medium",
-      "featured": true
+      "featured": true,
+      "registrationClosed": true
     }
   ],
   "categories": [
